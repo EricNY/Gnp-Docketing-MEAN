@@ -1,0 +1,114 @@
+<section data-ng-controller="PatentsController" data-ng-init="findOne()">
+	<div class="page-header"></div>
+	<div class="panel panel-default">
+   <div class="panel-heading">Details</div>
+   <div class="panel-body">
+      <!-- <div class="row"> -->
+        <div class="col-md-6">
+            <!-- <p class="lead bb"></p> -->
+            <form class="form-horizontal p-20 ng-pristine ng-valid">
+               <div class="form-group">
+                  <div class="col-sm-4">Owner:</div>
+                  <div class="col-sm-8">
+                     <strong>{{ patent.owner }}</strong>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <div class="col-sm-4">Nature:</div>
+                  <div class="col-sm-8">
+                     <strong>{{ patent.nature }}</strong>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <div class="col-sm-4">Country:</div>
+                  <div class="col-sm-8">
+                     <strong>{{ patent.country }}</strong>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <div class="col-sm-4">Filing Date:</div>
+                  <div class="col-sm-8">
+                     <strong>{{ patent.filingDate }}</strong>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <div class="col-sm-4">Issue Date:</div>
+                  <div class="col-sm-8">
+                     <strong>{{ patent.issueDate }}</strong>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <div class="col-sm-4">Application Number:</div>
+                  <div class="col-sm-8">
+                     <strong>{{ patent.applicationNumber }}</strong>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <div class="col-sm-4">Patent Number:</div>
+                  <div class="col-sm-8">
+                     <strong>{{ patent.patentNumber }}</strong>
+                  </div>
+               </div>
+            </form>
+        </div>
+        <div class="col-md-6">
+            <!-- <p class="lead bb">Client</p> -->
+            <form class="form-horizontal p-20 ng-pristine ng-valid">
+               <div class="form-group">
+                  <div class="col-sm-4">Status:</div>
+                  <div class="col-sm-8">
+                     <strong>{{ patent.patentStatus }}</strong>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <div class="col-sm-4">Status Date:</div>
+                  <div class="col-sm-8">
+                     <strong>{{ patent.statusDate }}</strong>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <div class="col-sm-4">Due Date:</div>
+                  <div class="col-sm-8">
+                     <strong>{{ patent.dueDate }}</strong>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <div class="col-sm-4">Second Due Date:</div>
+                  <div class="col-sm-8">
+                     <strong>{{ patent.secondDueDate }}</strong>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <div class="col-sm-4">Third Due Date</div>
+                  <div class="col-sm-8">
+                     <strong>{{ patent.thirdDueDate }}</strong>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <div class="col-sm-4">Comments</div>
+                  <div class="col-sm-8">
+                     <strong>{{ patent.comments }}</strong>
+                  </div>
+               </div>
+            </form>
+        </div>
+      <!-- </div> -->
+   </div>
+	</div>
+	<div class="pull-right" data-ng-show="((authentication.user) && (authentication.user._id == patent.user._id))">
+		<a class="btn btn-primary" href="/#!/patents/{{patent._id}}/edit">
+			<i class="glyphicon glyphicon-edit"></i>
+		</a>
+		<a class="btn btn-primary" data-ng-click="remove();">
+			<i class="glyphicon glyphicon-trash"></i>
+		</a>
+	</div>
+	<small>
+		<em class="text-muted">
+			Posted on
+			<span data-ng-bind="patent.created | date:'mediumDate'"></span>
+			by
+			<span data-ng-bind="patent.user.displayName"></span>
+		</em>
+	</small>
+</section>

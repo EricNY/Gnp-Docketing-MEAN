@@ -1,0 +1,65 @@
+<section data-ng-controller="CopyrightsController" data-ng-init="findOne()">
+    <div class="page-header">
+        <h1>Edit Copyright</h1>
+    </div>
+    <div class="col-md-12">
+        <form class="form-horizontal" data-ng-submit="update()" novalidate>
+            <fieldset>
+                <div class="form-group">
+                    <label class="control-label" for="owner">Owner</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="copyright.owner" id="owner" class="form-control" placeholder="Owner" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="author">Author</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="copyright.author" id="author" class="form-control" placeholder="Author" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="worktype">Work Type</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="copyright.workType" id="worktype" class="form-control" placeholder="Work Type" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="worktitle">Work Title</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="copyright.workTitle" id="worktitle" class="form-control" placeholder="Work Title" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="publisheddate">Published Date</label>
+                    <div class="controls">
+                        <input type="date" data-ng-model="copyright.publishedDate" id="publisheddate" class="form-control" placeholder="Published Date" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="registrationdate">Registration Date</label>
+                    <div class="controls">
+                        <input type="date" data-ng-model="copyright.registrationDate" id="registrationdate" class="form-control" placeholder="Registration Date" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="registrationnumber">Registration Number</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="copyright.registrationNumber" id="registrationnumber" class="form-control" placeholder="Registration Number" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="comments">Comments</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="copyright.comments" id="comments" class="form-control" placeholder="Registration Number" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Update" class="btn btn-default">
+                </div>
+				<div data-ng-show="error" class="text-danger">
+					<strong data-ng-bind="error"></strong>
+				</div>
+            </fieldset>
+        </form>
+    </div>
+</section>

@@ -13,3 +13,12 @@
 .ng-valid.ng-dirty {
 	border-color: #78FA89;
 }
+[ng-click] {
+  cursor: pointer;
+}
+body {
+	/*background-image: url("../img/background.png");*/
+}
+textarea {
+    resize: none;
+}

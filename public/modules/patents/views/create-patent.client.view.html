@@ -1,0 +1,126 @@
+<section data-ng-controller="PatentsController">
+    <div class="page-header">
+        <h1>New Patent</h1>
+    </div>
+    <div class="col-md-12">
+        <form data-ng-submit="create()" novalidate>
+            <fieldset>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="control-label" for="owner">Owner</label>
+                            <div class="controls">
+                                <input type="text" data-ng-model="owner" id="owner" class="form-control" placeholder="Owner" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="nature">Nature</label>
+                            <div class="controls">
+                                <input type="text" data-ng-model="nature" id="nature" class="form-control" placeholder="Nature" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="country">Country</label>
+                            <div class="controls">
+                                <input type="text" data-ng-model="country" id="country" class="form-control" placeholder="Country" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="filingdate">Filing Date</label>
+                            <div class="controls">
+                                <input type="date" data-ng-model="filingDate" id="filingdate" class="form-control" placeholder="Filing Date" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="issuedate">Issue Date</label>
+                            <div class="controls">
+                                <input type="date" data-ng-model="issueDate" id="issuedate" class="form-control" placeholder="Issue Date" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="applicationnumber">Application No.</label>
+                            <div class="controls">
+                                <input type="text" data-ng-model="applicationNumber" id="applicationnumber" class="form-control" placeholder="Application Number" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="patentnumber">Patent No.</label>
+                            <div class="controls">
+                                <input type="text" data-ng-model="patentNumber" id="patentnumber" class="form-control" placeholder="Patent Number" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="control-label" for="patentstatus">Status</label>
+                            <div class="controls">
+        <!--                         <input type="text" data-ng-model="patentStatus" id="patentstatus" class="form-control" placeholder="Status" required> -->
+
+
+        <select class="form-control" placeholder="-- choose a status --" >
+          <option>Provisional Application</option>
+          <option>Notice to File Missing Parts</option>
+          <option>Restriction Requirement</option>
+          <option>Office Action</option>
+          <option>Extension 1</option>
+          <option>Extension 2</option>
+          <option>Extension 3</option>
+          <option>NOA</option>
+          <option>Issued</option>
+          <option>Design Patent</option>
+          <option>Utility Patent</option>
+        </select>
+
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="control-label" for="statusdate">Status Date</label>
+                            <div class="controls">
+                                <input type="date" data-ng-model="statusDate" id="statusdate" class="form-control" placeholder="Status Date" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="duedate">Due Date</label>
+                            <div class="controls">
+                                <input type="date" data-ng-model="dueDate" id="duedate" class="form-control" placeholder="Due Date" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="secondduedate">2nd Due Date</label>
+                            <div class="controls">
+                                <input type="date" data-ng-model="secondDueDate" id="secondduedate" class="form-control" placeholder="2nd Due Date" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="thirdduedate">3rd Due Date</label>
+                            <div class="controls">
+                                <input type="date" data-ng-model="thirdDueDate" id="thirdduedate" class="form-control" placeholder="3rd Due Date" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="comments">Comments</label>
+                            <div class="controls">
+                                <textarea cols="40" rows="4" type="text" data-ng-model="comments" id="comments" class="form-control" placeholder="Comments" required></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+                <div class="form-group">
+                    <input type="submit" class="btn btn-default">
+                </div>
+				<div data-ng-show="error" class="text-danger">
+					<strong data-ng-bind="error"></strong>
+				</div>
+            </fieldset>
+        </form>
+    </div>
+</section>
+
