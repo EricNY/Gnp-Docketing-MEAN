@@ -62,7 +62,9 @@
                 <div class="form-group">
                     <label class="control-label" for="trademarkstatus">Trademark Status</label>
                     <div class="controls">
-                        <input type="text" data-ng-model="trademark.trademarkStatus" id="trademarkstatus" class="form-control" placeholder="Trademark Status" required>
+                        <select data-ng-model="trademark.trademarkStatus" id="trademarkstatus" class="form-control" ng-options="statusItem.id as statusItem.name for statusItem in statusOptions">
+                          <option value="">-- choose status --</option>
+                        </select>
                     </div>
                 </div>
                 <div class="form-group">

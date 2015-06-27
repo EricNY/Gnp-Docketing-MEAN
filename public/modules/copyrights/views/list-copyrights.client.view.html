@@ -16,7 +16,7 @@
         <tr ng-repeat="copyright in copyrights" ng-click="listItemClick(copyright._id);" >
             <td>{{ copyright.owner }}</td>
             <td>{{ copyright.author }}</td>
-            <td>{{ copyright.workType }}</td>
+            <td>{{ workTypeOptions[copyright.workType].name }}</td>
             <td>{{ copyright.workTitle }}</td>
             <td>{{ copyright.registrationNumber }}</td>
         </tr>

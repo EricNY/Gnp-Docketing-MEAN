@@ -5,6 +5,13 @@ angular.module('copyrights').controller('CopyrightsController', ['$scope', '$sta
 	function($scope, $stateParams, $location, Authentication, Copyrights) {
 		$scope.authentication = Authentication;
 
+		$scope.workTypeOptions = [
+			{id:0, name:'TX'},
+			{id:1, name:'VA'},
+			{id:2, name:'SR'},
+			{id:3, name:'PA'}
+		];
+
 		// Create new Copyright
 		$scope.create = function() {
 			// Create new Copyright object

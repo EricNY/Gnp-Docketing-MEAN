@@ -53,29 +53,13 @@
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label class="control-label" for="patentstatus">Status</label>
+                            <label class="control-label" for="patentstatus">Patent Status</label>
                             <div class="controls">
-        <!--                         <input type="text" data-ng-model="patentStatus" id="patentstatus" class="form-control" placeholder="Status" required> -->
-
-
-        <select class="form-control" placeholder="-- choose a status --" >
-          <option>Provisional Application</option>
-          <option>Notice to File Missing Parts</option>
-          <option>Restriction Requirement</option>
-          <option>Office Action</option>
-          <option>Extension 1</option>
-          <option>Extension 2</option>
-          <option>Extension 3</option>
-          <option>NOA</option>
-          <option>Issued</option>
-          <option>Design Patent</option>
-          <option>Utility Patent</option>
-        </select>
-
+                                <select data-ng-model="patentStatus" id="patentstatus" class="form-control" ng-options="statusItem.id as statusItem.name for statusItem in statusOptions">
+                                  <option value="">-- choose status --</option>
+                                </select>
                             </div>
                         </div>
-
-
                         <div class="form-group">
                             <label class="control-label" for="statusdate">Status Date</label>
                             <div class="controls">
@@ -109,10 +93,6 @@
                     </div>
                 </div>
 
-
-
-
-
                 <div class="form-group">
                     <input type="submit" class="btn btn-default">
                 </div>
@@ -124,3 +104,23 @@
     </div>
 </section>
 
+
+
+<!-- 
+Provisional Application  1 years
+
+Notice to File Missing Parts- 2 months out
+Restriction requirement - 2 months 
+
+Office action > 3 months
+NOA-3 months
+
+Extension 1-1 month
+Extension 2-1 month
+Extension 3-1 month
+
+
+
+Design Patent - 14 years
+
+Utility Patent -20 years -->

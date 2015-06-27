@@ -5,6 +5,20 @@ angular.module('trademarks').controller('TrademarksController', ['$scope', '$sta
 	function($scope, $stateParams, $location, Authentication, Trademarks) {
 		$scope.authentication = Authentication;
 
+		$scope.statusOptions = [
+			{id:0, name:'Pending'},
+			{id:1, name:'Published'},
+			{id:2, name:'NOA'},
+			{id:3, name:'Notice of Abandonment'},
+			{id:4, name:'Office Action'},
+			{id:5, name:'Extension 1'},
+			{id:6, name:'Extension 2'},
+			{id:7, name:'Extension 3'},
+			{id:8, name:'Extension 4'},
+			{id:9, name:'Extension 5'},
+			{id:10, name:'Registration Date'}
+		];
+
 		// Create new Trademark
 		$scope.create = function() {
 			// Create new Trademark object

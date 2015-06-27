@@ -20,7 +20,9 @@
                 <div class="form-group">
                     <label class="control-label" for="worktype">Work Type</label>
                     <div class="controls">
-                        <input type="text" data-ng-model="workType" id="worktype" class="form-control" placeholder="Work Type" required>
+                        <select data-ng-model="workType" id="worktype" class="form-control" ng-options="workTypeItem.id as workTypeItem.name for workTypeItem in workTypeOptions">
+                          <option value=""> -- choose a type -- </option>
+                        </select>
                     </div>
                 </div>
                 <div class="form-group">

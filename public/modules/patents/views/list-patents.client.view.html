@@ -22,11 +22,11 @@
             <td>{{ patent.country }}</td>
             <td>{{ patent.applicationNumber }}</td>
             <td>{{ patent.patentNumber }}</td>
-            <td>{{ patent.patentStatus }}</td>
-            <td>{{ patent.statusDate }}</td>
-            <td>{{ patent.dueDate }}</td>
-            <td>{{ patent.secondDueDate }}</td>
-            <td>{{ patent.thirdDueDate }}</td>
+            <td>{{ statusOptions[patent.patentStatus].name }}</td>
+            <td>{{ patent.statusDate | date }}</td>
+            <td>{{ patent.dueDate | date }}</td>
+            <td>{{ patent.secondDueDate | date }}</td>
+            <td>{{ patent.thirdDueDate | date }}</td>
         </tr>
       </tbody>
     </table>

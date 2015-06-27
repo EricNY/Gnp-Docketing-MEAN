@@ -50,7 +50,9 @@
                 <div class="form-group">
                     <label class="control-label" for="patentstatus">Patent Status</label>
                     <div class="controls">
-                        <input type="text" data-ng-model="patent.patentStatus" id="patentstatus" class="form-control" placeholder="Patent Status" required>
+                        <select data-ng-model="patent.patentStatus" id="patentstatus" class="form-control" ng-options="statusItem.id as statusItem.name for statusItem in statusOptions">
+                          <option value="">-- choose status --</option>
+                        </select>
                     </div>
                 </div>
                 <div class="form-group">

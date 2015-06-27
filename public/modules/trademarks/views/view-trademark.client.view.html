@@ -4,102 +4,98 @@
 	<div class="panel panel-default">
    <div class="panel-heading">Details</div>
    <div class="panel-body">
-      <!-- <div class="row"> -->
-        <div class="col-md-6">
-            <!-- <p class="lead bb"></p> -->
-            <form class="form-horizontal p-20 ng-pristine ng-valid">
-               <div class="form-group">
-                  <div class="col-sm-4">Owner:</div>
-                  <div class="col-sm-8">
-                     <strong>{{ trademark.owner }}</strong>
-                  </div>
+      <div class="col-md-6">
+         <form class="form-horizontal p-20 ng-pristine ng-valid">
+            <div class="form-group">
+               <div class="col-sm-4">Owner:</div>
+               <div class="col-sm-8">
+                  <strong>{{ trademark.owner }}</strong>
                </div>
-               <div class="form-group">
-                  <div class="col-sm-4">Mark:</div>
-                  <div class="col-sm-8">
-                     <strong>{{ trademark.mark }}</strong>
-                  </div>
+            </div>
+            <div class="form-group">
+               <div class="col-sm-4">Mark:</div>
+               <div class="col-sm-8">
+                  <strong>{{ trademark.mark }}</strong>
                </div>
-               <div class="form-group">
-                  <div class="col-sm-4">Country:</div>
-                  <div class="col-sm-8">
-                     <strong>{{ trademark.country }}</strong>
-                  </div>
+            </div>
+            <div class="form-group">
+               <div class="col-sm-4">Country:</div>
+               <div class="col-sm-8">
+                  <strong>{{ trademark.country }}</strong>
                </div>
-               <div class="form-group">
-                  <div class="col-sm-4">IC:</div>
-                  <div class="col-sm-8">
-                     <strong>{{ trademark.ic }}</strong>
-                  </div>
+            </div>
+            <div class="form-group">
+               <div class="col-sm-4">IC:</div>
+               <div class="col-sm-8">
+                  <strong>{{ trademark.ic }}</strong>
                </div>
-               <div class="form-group">
-                  <div class="col-sm-4">Goods and Services:</div>
-                  <div class="col-sm-8">
-                     <strong>{{ trademark.goodsAndServices }}</strong>
-                  </div>
+            </div>
+            <div class="form-group">
+               <div class="col-sm-4">Goods and Services:</div>
+               <div class="col-sm-8">
+                  <strong>{{ trademark.goodsAndServices }}</strong>
                </div>
-               <div class="form-group">
-                  <div class="col-sm-4">Filing Date:</div>
-                  <div class="col-sm-8">
-                     <strong>{{ trademark.filingDate }}</strong>
-                  </div>
+            </div>
+            <div class="form-group">
+               <div class="col-sm-4">Filing Date:</div>
+               <div class="col-sm-8">
+                  <strong>{{ trademark.filingDate | date }}</strong>
                </div>
-               <div class="form-group">
-                  <div class="col-sm-4">Registration Date:</div>
-                  <div class="col-sm-8">
-                     <strong>{{ trademark.registrationDate }}</strong>
-                  </div>
+            </div>
+            <div class="form-group">
+               <div class="col-sm-4">Registration Date:</div>
+               <div class="col-sm-8">
+                  <strong>{{ trademark.registrationDate | date }}</strong>
                </div>
-               <div class="form-group">
-                  <div class="col-sm-4">Application Number</div>
-                  <div class="col-sm-8">
-                     <strong>{{ trademark.applicationNumber }}</strong>
-                  </div>
+            </div>
+            <div class="form-group">
+               <div class="col-sm-4">Application Number</div>
+               <div class="col-sm-8">
+                  <strong>{{ trademark.applicationNumber }}</strong>
                </div>
-            </form>
-        </div>
-        <div class="col-md-6">
-            <!-- <p class="lead bb">Client</p> -->
-            <form class="form-horizontal p-20 ng-pristine ng-valid">
-               <div class="form-group">
-                  <div class="col-sm-4">Registration Number:</div>
-                  <div class="col-sm-8">
-                     <strong>{{ trademark.registrationNumber }}</strong>
-                  </div>
+            </div>
+         </form>
+      </div>
+      <div class="col-md-6">
+         <form class="form-horizontal p-20 ng-pristine ng-valid">
+            <div class="form-group">
+               <div class="col-sm-4">Registration Number:</div>
+               <div class="col-sm-8">
+                  <strong>{{ trademark.registrationNumber }}</strong>
                </div>
-               <div class="form-group">
-                  <div class="col-sm-4">Status:</div>
-                  <div class="col-sm-8">
-                     <strong>{{ trademark.trademarkStatus }}</strong>
-                  </div>
+            </div>
+            <div class="form-group">
+               <div class="col-sm-4">Status:</div>
+               <div class="col-sm-8">
+                  <strong>{{ statusOptions[trademark.trademarkStatus].name }}</strong>
                </div>
-               <div class="form-group">
-                  <div class="col-sm-4">Status Date:</div>
-                  <div class="col-sm-8">
-                     <strong>{{ trademark.statusDate }}</strong>
-                  </div>
+            </div>
+            <div class="form-group">
+               <div class="col-sm-4">Status Date:</div>
+               <div class="col-sm-8">
+                  <strong>{{ trademark.statusDate | date }}</strong>
                </div>
-               <div class="form-group">
-                  <div class="col-sm-4">Due Date:</div>
-                  <div class="col-sm-8">
-                     <strong>{{ trademark.dueDate }}</strong>
-                  </div>
+            </div>
+            <div class="form-group">
+               <div class="col-sm-4">Due Date:</div>
+               <div class="col-sm-8">
+                  <strong>{{ trademark.dueDate | date }}</strong>
                </div>
-               <div class="form-group">
-                  <div class="col-sm-4">Second Due Date:</div>
-                  <div class="col-sm-8">
-                     <strong>{{ trademark.secondDueDate }}</strong>
-                  </div>
+            </div>
+            <div class="form-group">
+               <div class="col-sm-4">Second Due Date:</div>
+               <div class="col-sm-8">
+                  <strong>{{ trademark.secondDueDate | date }}</strong>
                </div>
-               <div class="form-group">
-                  <div class="col-sm-4">Comments</div>
-                  <div class="col-sm-8">
-                     <strong>{{ trademark.comments }}</strong>
-                  </div>
+            </div>
+            <div class="form-group">
+               <div class="col-sm-4">Comments</div>
+               <div class="col-sm-8">
+                  <strong>{{ trademark.comments }}</strong>
                </div>
-            </form>
-        </div>
-      <!-- </div> -->
+            </div>
+         </form>
+      </div>
    </div>
 	</div>
 	<div class="pull-right" data-ng-show="((authentication.user) && (authentication.user._id == trademark.user._id))">

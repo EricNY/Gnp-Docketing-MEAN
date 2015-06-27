@@ -8,6 +8,20 @@ angular.module('patents').controller('PatentsController', ['$scope', '$statePara
 	function($scope, $stateParams, $location, Authentication, Patents) {
 		$scope.authentication = Authentication;
 
+		$scope.statusOptions = [
+			{id:0, name:'Provisional Application'},
+			{id:1, name:'Notice to File Missing Parts'},
+			{id:2, name:'Restriction Requirement'},
+			{id:3, name:'Office Action'},
+			{id:4, name:'Extension 1'},
+			{id:5, name:'Extension 2'},
+			{id:6, name:'Extension 3'},
+			{id:7, name:'NOA'},
+			{id:8, name:'Issued'},
+			{id:9, name:'Design Patent'},
+			{id:10, name:'Utility Patent'}
+		];
+
 		// Create new Patent
 		$scope.create = function() {
 			// Create new Patent object
@@ -69,6 +83,7 @@ angular.module('patents').controller('PatentsController', ['$scope', '$statePara
 
 		// Update existing Patent
 		$scope.update = function() {
+
 			var patent = $scope.patent;
 
 			patent.$update(function() {

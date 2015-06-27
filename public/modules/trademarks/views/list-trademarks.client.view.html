@@ -22,11 +22,11 @@
             <td>{{ trademark.mark }}</td>
             <td>{{ trademark.country }}</td>
             <td>{{ trademark.ic }}</td>
-            <td>{{ trademark.filingDate }}</td>
+            <td>{{ trademark.filingDate | date }}</td>
             <td>{{ trademark.applicationNumber }}</td>
             <td>{{ trademark.registrationNumber }}</td>
-            <td>{{ trademark.dueDate }}</td>
-            <td>{{ trademark.secondDueDate }}</td>
+            <td>{{ trademark.dueDate | date }}</td>
+            <td>{{ trademark.secondDueDate | date }}</td>
         </tr>
       </tbody>
     </table>
