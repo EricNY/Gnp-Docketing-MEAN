@@ -1,4 +1,4 @@
-<section data-ng-controller="HomeController">
+<section data-ng-controller="HomeController as hc">
 	<div class="jumbotron text-center">
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3 col-xs-12">
@@ -20,11 +20,18 @@
 	<div>
 		<h2>What oh what to do with this space?</h2>
 	</div>
-	<div class="well">
-		<h2>A Well</h2>
-		<p>
-			fancy...
-		</p>
+	<div class="well" data-ng-controller="HomeController" >
+		<!-- <div data-ui-sref="home"> -->
+			<form name="contactForm" data-ng-submit="hc.sendMail()">
+				<input-container>
+				Name: <input type="text" data-ng-model="hc.contactName">
+				</input-container>
+				<input-container>
+				Email: <input type="email" data-ng-model="hc.contactEmail">
+				</input-container>
+				<button type="submit" class="md-primary">Send</button>
+			</form>
+		<!-- </div> -->
 	</div>
 	<br>Copyright?
 </section>
