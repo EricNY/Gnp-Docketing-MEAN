@@ -70,7 +70,7 @@
                 <div class="form-group">
                     <label class="control-label" for="statusDate">Status Date</label>
                     <div class="controls">
-                        <input type="date" data-ng-model="statusDate" id="statusDate" class="form-control" placeholder="Status Date" required>
+                        <input type="date" ng-change="calculateDueDates(trademarkStatus)" data-ng-model="statusDate" id="statusDate" class="form-control" placeholder="Status Date" required>
                     </div>
                 </div>
                 <div class="form-group">

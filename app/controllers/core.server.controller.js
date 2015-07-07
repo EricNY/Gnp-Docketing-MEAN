@@ -21,7 +21,7 @@ exports.sendMail = function(req, res) {
 	var data = req.body;
 
 	transporter.sendMail({
-		from: 'ericabt@gmail.com',
+		from: 'info@gandplaw.com',
 		to: data.contactEmail,
 		subject: 'hello',
 		text: data.contactName

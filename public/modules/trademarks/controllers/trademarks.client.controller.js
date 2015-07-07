@@ -107,5 +107,76 @@ angular.module('trademarks').controller('TrademarksController', ['$scope', '$sta
 		$scope.listItemClick = function(trademarkId) {
 			location.href = '#!/trademarks/' + trademarkId;
 		};
+
+		$scope.getDueDate = function(month, year, day, month_offset, year_offset){
+			var dueDateMonth = month + month_offset;
+			var dueDateYear = year + year_offset;
+
+			if (dueDateMonth > 12) {
+				dueDateMonth = dueDateMonth % 12;
+				dueDateYear = dueDateYear + 1;
+			}
+			if (dueDateMonth < 10) {
+				dueDateMonth = dueDateMonth.toString();
+				dueDateMonth = '0' + dueDateMonth;
+			}
+			if (day < 10) {
+				day = day.toString();
+				day = '0' + day;
+			}
+			dueDateYear = dueDateYear.toString();
+			dueDateMonth = dueDateMonth.toString();
+			day = day.toString();
+
+			return dueDateYear + '-' + dueDateMonth + '-' + day;
+		};
+
+		// once a statusDate is selected the due dates are 
+		// automatically calculated depending on what status is selected
+		$scope.calculateDueDates = function ( selectedOption ) {
+			console.log(selectedOption);
+
+			var dateParts = this.statusDate.match(/(\d{4})\-(\d{2})\-(\d{2})/);
+			var month = +dateParts[2];
+			var year = +dateParts[1];
+			var day = +dateParts[3];
+
+			switch( selectedOption ) {
+				case 0: // Pending - 6 mo
+					this.dueDate = $scope.getDueDate(month, year, day, 6, 0);
+					break;
+				case 1: // Published - 6 mo
+					this.dueDate = $scope.getDueDate(month, year, day, 6, 0);
+					break;
+				case 2: // NOA - 6 mo
+					this.dueDate = $scope.getDueDate(month, year, day, 6, 0);
+					break;
+				case 3: // Notice of Abandonment - 2 mo
+					this.dueDate = $scope.getDueDate(month, year, day, 2, 0);
+					break;
+				case 4: // Office Action - 6 mo
+					this.dueDate = $scope.getDueDate(month, year, day, 6, 0);
+					break;
+				case 5: // Extension 1 - 6 mo
+					this.dueDate = $scope.getDueDate(month, year, day, 6, 0);
+					break;
+				case 6: // Extension 2 - 6 mo
+					this.dueDate = $scope.getDueDate(month, year, day, 6, 0);
+					break;
+				case 7: // Extension 3 - 6 mo
+					this.dueDate = $scope.getDueDate(month, year, day, 6, 0);
+					break;
+				case 8: // Extension 4 - 6 mo
+					this.dueDate = $scope.getDueDate(month, year, day, 6, 3);
+					break;
+				case 9: // Extension 5 - 6 mo
+					this.dueDate = $scope.getDueDate(month, year, day, 6, 14);
+					break;
+				default: // Registration Date - 5 yrs --> 10 yrs
+					this.dueDate = $scope.getDueDate(month, year, day, 0, 5);
+					this.secondDueDate = $scope.getDueDate(month, year, day, 0, 10);
+			}
+		};
+
 	}
 ]);
