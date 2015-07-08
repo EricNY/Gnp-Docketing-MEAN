@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-	db: 'mongodb://localhost/docketing-system-dev',
+	db: 'mongodb://admin:andrea100!@ds049568.mongolab.com:49568/gnp-docketing',
 	app: {
 		title: 'docketing-system - Development Environment'
 	},
