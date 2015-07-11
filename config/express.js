@@ -66,7 +66,7 @@ module.exports = function(db) {
 
 	// Environment dependent middleware
 	if (process.env.NODE_ENV === 'development') {
-		console.log('IN DEVELOPMENT MODE!!');
+		console.log('IN DEVELOPMENT MODE!!', config);
 		// Enable logger (morgan)
 		app.use(morgan('dev'));
 
