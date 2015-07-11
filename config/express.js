@@ -73,7 +73,7 @@ module.exports = function(db) {
 		// Disable views cache
 		app.set('view cache', false);
 	} else if (process.env.NODE_ENV === 'production') {
-		console.log('IN PRODUCTION MODE!!');
+		console.log('IN PRODUCTION MODE!!', config);
 		app.locals.cache = 'memory';
 	}
 
