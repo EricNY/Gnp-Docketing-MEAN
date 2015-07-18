@@ -1,10 +1,10 @@
 'use strict';
 
 module.exports = {
-	db: 'mongodb://localhost/docketing-system-test',
+	db: 'mongodb://localhost/angle-test',
 	port: 3001,
 	app: {
-		title: 'docketing-system - Test Environment'
+		title: 'Angle - Test Environment'
 	},
 	facebook: {
 		clientID: process.env.FACEBOOK_ID || 'APP_ID',

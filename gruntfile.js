@@ -7,9 +7,13 @@ module.exports = function(grunt) {
 		serverJS: ['gruntfile.js', 'server.js', 'config/**/*.js', 'app/**/*.js'],
 		clientViews: ['public/modules/**/views/**/*.html'],
 		clientJS: ['public/js/*.js', 'public/modules/**/*.js'],
-		clientCSS: ['public/modules/**/*.css'],
+		// clientCSS: ['public/modules/**/*.css'],
+		clientCSS: ['public/dist/application.min.css', 'public/modules/**/*.css'],
+		clientLESS:  ['public/less/**/*.less', 'public/modules/**/*.less'],
 		mochaTests: ['app/tests/**/*.js']
 	};
+
+	grunt.loadNpmTasks('grunt-contrib-less');
 
 	// Project Configuration
 	grunt.initConfig({
@@ -47,6 +51,13 @@ module.exports = function(grunt) {
 				options: {
 					livereload: true
 				}
+			},
+			clientLESS: {
+				files: watchFiles.clientLESS,
+				tasks: ['less'],
+				options: {
+					livereload: true
+				}
 			}
 		},
 		jshint: {
@@ -54,6 +65,28 @@ module.exports = function(grunt) {
 				src: watchFiles.clientJS.concat(watchFiles.serverJS),
 				options: {
 					jshintrc: true
+				}
+			}
+		},
+		less: {
+			production: {
+				options: {
+					paths: ['public/less'],
+					cleancss: true,
+					compress: true
+				},
+				files: {
+					'public/dist/application.min.css': 'public/less/application.less'
+				}
+			},
+			development: {
+				options: {
+					sourceMap: true,
+					ieCompat:true,
+					dumpLineNumbers:true
+				},
+				files: {
+					'public/dist/application.min.css': 'public/less/application.less'
 				}
 			}
 		},
@@ -75,13 +108,14 @@ module.exports = function(grunt) {
 				}
 			}
 		},
+		/* Not needed for LESS
 		cssmin: {
 			combine: {
 				files: {
 					'public/dist/application.min.css': '<%= applicationCSSFiles %>'
 				}
 			}
-		},
+		},*/
 		nodemon: {
 			dev: {
 				script: 'server.js',
@@ -109,6 +143,7 @@ module.exports = function(grunt) {
 			production: {
 				files: {
 					'public/dist/application.js': '<%= applicationJavaScriptFiles %>'
+					// 'public/application.js': '<%= applicationJavaScriptFiles %>'
 				}
 			}
 		},
@@ -170,7 +205,7 @@ module.exports = function(grunt) {
 	grunt.registerTask('lint', ['jshint', 'csslint']);
 
 	// Build task(s).
-	grunt.registerTask('build', ['lint', 'loadConfig', 'ngAnnotate', 'uglify', 'cssmin']);
+	grunt.registerTask('build', ['lint', 'loadConfig', 'ngAnnotate', 'uglify', /*'cssmin'*/ 'less' ]);
 
 	// Test task.
 	grunt.registerTask('test', ['env:test', 'mochaTest', 'karma:unit']);

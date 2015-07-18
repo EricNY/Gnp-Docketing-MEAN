@@ -25,6 +25,7 @@ angular.module('copyrights').controller('CopyrightsController', ['$scope', '$sta
 				registrationNumber: this.registrationNumber,
 				comments					: this.comments
 			});
+
 			// Redirect after save
 			copyright.$save(function(response) {
 				$location.path('copyrights/' + response._id);
@@ -84,9 +85,8 @@ angular.module('copyrights').controller('CopyrightsController', ['$scope', '$sta
 		};
 
 		// direct to show page
-		$scope.listItemClick = function(copyrightId) {
-			location.href = '#!/copyrights/' + copyrightId;
-		};
-
+    $scope.listItemClick = function(copyrightId) {
+      location.href = '#!/copyrights/' + copyrightId;
+    };
 	}
 ]);

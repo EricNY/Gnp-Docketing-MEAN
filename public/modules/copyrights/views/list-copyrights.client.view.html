@@ -1,28 +1,76 @@
-<section data-ng-controller="CopyrightsController" data-ng-init="find()">
+<!-- <section data-ng-controller="CopyrightsController" data-ng-init="find()">
     <div class="page-header">
         <h1>Copyrights</h1>
     </div>
-    <table class='table table-striped table-hover table-condensed table-bordered'>
-      <thead>
-        <tr>
-          <th>Owner</th>
-          <th>Author</th>
-          <th>Work Type</th>
-          <th>Work Title</th>
-          <th>Registration Number</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr ng-repeat="copyright in copyrights" ng-click="listItemClick(copyright._id);" >
-            <td>{{ copyright.owner }}</td>
-            <td>{{ copyright.author }}</td>
-            <td>{{ workTypeOptions[copyright.workType].name }}</td>
-            <td>{{ copyright.workTitle }}</td>
-            <td>{{ copyright.registrationNumber }}</td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="list-group">
+        <a data-ng-repeat="copyright in copyrights" data-ng-href="#!/copyrights/{{copyright._id}}" class="list-group-item">
+			<small class="list-group-item-text">
+				Posted on
+				<span data-ng-bind="copyright.created | date:'medium'"></span>
+				by
+				<span data-ng-bind="copyright.user.displayName"></span>
+			</small>
+			<h4 class="list-group-item-heading" data-ng-bind="copyright.name"></h4>
+        </a>
+    </div>
     <div class="alert alert-warning text-center" data-ng-hide="!copyrights.$resolved || copyrights.length">
     	No Copyrights yet, why don't you <a href="/#!/copyrights/create">create one</a>?
     </div>
-</section>
+</section> -->
+
+<h3>Copyrights
+    <ul class="breadcrumb">
+      <li><a ui-sref="app.home">Home</a>
+      </li>
+      <li ng-repeat="state in $state.$current.path" ng-switch="$last" ng-if="!state.abstract" ng-class="{active: $last}"><a ng-switch-when="false" href="#{{state.url.format($stateParams)}}">{{state.title}}</a>
+         <span ng-switch-when="true">{{state.title}}</span>
+      </li>
+    </ul>
+</h3>
+<!-- <section data-ng-controller="CopyrightsController" data-ng-init="find()">
+    <div class="list-group">
+        <a data-ng-repeat="copyright in copyrights" data-ng-href="#!/copyrights/{{copyright._id}}" class="list-group-item">
+            <small class="list-group-item-text">
+                Posted on
+                <span data-ng-bind="copyright.created | date:'mediumDate'"></span>
+                by
+                <span data-ng-bind="copyright.user.displayName"></span>
+            </small>
+            <h4 class="list-group-item-heading" data-ng-bind="copyright.owner"></h4>
+            <p class="list-group-item-text" data-ng-bind="copyright.author"></p>
+        </a>
+    </div>
+    <h4 class="alert alert-purple text-center pv-lg" data-ng-if="copyrights.$resolved && !copyrights.length">
+        No copyrights yet, why don't you <a href="/#!/copyrights/create" class="text-yellow">create one</a>?
+    </h4>
+</section> -->
+
+<div class="panel panel-default">
+<!--    <div class="panel-heading">Datatables |
+      <small>ngRepeat + ngResource</small>
+   </div> -->
+   <div class="panel-body">
+      <div data-ng-controller="CopyrightsController" data-ng-init="find()">
+        <table class='table table-striped table-hover table-condensed'>
+          <thead>
+            <tr>
+              <th>Owner</th>
+              <th>Author</th>
+              <th>Work Type</th>
+              <th>Work Title</th>
+              <th>Registration Number</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="copyright in copyrights" ng-click="listItemClick(copyright._id);" >
+                <td>{{ copyright.owner }}</td>
+                <td>{{ copyright.author }}</td>
+                <td>{{ workTypeOptions[copyright.workType].name }}</td>
+                <td>{{ copyright.workTitle }}</td>
+                <td>{{ copyright.registrationNumber }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+   </div>
+</div>

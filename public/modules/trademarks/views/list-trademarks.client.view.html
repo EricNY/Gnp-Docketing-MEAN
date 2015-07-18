@@ -1,36 +1,88 @@
-<section data-ng-controller="TrademarksController" data-ng-init="find()">
+<!-- <section data-ng-controller="TrademarksController" data-ng-init="find()">
     <div class="page-header">
         <h1>Trademarks</h1>
     </div>
-    <table class='table table-striped table-hover table-condensed table-bordered'>
-      <thead>
-        <tr>
-          <th>Owner</th>
-          <th>Mark</th>
-          <th>Country</th>
-          <th>IC</th>
-          <th>Filing Date</th>
-          <th>Application No.</th>
-          <th>Registration No.</th>
-          <th>Due Date</th>
-          <th>Second Due Date</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr ng-repeat="trademark in trademarks" ng-click="listItemClick(trademark._id);" >
-            <td>{{ trademark.owner }}</td>
-            <td>{{ trademark.mark }}</td>
-            <td>{{ trademark.country }}</td>
-            <td>{{ trademark.ic }}</td>
-            <td>{{ trademark.filingDate | date }}</td>
-            <td>{{ trademark.applicationNumber }}</td>
-            <td>{{ trademark.registrationNumber }}</td>
-            <td>{{ trademark.dueDate | date }}</td>
-            <td>{{ trademark.secondDueDate | date }}</td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="list-group">
+        <a data-ng-repeat="trademark in trademarks" data-ng-href="#!/trademarks/{{trademark._id}}" class="list-group-item">
+			<small class="list-group-item-text">
+				Posted on
+				<span data-ng-bind="trademark.created | date:'medium'"></span>
+				by
+				<span data-ng-bind="trademark.user.displayName"></span>
+			</small>
+			<h4 class="list-group-item-heading" data-ng-bind="trademark.name"></h4>
+        </a>
+    </div>
     <div class="alert alert-warning text-center" data-ng-hide="!trademarks.$resolved || trademarks.length">
     	No Trademarks yet, why don't you <a href="/#!/trademarks/create">create one</a>?
     </div>
-</section>
+</section> -->
+
+<h3>Trademarks
+    <ul class="breadcrumb">
+      <li><a ui-sref="app.home">Home</a>
+      </li>
+      <li ng-repeat="state in $state.$current.path" ng-switch="$last" ng-if="!state.abstract" ng-class="{active: $last}"><a ng-switch-when="false" href="#{{state.url.format($stateParams)}}">{{state.title}}</a>
+         <span ng-switch-when="true">{{state.title}}</span>
+      </li>
+    </ul>
+</h3>
+<!-- 
+<section data-ng-controller="TrademarksController" data-ng-init="find()">
+    <div class="list-group">
+        <a data-ng-repeat="trademark in trademarks" data-ng-href="#!/trademarks/{{trademark._id}}" class="list-group-item">
+            <small class="list-group-item-text">
+                Posted on
+                <span data-ng-bind="trademark.created | date:'mediumDate'"></span>
+                by
+                <span data-ng-bind="trademark.user.displayName"></span>
+            </small>
+            <h4 class="list-group-item-heading" data-ng-bind="trademark.owner"></h4>
+            <p class="list-group-item-text" data-ng-bind="trademark.mark"></p>
+        </a>
+    </div>
+    <h4 class="alert alert-purple text-center pv-lg" data-ng-if="trademarks.$resolved && !trademarks.length">
+        No trademarks yet, why don't you <a href="/#!/trademarks/create" class="text-yellow">create one</a>?
+    </h4>
+</section> -->
+
+
+<div class="panel panel-default">
+<!--    <div class="panel-heading">Datatables |
+      <small>ngRepeat + ngResource</small>
+   </div> -->
+   <div class="panel-body">
+      <div data-ng-controller="TrademarksController" data-ng-init="find()">
+        <table class='table table-striped table-hover table-condensed'>
+          <thead>
+            <tr>
+              <th>Owner</th>
+              <th>Mark</th>
+              <th>Country</th>
+              <th>IC</th>
+              <th>Filing Date</th>
+              <th>Application No.</th>
+              <th>Registration No.</th>
+              <th>Due Date</th>
+              <th>Second Due Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="trademark in trademarks" ng-click="listItemClick(trademark._id);" >
+                <td>{{ trademark.owner }}</td>
+                <td>{{ trademark.mark }}</td>
+                <td>{{ trademark.country }}</td>
+                <td>{{ trademark.ic }}</td>
+                <td>{{ trademark.filingDate | date }}</td>
+                <td>{{ trademark.applicationNumber }}</td>
+                <td>{{ trademark.registrationNumber }}</td>
+                <td>{{ trademark.dueDate | date }}</td>
+                <td>{{ trademark.secondDueDate | date }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+   </div>
+</div>
+
+
