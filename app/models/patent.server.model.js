@@ -13,7 +13,7 @@ var PatentSchema = new Schema({
 	owner: {
 		type: String,
 		default: '',
-		required: 'Please fill Patent name',
+		required: 'Please fill Patent owner',
 		trim: true
 	},
 	nature: {

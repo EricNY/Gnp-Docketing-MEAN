@@ -1,95 +1,6 @@
-<section data-ng-controller="PatentsController" data-ng-init="findOne()">
-	<div class="page-header"></div>
-	<div class="panel panel-default">
-   <div class="panel-heading">Details</div>
-   <div class="panel-body">
-        <div class="col-md-6">
-            <form class="form-horizontal p-20 ng-pristine ng-valid">
-               <div class="form-group">
-                  <div class="col-sm-4">Owner:</div>
-                  <div class="col-sm-8">
-                     <strong>{{ patent.owner }}</strong>
-                  </div>
-               </div>
-               <div class="form-group">
-                  <div class="col-sm-4">Nature:</div>
-                  <div class="col-sm-8">
-                     <strong>{{ patent.nature }}</strong>
-                  </div>
-               </div>
-               <div class="form-group">
-                  <div class="col-sm-4">Country:</div>
-                  <div class="col-sm-8">
-                     <strong>{{ patent.country }}</strong>
-                  </div>
-               </div>
-               <div class="form-group">
-                  <div class="col-sm-4">Filing Date:</div>
-                  <div class="col-sm-8">
-                     <strong>{{ patent.filingDate | date }}</strong>
-                  </div>
-               </div>
-               <div class="form-group">
-                  <div class="col-sm-4">Issue Date:</div>
-                  <div class="col-sm-8">
-                     <strong>{{ patent.issueDate | date }}</strong>
-                  </div>
-               </div>
-               <div class="form-group">
-                  <div class="col-sm-4">Application Number:</div>
-                  <div class="col-sm-8">
-                     <strong>{{ patent.applicationNumber }}</strong>
-                  </div>
-               </div>
-               <div class="form-group">
-                  <div class="col-sm-4">Patent Number:</div>
-                  <div class="col-sm-8">
-                     <strong>{{ patent.patentNumber }}</strong>
-                  </div>
-               </div>
-            </form>
-        </div>
-        <div class="col-md-6">
-            <form class="form-horizontal p-20 ng-pristine ng-valid">
-               <div class="form-group">
-                  <div class="col-sm-4">Status:</div>
-                  <div class="col-sm-8">
-                     <strong>{{ statusOptions[patent.patentStatus].name }}</strong>
-                  </div>
-               </div>
-               <div class="form-group">
-                  <div class="col-sm-4">Status Date:</div>
-                  <div class="col-sm-8">
-                     <strong>{{ patent.statusDate | date }}</strong>
-                  </div>
-               </div>
-               <div class="form-group">
-                  <div class="col-sm-4">Due Date:</div>
-                  <div class="col-sm-8">
-                     <strong>{{ patent.dueDate | date }}</strong>
-                  </div>
-               </div>
-               <div class="form-group">
-                  <div class="col-sm-4">Second Due Date:</div>
-                  <div class="col-sm-8">
-                     <strong>{{ patent.secondDueDate | date }}</strong>
-                  </div>
-               </div>
-               <div class="form-group">
-                  <div class="col-sm-4">Third Due Date</div>
-                  <div class="col-sm-8">
-                     <strong>{{ patent.thirdDueDate | date }}</strong>
-                  </div>
-               </div>
-               <div class="form-group">
-                  <div class="col-sm-4">Comments</div>
-                  <div class="col-sm-8">
-                     <strong>{{ patent.comments }}</strong>
-                  </div>
-               </div>
-            </form>
-        </div>
-   </div>
+<!-- <section data-ng-controller="PatentsController" data-ng-init="findOne()">
+	<div class="page-header">
+		<h1 data-ng-bind="patent.name"></h1>
 	</div>
 	<div class="pull-right" data-ng-show="((authentication.user) && (authentication.user._id == patent.user._id))">
 		<a class="btn btn-primary" href="/#!/patents/{{patent._id}}/edit">
@@ -107,4 +18,127 @@
 			<span data-ng-bind="patent.user.displayName"></span>
 		</em>
 	</small>
+</section> -->
+
+
+
+<h3>
+	<div class="pull-right" data-ng-show="authentication.user._id == patent.user._id">
+		<a class="btn btn-primary" href="/#!/patents/{{patent._id}}/edit">
+			<i class="fa fa-edit"></i>
+		</a>
+		<a class="btn btn-primary" data-ng-click="remove();">
+			<i class="fa fa-trash"></i>
+		</a>
+	</div>
+	{{patent.owner}}
+	<ul class="breadcrumb">
+	  <li><a ui-sref="app.home">Home</a>
+	  </li>
+	  <li ng-repeat="state in $state.$current.path" ng-switch="$last" ng-if="!state.abstract" ng-class="{active: $last}"><a ng-switch-when="false" href="#{{state.url.format($stateParams)}}">{{state.title}}</a>
+	     <span ng-switch-when="true">{{state.title}}</span>
+	  </li>
+	</ul>
+</h3>
+<section data-ng-init="findOne()">
 </section>
+
+<div class="row">
+   <div class="col-lg-4">
+      <!-- START panel-->
+      <div class="panel panel-primary">
+        <div class="panel-heading">Patent</div>
+        <div class="panel-body">
+	        <div class="col-md-6">
+	            <form class="form-horizontal p-20 ng-pristine ng-valid">
+	               <div class="form-group">
+	                  <div class="col-sm-4">Owner:</div>
+	                  <div class="col-sm-8">
+	                     <strong>{{ patent.owner }}</strong>
+	                  </div>
+	               </div>
+	               <div class="form-group">
+	                  <div class="col-sm-4">Nature:</div>
+	                  <div class="col-sm-8">
+	                     <strong>{{ patent.nature }}</strong>
+	                  </div>
+	               </div>
+	               <div class="form-group">
+	                  <div class="col-sm-4">Country:</div>
+	                  <div class="col-sm-8">
+	                     <strong>{{ patent.country }}</strong>
+	                  </div>
+	               </div>
+	               <div class="form-group">
+	                  <div class="col-sm-4">Filing Date:</div>
+	                  <div class="col-sm-8">
+	                     <strong>{{ patent.filingDate | date }}</strong>
+	                  </div>
+	               </div>
+	               <div class="form-group">
+	                  <div class="col-sm-4">Issue Date:</div>
+	                  <div class="col-sm-8">
+	                     <strong>{{ patent.issueDate | date }}</strong>
+	                  </div>
+	               </div>
+	               <div class="form-group">
+	                  <div class="col-sm-4">Application Number:</div>
+	                  <div class="col-sm-8">
+	                     <strong>{{ patent.applicationNumber }}</strong>
+	                  </div>
+	               </div>
+	               <div class="form-group">
+	                  <div class="col-sm-4">Patent Number:</div>
+	                  <div class="col-sm-8">
+	                     <strong>{{ patent.patentNumber }}</strong>
+	                  </div>
+	               </div>
+	            </form>
+	        </div>
+	        <div class="col-md-6">
+	            <form class="form-horizontal p-20 ng-pristine ng-valid">
+	               <div class="form-group">
+	                  <div class="col-sm-4">Status:</div>
+	                  <div class="col-sm-8">
+	                     <strong>{{ statusOptions[patent.patentStatus].name }}</strong>
+	                  </div>
+	               </div>
+	               <div class="form-group">
+	                  <div class="col-sm-4">Status Date:</div>
+	                  <div class="col-sm-8">
+	                     <strong>{{ patent.statusDate | date }}</strong>
+	                  </div>
+	               </div>
+	               <div class="form-group">
+	                  <div class="col-sm-4">Due Date:</div>
+	                  <div class="col-sm-8">
+	                     <strong>{{ patent.dueDate | date }}</strong>
+	                  </div>
+	               </div>
+	               <div class="form-group">
+	                  <div class="col-sm-4">Second Due Date:</div>
+	                  <div class="col-sm-8">
+	                     <strong>{{ patent.secondDueDate | date }}</strong>
+	                  </div>
+	               </div>
+	               <div class="form-group">
+	                  <div class="col-sm-4">Third Due Date</div>
+	                  <div class="col-sm-8">
+	                     <strong>{{ patent.thirdDueDate | date }}</strong>
+	                  </div>
+	               </div>
+	               <div class="form-group">
+	                  <div class="col-sm-4">Comments</div>
+	                  <div class="col-sm-8">
+	                     <strong>{{ patent.comments }}</strong>
+	                  </div>
+	               </div>
+	            </form>
+	        </div>
+        </div>
+        <div class="panel-footer">Created on {{patent.created | date:'mediumDate'}} by {{patent.user.displayName}}</div>
+      </div>
+      <!-- END panel-->
+   </div>
+</div>
+

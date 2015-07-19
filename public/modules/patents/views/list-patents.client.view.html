@@ -1,36 +1,89 @@
-<section data-ng-controller="PatentsController" data-ng-init="find()">
+<!-- <section data-ng-controller="PatentsController" data-ng-init="find()">
     <div class="page-header">
         <h1>Patents</h1>
     </div>
-    <table class='table table-striped table-hover table-condensed table-bordered'>
-      <thead>
-        <tr>
-          <th>Owner</th>
-          <th>Country</th>
-          <th>Application Number</th>
-          <th>Patent Number</th>
-          <th>Patent Status</th>
-          <th>Status Date</th>
-          <th>Due Date</th>
-          <th>Second Due Date</th>
-          <th>Third Due Date</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr ng-repeat="patent in patents" ng-click="listItemClick(patent._id);" >
-            <td>{{ patent.owner }}</td>
-            <td>{{ patent.country }}</td>
-            <td>{{ patent.applicationNumber }}</td>
-            <td>{{ patent.patentNumber }}</td>
-            <td>{{ statusOptions[patent.patentStatus].name }}</td>
-            <td>{{ patent.statusDate | date }}</td>
-            <td>{{ patent.dueDate | date }}</td>
-            <td>{{ patent.secondDueDate | date }}</td>
-            <td>{{ patent.thirdDueDate | date }}</td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="list-group">
+        <a data-ng-repeat="patent in patents" data-ng-href="#!/patents/{{patent._id}}" class="list-group-item">
+			<small class="list-group-item-text">
+				Posted on
+				<span data-ng-bind="patent.created | date:'medium'"></span>
+				by
+				<span data-ng-bind="patent.user.displayName"></span>
+			</small>
+			<h4 class="list-group-item-heading" data-ng-bind="patent.name"></h4>
+        </a>
+    </div>
     <div class="alert alert-warning text-center" data-ng-hide="!patents.$resolved || patents.length">
     	No Patents yet, why don't you <a href="/#!/patents/create">create one</a>?
     </div>
-</section>
+</section> -->
+
+
+
+<h3>Patents
+    <ul class="breadcrumb">
+      <li><a ui-sref="app.home">Home</a>
+      </li>
+      <li ng-repeat="state in $state.$current.path" ng-switch="$last" ng-if="!state.abstract" ng-class="{active: $last}"><a ng-switch-when="false" href="#{{state.url.format($stateParams)}}">{{state.title}}</a>
+         <span ng-switch-when="true">{{state.title}}</span>
+      </li>
+    </ul>
+</h3>
+<!-- <section data-ng-controller="PatentsController" data-ng-init="find()">
+    <div class="list-group">
+        <a data-ng-repeat="patent in patents" data-ng-href="#!/patents/{{patent._id}}" class="list-group-item">
+            <small class="list-group-item-text">
+                Posted on
+                <span data-ng-bind="patent.created | date:'mediumDate'"></span>
+                by
+                <span data-ng-bind="patent.user.displayName"></span>
+            </small>
+            <h4 class="list-group-item-heading" data-ng-bind="patent.owner"></h4>
+            <p class="list-group-item-text" data-ng-bind="patent.author"></p>
+        </a>
+    </div>
+    <h4 class="alert alert-purple text-center pv-lg" data-ng-if="patents.$resolved && !patents.length">
+        No patents yet, why don't you <a href="/#!/patents/create" class="text-yellow">create one</a>?
+    </h4>
+</section> -->
+
+
+
+<div class="panel panel-default">
+<!--    <div class="panel-heading">Datatables |
+      <small>ngRepeat + ngResource</small>
+   </div> -->
+   <div class="panel-body">
+      <div data-ng-controller="PatentsController" data-ng-init="find()">
+        <table class='table table-striped table-hover table-condensed'>
+          <thead>
+            <tr>
+              <th>Owner</th>
+              <th>Country</th>
+              <th>Application Number</th>
+              <th>Patent Number</th>
+              <th>Patent Status</th>
+              <th>Status Date</th>
+              <th>Due Date</th>
+              <th>Second Due Date</th>
+              <th>Third Due Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="patent in patents" ng-click="listItemClick(patent._id);" >
+                <td>{{ patent.owner }}</td>
+                <td>{{ patent.country }}</td>
+                <td>{{ patent.applicationNumber }}</td>
+                <td>{{ patent.patentNumber }}</td>
+                <td>{{ statusOptions[patent.patentStatus].name }}</td>
+                <td>{{ patent.statusDate | date }}</td>
+                <td>{{ patent.dueDate | date }}</td>
+                <td>{{ patent.secondDueDate | date }}</td>
+                <td>{{ patent.thirdDueDate | date }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+   </div>
+</div>
+

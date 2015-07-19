@@ -13,7 +13,7 @@ var TrademarkSchema = new Schema({
 	owner: {
 		type: String,
 		default: '',
-		required: 'Please fill Trademark name',
+		required: 'Please fill Trademark owner',
 		trim: true
 	},
 	mark: {
