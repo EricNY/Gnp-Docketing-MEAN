@@ -1,6 +1,9 @@
+var clockLogger = function() {
 
-var clockLogger = function(){
-	console.log('TESTING CLOCK !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+	console.log( 'TESTING CLOCK !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!' );
+
 };
+
 clockLogger();
-setInterval(clockLogger, 2000);
+
+setInterval( clockLogger, 2000 );
