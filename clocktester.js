@@ -16,7 +16,7 @@ var createEmail = function(patentCheck, patentContent, trademarkCheck, trademark
 
 		transporter.sendMail({
 			from: 'info@gandplaw.com',
-			to: 'ericabt@gmail.com',
+			to: 'ericabt@gmail.com, docketing@gandplaw.com',
 			subject: 'hello',
 			text: content
 		});
