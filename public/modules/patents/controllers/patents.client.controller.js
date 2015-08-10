@@ -1,8 +1,5 @@
 'use strict';
 
-// ###################################
-// Good idea to split this into separate controllers?
-
 // Patents controller
 angular.module('patents').controller('PatentsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Patents',
 	function($scope, $stateParams, $location, Authentication, Patents) {
@@ -83,7 +80,6 @@ angular.module('patents').controller('PatentsController', ['$scope', '$statePara
 
 		// Update existing Patent
 		$scope.update = function() {
-
 			var patent = $scope.patent;
 
 			patent.$update(function() {
@@ -105,14 +101,15 @@ angular.module('patents').controller('PatentsController', ['$scope', '$statePara
 			});
 		};
 
-		// direct to show page
-		$scope.listItemClick = function(patentId) {
-			location.href = '#!/patents/' + patentId;
-		};
+    // direct to show page
+    $scope.listItemClick = function(patentId) {
+      location.href = '#!/patents/' + patentId;
+    };
 
 		$scope.getDueDate = function(month, year, day, month_offset, year_offset){
-				var dueDateMonth = month + month_offset;
+				var dueDateMonth = month + month_offset +1;
 				var dueDateYear = year + year_offset;
+				var dueDateDay = day + 1;
 
 				if (dueDateMonth > 12) {
 					dueDateMonth = dueDateMonth % 12;
@@ -122,64 +119,67 @@ angular.module('patents').controller('PatentsController', ['$scope', '$statePara
 					dueDateMonth = dueDateMonth.toString();
 					dueDateMonth = '0' + dueDateMonth;
 				}
-				if (day < 10) {
-					day = day.toString();
-					day = '0' + day;
+				if (dueDateDay < 10) {
+					dueDateDay = dueDateDay.toString();
+					dueDateDay = '0' + dueDateDay;
 				}
 				dueDateYear = dueDateYear.toString();
 				dueDateMonth = dueDateMonth.toString();
-				day = day.toString();
+				dueDateDay = dueDateDay.toString();
 
-				return dueDateYear + '-' + dueDateMonth + '-' + day;
+				return dueDateYear + '-' + dueDateMonth + '-' + dueDateDay;
 		};
 
 		// once a statusDate is selected the due dates are 
 		// automatically calculated depending on what status is selected
-		$scope.calculateDueDates = function (selectedOption) {
-			console.log(selectedOption);
+		$scope.calculateDueDates = function (selectedOption, toggle) {
+			var that = this;
+			var month, year, day;
 
-			var dateParts = this.statusDate.match(/(\d{4})\-(\d{2})\-(\d{2})/);
-			var month = +dateParts[2];
-			var year = +dateParts[1];
-			var day = +dateParts[3];
+			if (toggle === 'edit') {
+				that = this.patent;
+			}
+
+			month = that.statusDate.getUTCMonth();
+			year = that.statusDate.getUTCFullYear();
+			day = that.statusDate.getUTCDate();
 
 			switch(selectedOption) {
 				case 0: // Provisional - 1 year
-					this.dueDate = $scope.getDueDate(month, year, day, 0, 1);
+					that.dueDate = new Date( $scope.getDueDate(month, year, day, 0, 1) ).toISOString();
 					break;
 				case 1: // notice to file missing parts - 2 mo
-					this.dueDate = $scope.getDueDate(month, year, day, 2, 0);
+					that.dueDate = new Date( $scope.getDueDate(month, year, day, 2, 0) );
 					break;
 				case 2: // Restriction Requirement - 2 mo
-					this.dueDate = $scope.getDueDate(month, year, day, 2, 0);
+					that.dueDate = new Date( $scope.getDueDate(month, year, day, 2, 0) );
 					break;
 				case 3: // office action - 3 mo
-					this.dueDate = $scope.getDueDate(month, year, day, 3, 0);
+					that.dueDate = new Date( $scope.getDueDate(month, year, day, 3, 0) );
 					break;
 				case 4: // Extension 1 - 1 mo
-					this.dueDate = $scope.getDueDate(month, year, day, 1, 0);
+					that.dueDate = new Date( $scope.getDueDate(month, year, day, 1, 0) );
 					break;
 				case 5: // Extension 2 - 1 mo
-					this.dueDate = $scope.getDueDate(month, year, day, 1, 0);
+					that.dueDate = new Date( $scope.getDueDate(month, year, day, 1, 0) );
 					break;
 				case 6: // Extension 3 - 1 mo
-					this.dueDate = $scope.getDueDate(month, year, day, 1, 0);
+					that.dueDate = new Date( $scope.getDueDate(month, year, day, 1, 0) );
 					break;
 				case 7: // NOA - 3 mo
-					this.dueDate = $scope.getDueDate(month, year, day, 3, 0);
+					that.dueDate = new Date( $scope.getDueDate(month, year, day, 3, 0) );
 					break;
 				case 8: // issued - 3yr --> 7yr --> 11yr
-					this.dueDate = $scope.getDueDate(month, year, day, 0, 3);
-					this.secondDueDate = $scope.getDueDate(month, year, day, 0, 7);
-					this.thirdDueDate = $scope.getDueDate(month, year, day, 0, 11);
+					that.dueDate = new Date( $scope.getDueDate(month, year, day, 0, 3) );
+					that.secondDueDate = new Date( $scope.getDueDate(month, year, day, 0, 7) );
+					that.thirdDueDate = new Date( $scope.getDueDate(month, year, day, 0, 11) ).toISOString();
 					break;
 				case 9: // Design - 14 yrs
-					this.dueDate = $scope.getDueDate(month, year, day, 0, 14);
+					that.dueDate = new Date( $scope.getDueDate(month, year, day, 0, 14) );
 					break;
 				default: // Utility - 20 yrs
-					this.dueDate = $scope.getDueDate(month, year, day, 0, 20);
+					that.dueDate = new Date( $scope.getDueDate(month, year, day, 0, 20) );
 			}
 		};
-
 	}
 ]);

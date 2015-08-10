@@ -1,24 +1,30 @@
+<h3>Add Copyright
+    <ul class="breadcrumb">
+      <li><a ui-sref="app.home">Home</a>
+      </li>
+      <li ng-repeat="state in $state.$current.path" ng-switch="$last" ng-if="!state.abstract" ng-class="{active: $last}"><a ng-switch-when="false" href="#{{state.url.format($stateParams)}}">{{state.title}}</a>
+         <span ng-switch-when="true">{{state.title}}</span>
+      </li>
+    </ul>
+</h3>
 <section data-ng-controller="CopyrightsController">
-    <div class="page-header">
-        <h1>New Copyright</h1>
-    </div>
     <div class="col-md-12">
-        <form data-ng-submit="create()" novalidate>
+        <form name="copyrightForm" data-ng-submit="create()" novalidate>
             <fieldset>
                 <div class="row">
                     <div class="col-sm-6">
-                        <div class="form-group">
+                        <div class="form-group" ng-class="{ 'has-error': copyrightForm.title.$dirty && copyrightForm.title.$invalid }">
                             <label class="control-label" for="owner">Owner</label>
                             <div class="controls">
-                                <input type="text" data-ng-model="owner" id="owner" class="form-control" placeholder="Owner" required>
+                                <input name="owner" type="text" data-ng-model="owner" id="owner" class="form-control" required>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label" for="author">Author</label>
                             <div class="controls">
-                                <input type="text" data-ng-model="author" id="author" class="form-control" placeholder="Author" required>
+                                <input name="author" type="text" data-ng-model="author" id="author" class="form-control">
                             </div>
-                        </div>
+                        </div> 
                         <div class="form-group">
                             <label class="control-label" for="worktype">Work Type</label>
                             <div class="controls">
@@ -30,7 +36,7 @@
                         <div class="form-group">
                             <label class="control-label" for="worktitle">Work Title</label>
                             <div class="controls">
-                                <input type="text" data-ng-model="workTitle" id="worktitle" class="form-control" placeholder="Work Title" required>
+                                <input name="worktitle" type="text" data-ng-model="workTitle" id="worktitle" class="form-control">
                             </div>
                         </div>
                     </div>
@@ -50,23 +56,23 @@
                         <div class="form-group">
                             <label class="control-label" for="registrationnumber">Registration Number</label>
                             <div class="controls">
-                                <input type="text" data-ng-model="registrationNumber" id="registrationnumber" class="form-control" placeholder="Registration Number" required>
+                                <input name="registrationnumber" type="text" data-ng-model="registrationNumber" id="registrationnumber" class="form-control">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label" for="comments">Comments</label>
                             <div class="controls">
-                                <input type="text" data-ng-model="comments" id="comments" class="form-control" placeholder="Registration Number" required>
+                                <textarea name="comments" data-ng-model="comments" id="comments" class="form-control" cols="30" rows="4"></textarea>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <input type="submit" class="btn btn-default">
+                <div class="form-group mt">
+                    <input type="submit" class="btn btn-success">
                 </div>
-				<div data-ng-show="error" class="text-danger">
-					<strong data-ng-bind="error"></strong>
-				</div>
+                <div data-ng-show="error" class="text-danger">
+                    <strong data-ng-bind="error"></strong>
+                </div>
             </fieldset>
         </form>
     </div>

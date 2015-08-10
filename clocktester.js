@@ -1,9 +1,131 @@
+'use strict';
+
+var nodemailer = require('nodemailer');
+
+var transporter = nodemailer.createTransport();
+
+var createEmail = function(patentCheck, patentContent, trademarkCheck, trademarkContent ){
+
+	if (patentCheck && trademarkCheck) {
+		var content = 'The following patents have due dates over the next two weeks: \n' +
+			patentContent + '\n\n' +
+			'The following trademarks have due dates over the next two weeks: \n' +
+			trademarkContent;
+
+		console.log( content );
+
+		transporter.sendMail({
+			from: 'info@gandplaw.com',
+			to: 'ericabt@gmail.com',
+			subject: 'hello',
+			text: content
+		});
+
+		return content;
+	}
+
+	return 0;
+
+};
+
+// remember to close db!
+// also will we still get reminder for past dates?
 var clockLogger = function() {
 
-	console.log( 'TESTING CLOCK !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!' );
+	var MongoClient = require('mongodb').MongoClient;
+
+	// Open the connection to the server
+	MongoClient.connect('mongodb://heroku_jvj94jlh:27h0ul5514odabi9p92a6fhiaq@ds031627.mongolab.com:31627/heroku_jvj94jlh', function(err, db) {
+		var patentFilings = [],
+				trademarkFilings = [],
+				emailContent = "ec",
+				patentCheck = false,
+				trademarkCheck = false;
+
+		if(err) throw err;
+
+		db.collection('patents').find().toArray(function (err, docs) {
+
+			var today = new Date(),
+					monthFromToday = today.getTime() + 2419200000;
+			// docs is an Array of documents here
+			for (var i = 0; i <= docs.length -1; i++) {
+
+				var dueDateMilliseconds = docs[i].dueDate,
+						secondDueDateMilliseconds = docs[i].secondDueDate,
+						thirdDueDateMilliseconds = docs[i].thirdDueDate;
+
+				if ( dueDateMilliseconds && dueDateMilliseconds.getTime() < monthFromToday && dueDateMilliseconds.getTime() >= today.getTime() ) {
+
+					patentFilings.push( docs[i].owner + " " + docs[i].nature + " " + docs[i].applicationNumber );
+
+				}
+				// Mon Aug 24 2015
+				if ( secondDueDateMilliseconds && secondDueDateMilliseconds.getTime() < monthFromToday && secondDueDateMilliseconds.getTime() >= today.getTime() ) {
+
+					patentFilings.push( docs[i].owner + " " + docs[i].nature + " " + docs[i].applicationNumber );
+
+				}
+				// Fri Sep 18 2015
+				if ( thirdDueDateMilliseconds && thirdDueDateMilliseconds.getTime() < monthFromToday && thirdDueDateMilliseconds.getTime() >= today.getTime() ) {
+
+					patentFilings.push( docs[i].owner + " " + docs[i].nature + " " + docs[i].applicationNumber );
+
+				}
+
+			}
+
+			patentCheck = true;
+			createEmail( patentCheck, patentFilings.join('\n'), trademarkCheck, trademarkFilings.join('\n') );
+			if (trademarkCheck) {
+				db.close();
+			};
+		});
+
+
+		db.collection('trademarks').find().toArray(function (err, docs) {
+
+			var today = new Date(),
+					monthFromToday = today.getTime() + 2419200000;
+			// docs is an Array of documents here
+			for (var i = 0; i <= docs.length -1; i++) {
+
+				var dueDateMilliseconds = docs[i].dueDate,
+						secondDueDateMilliseconds = docs[i].secondDueDate;
+
+				if ( dueDateMilliseconds && dueDateMilliseconds.getTime() < monthFromToday && dueDateMilliseconds.getTime() >= today.getTime() ) {
+
+					trademarkFilings.push(  docs[i].owner + " " + docs[i].mark + " " + docs[i].applicationNumber );
+
+				}
+				// Mon Aug 24 2015
+				if ( secondDueDateMilliseconds && secondDueDateMilliseconds.getTime() < monthFromToday && secondDueDateMilliseconds.getTime() >= today.getTime() ) {
+
+					trademarkFilings.push( docs[i].owner + " " + docs[i].mark + " " + docs[i].applicationNumber );
+
+				}
+
+			}
+
+			trademarkCheck = true;
+			createEmail( patentCheck, patentFilings.join('\n'), trademarkCheck, trademarkFilings.join('\n') );
+			if (patentCheck) {
+				db.close();
+			}
+
+		});
+
+
+		// Declare success
+		console.dir("success!");
+	});
 
 };
 
 clockLogger();
 
-setInterval( clockLogger, 2000 );
+setInterval( clockLogger, 3600000 );
+
+
+
+

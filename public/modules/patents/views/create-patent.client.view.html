@@ -1,52 +1,58 @@
+<h3>Add Patent
+    <ul class="breadcrumb">
+      <li><a ui-sref="app.home">Home</a>
+      </li>
+      <li ng-repeat="state in $state.$current.path" ng-switch="$last" ng-if="!state.abstract" ng-class="{active: $last}"><a ng-switch-when="false" href="#{{state.url.format($stateParams)}}">{{state.title}}</a>
+         <span ng-switch-when="true">{{state.title}}</span>
+      </li>
+    </ul>
+</h3>
 <section data-ng-controller="PatentsController">
-    <div class="page-header">
-        <h1>New Patent</h1>
-    </div>
     <div class="col-md-12">
-        <form data-ng-submit="create()" novalidate>
+        <form name="patentForm" data-ng-submit="create()" novalidate>
             <fieldset>
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label class="control-label" for="owner">Owner</label>
                             <div class="controls">
-                                <input type="text" data-ng-model="owner" id="owner" class="form-control" placeholder="Owner" required>
+                                <input type="text" data-ng-model="owner" id="owner" class="form-control" required>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label" for="nature">Nature</label>
                             <div class="controls">
-                                <input type="text" data-ng-model="nature" id="nature" class="form-control" placeholder="Nature" required>
+                                <input type="text" data-ng-model="nature" id="nature" class="form-control">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label" for="country">Country</label>
                             <div class="controls">
-                                <input type="text" data-ng-model="country" id="country" class="form-control" placeholder="Country" required>
+                                <input type="text" data-ng-model="country" id="country" class="form-control">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label" for="filingdate">Filing Date</label>
                             <div class="controls">
-                                <input type="date" data-ng-model="filingDate" id="filingdate" class="form-control" placeholder="Filing Date" required>
+                                <input type="date" data-ng-model="filingDate" id="filingdate" class="form-control">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label" for="issuedate">Issue Date</label>
                             <div class="controls">
-                                <input type="date" data-ng-model="issueDate" id="issuedate" class="form-control" placeholder="Issue Date" required>
+                                <input type="date" data-ng-model="issueDate" id="issuedate" class="form-control">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label" for="applicationnumber">Application No.</label>
                             <div class="controls">
-                                <input type="text" data-ng-model="applicationNumber" id="applicationnumber" class="form-control" placeholder="Application Number" required>
+                                <input type="text" data-ng-model="applicationNumber" id="applicationnumber" class="form-control">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label" for="patentnumber">Patent No.</label>
                             <div class="controls">
-                                <input type="text" data-ng-model="patentNumber" id="patentnumber" class="form-control" placeholder="Patent Number" required>
+                                <input type="text" data-ng-model="patentNumber" id="patentnumber" class="form-control">
                             </div>
                         </div>
                     </div>
@@ -62,63 +68,42 @@
                         <div class="form-group">
                             <label class="control-label" for="statusdate">Status Date</label>
                             <div class="controls">
-                                <input type="date"  ng-change="calculateDueDates(patentStatus)" data-ng-model="statusDate" id="statusdate" class="form-control" placeholder="Status Date" required>
+                                <input type="date"  ng-change="calculateDueDates(patentStatus, 'create')" data-ng-model="statusDate" id="statusdate" class="form-control">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label" for="duedate">Due Date</label>
                             <div class="controls">
-                                <input type="date" data-ng-model="dueDate" id="duedate" class="form-control" placeholder="Due Date" required>
+                                <input type="date" data-ng-model="dueDate" id="duedate" class="form-control">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label" for="secondduedate">2nd Due Date</label>
                             <div class="controls">
-                                <input type="date" data-ng-model="secondDueDate" id="secondduedate" class="form-control" placeholder="2nd Due Date" required>
+                                <input type="date" data-ng-model="secondDueDate" id="secondduedate" class="form-control">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label" for="thirdduedate">3rd Due Date</label>
                             <div class="controls">
-                                <input type="date" data-ng-model="thirdDueDate" id="thirdduedate" class="form-control" placeholder="3rd Due Date" required>
+                                <input type="date" data-ng-model="thirdDueDate" id="thirdduedate" class="form-control">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label" for="comments">Comments</label>
                             <div class="controls">
-                                <textarea cols="40" rows="4" type="text" data-ng-model="comments" id="comments" class="form-control" placeholder="Comments" required></textarea>
+                                <textarea cols="40" rows="4" type="text" data-ng-model="comments" id="comments" class="form-control"></textarea>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <input type="submit" class="btn btn-default">
+                <div class="form-group mt">
+                    <input type="submit" class="btn btn-success">
                 </div>
-				<div data-ng-show="error" class="text-danger">
-					<strong data-ng-bind="error"></strong>
-				</div>
+                <div data-ng-show="error" class="text-danger">
+                    <strong data-ng-bind="error"></strong>
+                </div>
             </fieldset>
         </form>
     </div>
 </section>
-
-
-
-<!-- 
-Provisional Application  1 years
-
-Notice to File Missing Parts- 2 months out
-Restriction requirement - 2 months 
-
-Office action > 3 months
-NOA-3 months
-
-Extension 1-1 month
-Extension 2-1 month
-Extension 3-1 month
-
-
-
-Design Patent - 14 years
-
-Utility Patent -20 years -->

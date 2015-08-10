@@ -66,14 +66,12 @@ module.exports = function(db) {
 
 	// Environment dependent middleware
 	if (process.env.NODE_ENV === 'development') {
-		console.log('IN DEVELOPMENT MODE!!', config);
 		// Enable logger (morgan)
 		app.use(morgan('dev'));
 
 		// Disable views cache
 		app.set('view cache', false);
 	} else if (process.env.NODE_ENV === 'production') {
-		console.log('IN PRODUCTION MODE!!**!!', config);
 		app.locals.cache = 'memory';
 	}
 

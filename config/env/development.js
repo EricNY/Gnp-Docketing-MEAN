@@ -1,10 +1,9 @@
 'use strict';
 
 module.exports = {
-	// db: 'mongodb://admin:andrea100!@ds049568.mongolab.com:49568/gnp-docketing',
-	db: 'mongodb://localhost/docketing-system-dev',
+	db: 'mongodb://localhost/angle-dev',
 	app: {
-		title: 'docketing-system - Development Environment'
+		title: 'Angle - Development Environment'
 	},
 	facebook: {
 		clientID: process.env.FACEBOOK_ID || 'APP_ID',
