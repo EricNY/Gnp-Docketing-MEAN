@@ -35,7 +35,7 @@ var clockLogger = function() {
 	var MongoClient = require('mongodb').MongoClient;
 
 	// Open the connection to the server
-	MongoClient.connect('mongodb://heroku_jvj94jlh:27h0ul5514odabi9p92a6fhiaq@ds031627.mongolab.com:31627/heroku_jvj94jlh', function(err, db) {
+	MongoClient.connect('mongodb://heroku_ckn8tvb3:e057opa9lgj1t46omej85urd1n@ds047642.mongolab.com:47642/heroku_ckn8tvb3', function(err, db) {
 		var patentFilings = [],
 				trademarkFilings = [],
 				emailContent = "ec",
