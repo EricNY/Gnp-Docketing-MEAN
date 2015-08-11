@@ -47,7 +47,7 @@ var clockLogger = function() {
 		db.collection('patents').find().toArray(function (err, docs) {
 
 			var today = new Date(),
-					monthFromToday = today.getTime() + 2419200000;
+					monthFromToday = today.getTime() + 58060800000;
 			// docs is an Array of documents here
 			for (var i = 0; i <= docs.length -1; i++) {
 
@@ -57,19 +57,19 @@ var clockLogger = function() {
 
 				if ( dueDateMilliseconds && dueDateMilliseconds.getTime() < monthFromToday && dueDateMilliseconds.getTime() >= today.getTime() ) {
 
-					patentFilings.push( docs[i].owner + " " + docs[i].nature + " " + docs[i].applicationNumber );
+					patentFilings.push( docs[i].owner + ' ' + docs[i].nature + ' ' + docs[i].applicationNumber + ' ' + docs[i].dueDate );
 
 				}
 				// Mon Aug 24 2015
 				if ( secondDueDateMilliseconds && secondDueDateMilliseconds.getTime() < monthFromToday && secondDueDateMilliseconds.getTime() >= today.getTime() ) {
 
-					patentFilings.push( docs[i].owner + " " + docs[i].nature + " " + docs[i].applicationNumber );
+					patentFilings.push( docs[i].owner + ' ' + docs[i].nature + ' ' + docs[i].applicationNumber + ' ' + docs[i].secondDueDate );
 
 				}
 				// Fri Sep 18 2015
 				if ( thirdDueDateMilliseconds && thirdDueDateMilliseconds.getTime() < monthFromToday && thirdDueDateMilliseconds.getTime() >= today.getTime() ) {
 
-					patentFilings.push( docs[i].owner + " " + docs[i].nature + " " + docs[i].applicationNumber );
+					patentFilings.push( docs[i].owner + ' ' + docs[i].nature + ' ' + docs[i].applicationNumber + ' ' + docs[i].thirdDueDate );
 
 				}
 
@@ -86,7 +86,7 @@ var clockLogger = function() {
 		db.collection('trademarks').find().toArray(function (err, docs) {
 
 			var today = new Date(),
-					monthFromToday = today.getTime() + 2419200000;
+					monthFromToday = today.getTime() + 58060800000;
 			// docs is an Array of documents here
 			for (var i = 0; i <= docs.length -1; i++) {
 
@@ -95,13 +95,13 @@ var clockLogger = function() {
 
 				if ( dueDateMilliseconds && dueDateMilliseconds.getTime() < monthFromToday && dueDateMilliseconds.getTime() >= today.getTime() ) {
 
-					trademarkFilings.push(  docs[i].owner + " " + docs[i].mark + " " + docs[i].applicationNumber );
+					trademarkFilings.push(  docs[i].owner + ' ' + docs[i].mark + ' ' + docs[i].applicationNumber + ' ' + docs[i].dueDate );
 
 				}
 				// Mon Aug 24 2015
 				if ( secondDueDateMilliseconds && secondDueDateMilliseconds.getTime() < monthFromToday && secondDueDateMilliseconds.getTime() >= today.getTime() ) {
 
-					trademarkFilings.push( docs[i].owner + " " + docs[i].mark + " " + docs[i].applicationNumber );
+					trademarkFilings.push( docs[i].owner + ' ' + docs[i].mark + ' ' + docs[i].applicationNumber + ' ' + docs[i].secondDueDate );
 
 				}
 
