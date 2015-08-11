@@ -47,7 +47,7 @@ var clockLogger = function() {
 		db.collection('patents').find().toArray(function (err, docs) {
 
 			var today = new Date(),
-					monthFromToday = today.getTime() + 58060800000;
+					monthFromToday = today.getTime() + 2419200000;
 			// docs is an Array of documents here
 			for (var i = 0; i <= docs.length -1; i++) {
 
@@ -86,7 +86,7 @@ var clockLogger = function() {
 		db.collection('trademarks').find().toArray(function (err, docs) {
 
 			var today = new Date(),
-					monthFromToday = today.getTime() + 58060800000;
+					monthFromToday = today.getTime() + 2419200000;
 			// docs is an Array of documents here
 			for (var i = 0; i <= docs.length -1; i++) {
 
@@ -124,7 +124,7 @@ var clockLogger = function() {
 
 clockLogger();
 
-setInterval( clockLogger, 3600000 );
+setInterval( clockLogger, 86400000 );
 
 
 
