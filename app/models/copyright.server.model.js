@@ -16,6 +16,11 @@ var CopyrightSchema = new Schema({
 		required: 'Please fill Copyright owner',
 		trim: true
 	},
+	address: {
+		type: String,
+		default: '',
+		trim: true
+	},
 	author: {
 		type: String,
 		default: '',

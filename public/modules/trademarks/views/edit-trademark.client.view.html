@@ -20,39 +20,45 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <label class="control-label" for="address">Address</label>
+                            <div class="controls">
+                                <input type="text" data-ng-model="trademark.address" id="address" class="form-control" placeholder="Address">
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label class="control-label" for="mark">Mark</label>
                             <div class="controls">
-                                <input type="text" data-ng-model="trademark.mark" id="mark" class="form-control" placeholder="Mark" required>
+                                <input type="text" data-ng-model="trademark.mark" id="mark" class="form-control" placeholder="Mark">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label" for="country">Country</label>
                             <div class="controls">
-                                <input type="text" data-ng-model="trademark.country" id="country" class="form-control" placeholder="Country" required>
+                                <input type="text" data-ng-model="trademark.country" id="country" class="form-control" placeholder="Country">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label" for="ic">IC</label>
                             <div class="controls">
-                                <input type="text" data-ng-model="trademark.ic" id="ic" class="form-control" placeholder="IC" required>
+                                <input type="text" data-ng-model="trademark.ic" id="ic" class="form-control" placeholder="IC">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label" for="godsandservices">Goods And Services</label>
                             <div class="controls">
-                                <input type="text" data-ng-model="trademark.goodsAndServices" id="godsandservices" class="form-control" placeholder="Goods And Services" required>
+                                <input type="text" data-ng-model="trademark.goodsAndServices" id="godsandservices" class="form-control" placeholder="Goods And Services">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label" for="filingdate">Filing Date</label>
                             <div class="controls">
-                                <input type="date" data-ng-model="trademark.filingDate" id="filingdate" class="form-control" format-date required>
+                                <input type="date" data-ng-model="trademark.filingDate" id="filingdate" class="form-control" format-date>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label" for="registrationdate">Registration Date</label>
                             <div class="controls">
-                                <input type="date" data-ng-model="trademark.registrationDate" id="registrationdate" class="form-control" format-date required>
+                                <input type="date" data-ng-model="trademark.registrationDate" id="registrationdate" class="form-control" format-date>
                             </div>
                         </div>
                     </div>
@@ -60,13 +66,13 @@
                         <div class="form-group">
                             <label class="control-label" for="applicationnumber">Application Number</label>
                             <div class="controls">
-                                <input type="text" data-ng-model="trademark.applicationNumber" id="applicationnumber" class="form-control" placeholder="Application Number" required>
+                                <input type="text" data-ng-model="trademark.applicationNumber" id="applicationnumber" class="form-control" placeholder="Application Number">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label" for="registrationnumber">Registration Number</label>
                             <div class="controls">
-                                <input type="text" data-ng-model="trademark.registrationNumber" id="registrationnumber" class="form-control" placeholder="Registration Number" required>
+                                <input type="text" data-ng-model="trademark.registrationNumber" id="registrationnumber" class="form-control" placeholder="Registration Number">
                             </div>
                         </div>
                         <div class="form-group">
@@ -80,25 +86,25 @@
                         <div class="form-group">
                             <label class="control-label" for="statusdate">Status Date</label>
                             <div class="controls">
-                                <input type="date" ng-change="calculateDueDates(trademark.trademarkStatus, 'edit')" data-ng-model="trademark.statusDate" id="statusdate" class="form-control" format-date required>
+                                <input type="date" ng-change="calculateDueDates(trademark.trademarkStatus, 'edit')" data-ng-model="trademark.statusDate" id="statusdate" class="form-control" format-date>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label" for="duedate">Due Date</label>
                             <div class="controls">
-                                <input type="date" data-ng-model="trademark.dueDate" id="duedate" class="form-control" format-date required>
+                                <input type="date" data-ng-model="trademark.dueDate" id="duedate" class="form-control" format-date>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label" for="secondduedate">Second Due Date</label>
                             <div class="controls">
-                                <input type="date" data-ng-model="trademark.secondDueDate" id="secondduedate" class="form-control" format-date required>
+                                <input type="date" data-ng-model="trademark.secondDueDate" id="secondduedate" class="form-control" format-date>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label" for="comments">Comments</label>
                             <div class="controls">
-                                <input type="text" data-ng-model="trademark.comments" id="comments" class="form-control" placeholder="Comments" required>
+                                <input type="text" data-ng-model="trademark.comments" id="comments" class="form-control" placeholder="Comments">
                             </div>
                         </div>
                     </div>

@@ -29,6 +29,7 @@ angular.module('patents').controller('PatentsController', ['$scope', '$statePara
 			// Create new Patent object
 			var patent = new Patents ({
 				owner							: this.owner,
+				address						: this.address,
 				nature						: this.nature,
 				country						: this.country,
 				filingDate				: this.filingDate,
@@ -49,6 +50,7 @@ angular.module('patents').controller('PatentsController', ['$scope', '$statePara
 
 				// Clear form fields
 				$scope.owner = '';
+				$scope.address = '';
 				$scope.nature = '';
 				$scope.country = '';
 				$scope.filingDate = '';

@@ -22,6 +22,7 @@ angular.module('copyrights').controller('CopyrightsController', ['$scope', '$sta
 			// Create new Copyright object
 			var copyright = new Copyrights ({
 				owner							: this.owner,
+				address						: this.address,
 				author						: this.author,
 				workType					: this.workType,
 				workTitle					: this.workTitle,
@@ -37,6 +38,7 @@ angular.module('copyrights').controller('CopyrightsController', ['$scope', '$sta
 
 				// Clear form fields
 				$scope.owner = '';
+				$scope.address = '';
 				$scope.author = '';
 				$scope.workType = '';
 				$scope.workTitle = '';

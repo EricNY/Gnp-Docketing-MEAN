@@ -29,6 +29,7 @@ angular.module('trademarks').controller('TrademarksController', ['$scope', '$sta
 			// Create new Trademark object
 			var trademark = new Trademarks ({
 				owner							: this.owner,
+				address						: this.address,
 				mark							: this.mark,
 				country						: this.country,
 				ic								: this.ic,
@@ -50,6 +51,7 @@ angular.module('trademarks').controller('TrademarksController', ['$scope', '$sta
 
 				// Clear form fields
 				$scope.owner = '';
+				$scope.address = '';
 				$scope.mark = '';
 				$scope.country = '';
 				$scope.ic = '';
