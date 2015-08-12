@@ -19,6 +19,11 @@ angular.module('patents').controller('PatentsController', ['$scope', '$statePara
 			{id:10, name:'Utility Patent'}
 		];
 
+		// for search feature
+		$scope.sortType     = 'owner';
+		$scope.sortReverse  = false;
+		$scope.searchPatents   = '';
+
 		// Create new Patent
 		$scope.create = function() {
 			// Create new Patent object

@@ -12,6 +12,11 @@ angular.module('copyrights').controller('CopyrightsController', ['$scope', '$sta
 			{id:3, name:'PA'}
 		];
 
+		// for search feature
+		$scope.sortType     = 'owner';
+		$scope.sortReverse  = false;
+		$scope.searchCopyrights   = '';
+
 		// Create new Copyright
 		$scope.create = function() {
 			// Create new Copyright object

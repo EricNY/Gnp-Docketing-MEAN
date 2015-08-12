@@ -19,6 +19,11 @@ angular.module('trademarks').controller('TrademarksController', ['$scope', '$sta
 			{id:10, name:'Registration Date'}
 		];
 
+		// for search feature
+		$scope.sortType     = 'owner';
+		$scope.sortReverse  = false;
+		$scope.searchTrademarks   = '';
+
 		// Create new Trademark
 		$scope.create = function() {
 			// Create new Trademark object
