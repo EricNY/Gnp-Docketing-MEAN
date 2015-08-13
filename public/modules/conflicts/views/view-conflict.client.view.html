@@ -1,0 +1,106 @@
+<!-- <section data-ng-controller="ConflictsController" data-ng-init="findOne()">
+	<div class="page-header">
+		<h1 data-ng-bind="conflict.name"></h1>
+	</div>
+	<div class="pull-right" data-ng-show="((authentication.user) && (authentication.user._id == conflict.user._id))">
+		<a class="btn btn-primary" href="/#!/conflicts/{{conflict._id}}/edit">
+			<i class="glyphicon glyphicon-edit"></i>
+		</a>
+		<a class="btn btn-primary" data-ng-click="remove();">
+			<i class="glyphicon glyphicon-trash"></i>
+		</a>
+	</div>
+	<small>
+		<em class="text-muted">
+			Posted on
+			<span data-ng-bind="conflict.created | date:'mediumDate'"></span>
+			by
+			<span data-ng-bind="conflict.user.displayName"></span>
+		</em>
+	</small>
+</section>
+ -->
+
+ <h3>
+	<div class="pull-right" data-ng-show="authentication.user._id == conflict.user._id">
+		<a class="btn btn-primary" href="/#!/conflicts/{{conflict._id}}/edit">
+			<i class="fa fa-edit"></i>
+		</a>
+		<a class="btn btn-primary" data-ng-click="remove();">
+			<i class="fa fa-trash"></i>
+		</a>
+	</div>
+	{{conflict.owner}}
+	<ul class="breadcrumb">
+	  <li><a ui-sref="app.home">Home</a>
+	  </li>
+	  <li ng-repeat="state in $state.$current.path" ng-switch="$last" ng-if="!state.abstract" ng-class="{active: $last}"><a ng-switch-when="false" href="#{{state.url.format($stateParams)}}">{{state.title}}</a>
+	     <span ng-switch-when="true">{{state.title}}</span>
+	  </li>
+	</ul>
+</h3>
+<section data-ng-init="findOne()">
+</section>
+
+<div class="row">
+   <div class="col-lg-12">
+      <!-- START panel-->
+      <div class="panel panel-primary">
+        <div class="panel-heading">Copyright</div>
+        <div class="panel-body">
+	        <div class="col-md-6">
+	            <form class="form-horizontal p-20 ng-pristine ng-valid">
+	               <div class="form-group">
+	                  <div class="col-sm-4">Name:</div>
+	                  <div class="col-sm-8">
+	                     <strong>{{ conflict.name }}</strong>
+	                  </div>
+	               </div>
+	               <div class="form-group">
+	                  <div class="col-sm-4">Conflict Type:</div>
+	                  <div class="col-sm-8">
+	                     <strong>{{ conflictTypeOptions[conflict.conflictType].name }}</strong>
+	                  </div>
+	               </div>
+	               <div class="form-group">
+	                  <div class="col-sm-4">Proceeding Number:</div>
+	                  <div class="col-sm-8">
+	                     <strong>{{ conflict.proceedingNumber }}</strong>
+	                  </div>
+	               </div>
+	               <div class="form-group">
+	                  <div class="col-sm-4">Registration Number:</div>
+	                  <div class="col-sm-8">
+	                     <strong>{{ conflict.registrationNumber }}</strong>
+	                  </div>
+	               </div>
+	            </form>
+	        </div>
+	        <div class="col-md-6">
+	            <form class="form-horizontal p-20 ng-pristine ng-valid">
+	               <div class="form-group">
+	                  <div class="col-sm-4">mark:</div>
+	                  <div class="col-sm-8">
+	                     <strong>{{ conflict.mark }}</strong>
+	                  </div>
+	               </div>
+	               <div class="form-group">
+	                  <div class="col-sm-4">Petitioner:</div>
+	                  <div class="col-sm-8">
+	                     <strong>{{ conflict.petitioner }}</strong>
+	                  </div>
+	               </div>
+	               <div class="form-group">
+	                  <div class="col-sm-4">Respondent:</div>
+	                  <div class="col-sm-8">
+	                     <strong>{{ conflict.respondent }}</strong>
+	                  </div>
+	               </div>
+	            </form>
+	        </div>
+        </div>
+        <div class="panel-footer">Created on {{conflict.created | date:'mediumDate'}} by {{conflict.user.displayName}}</div>
+      </div>
+      <!-- END panel-->
+   </div>
+</div>
