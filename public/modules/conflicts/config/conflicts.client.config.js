@@ -1,16 +1,3 @@
-// 'use strict';
-
-// // Configuring the Articles module
-// angular.module('conflicts').run(['Menus',
-// 	function(Menus) {
-// 		// Set top bar menu items
-// 		Menus.addMenuItem('topbar', 'Conflicts', 'conflicts', 'dropdown', '/conflicts(/create)?');
-// 		Menus.addSubMenuItem('topbar', 'conflicts', 'List Conflicts', 'conflicts');
-// 		Menus.addSubMenuItem('topbar', 'conflicts', 'New Conflict', 'conflicts/create');
-// 	}
-// ]);
-
-
 'use strict';
 
 // Configuring the Conflicts module

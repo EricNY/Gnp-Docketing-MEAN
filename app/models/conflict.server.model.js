@@ -10,15 +10,10 @@ var mongoose = require('mongoose'),
  * Conflict Schema
  */
 var ConflictSchema = new Schema({
-	name: {
-		type: String,
-		default: '',
-		required: 'Please fill Conflict name',
-		trim: true
-	},
 	conflictType: {
 		type: String,
 		default: '',
+		required: 'Please fill Conflict Type',
 		trim: true
 	},
 	proceedingNumber: {

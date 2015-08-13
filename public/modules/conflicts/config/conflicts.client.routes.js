@@ -1,30 +1,3 @@
-// 'use strict';
-
-// //Setting up route
-// angular.module('conflicts').config(['$stateProvider',
-// 	function($stateProvider) {
-// 		// Conflicts state routing
-// 		$stateProvider.
-// 		state('listConflicts', {
-// 			url: '/conflicts',
-// 			templateUrl: 'modules/conflicts/views/list-conflicts.client.view.html'
-// 		}).
-// 		state('createConflict', {
-// 			url: '/conflicts/create',
-// 			templateUrl: 'modules/conflicts/views/create-conflict.client.view.html'
-// 		}).
-// 		state('viewConflict', {
-// 			url: '/conflicts/:conflictId',
-// 			templateUrl: 'modules/conflicts/views/view-conflict.client.view.html'
-// 		}).
-// 		state('editConflict', {
-// 			url: '/conflicts/:conflictId/edit',
-// 			templateUrl: 'modules/conflicts/views/edit-conflict.client.view.html'
-// 		});
-// 	}
-// ]);
-
-
 'use strict';
 
 // Setting up route

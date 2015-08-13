@@ -20,7 +20,6 @@ angular.module('conflicts').controller('ConflictsController', ['$scope', '$state
 		$scope.create = function() {
 			// Create new Conflict object
 			var conflict = new Conflicts ({
-				name							: this.name,
 				conflictType			: this.conflictType,
 				proceedingNumber	: this.proceedingNumber,
 				registrationNumber: this.registrationNumber,
@@ -34,7 +33,6 @@ angular.module('conflicts').controller('ConflictsController', ['$scope', '$state
 				$location.path('conflicts/' + response._id);
 
 				// Clear form fields
-				$scope.name = '';
 				$scope.conflictType = '';
 				$scope.proceedingNumber = '';
 				$scope.registrationNumber = '';
