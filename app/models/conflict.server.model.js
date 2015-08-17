@@ -41,6 +41,16 @@ var ConflictSchema = new Schema({
 		default: '',
 		trim: true
 	},
+	opposingCounselName: {
+		type: String,
+		default: '',
+		trim: true
+	},
+	opposingCounselAddress: {
+		type: String,
+		default: '',
+		trim: true
+	},
 	created: {
 		type: Date,
 		default: Date.now

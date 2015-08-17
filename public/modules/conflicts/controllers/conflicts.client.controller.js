@@ -14,18 +14,20 @@ angular.module('conflicts').controller('ConflictsController', ['$scope', '$state
 		// for search feature
 		$scope.sortType     = 'conflictType';
 		$scope.sortReverse  = false;
-		$scope.searchCopyrights   = '';
+		$scope.searchConflicts = '';
 
 		// Create new Conflict
 		$scope.create = function() {
 			// Create new Conflict object
 			var conflict = new Conflicts ({
-				conflictType			: this.conflictType,
-				proceedingNumber	: this.proceedingNumber,
-				registrationNumber: this.registrationNumber,
-				mark							: this.mark,
-				petitioner				: this.petitioner,
-				respondent				: this.respondent
+				conflictType					: this.conflictType,
+				proceedingNumber			: this.proceedingNumber,
+				registrationNumber		: this.registrationNumber,
+				mark									: this.mark,
+				petitioner						: this.petitioner,
+				respondent						: this.respondent,
+				opposingCounselName		: this.opposingCounselName,
+				opposingCounselAddress: this.opposingCounselAddress,
 			});
 
 			// Redirect after save
@@ -39,6 +41,8 @@ angular.module('conflicts').controller('ConflictsController', ['$scope', '$state
 				$scope.mark = '';
 				$scope.petitioner = '';
 				$scope.respondent = '';
+				$scope.opposingCounselName = '';
+				$scope.opposingCounselAddress = '';
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;
 			});
