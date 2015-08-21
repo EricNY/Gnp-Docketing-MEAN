@@ -44,6 +44,10 @@ angular.element(document).ready(function() {
 'use strict';
 
 // Use applicaion configuration module to register a new module
+ApplicationConfiguration.registerModule('conflicts');
+'use strict';
+
+// Use applicaion configuration module to register a new module
 ApplicationConfiguration.registerModule('copyrights');
 /*!
  * 
@@ -121,21 +125,163 @@ ApplicationConfiguration.registerModule('trademarks');
 
 // Use Applicaion configuration module to register a new module
 ApplicationConfiguration.registerModule('users');
-// 'use strict';
+'use strict';
 
-// // Configuring the Articles module
-// angular.module('copyrights').run(['Menus',
-// 	function(Menus) {
-// 		// Set top bar menu items
-// 		Menus.addMenuItem('topbar', 'Copyrights', 'copyrights', 'dropdown', '/copyrights(/create)?');
-// 		Menus.addSubMenuItem('topbar', 'copyrights', 'List Copyrights', 'copyrights');
-// 		Menus.addSubMenuItem('topbar', 'copyrights', 'New Copyright', 'copyrights/create');
-// 	}
-// ]);
+// Configuring the Conflicts module
+angular.module('conflicts').run(['Menus',
+	function(Menus) {
+		// Set top bar menu items
+		Menus.addMenuItem('sidebar', 'Conflicts', 'conflicts', 'dropdown', '/conflicts(/.*)?', false, null, 20);
+		Menus.addSubMenuItem('sidebar', 'conflicts', 'List Conflicts', 'conflicts');
+		Menus.addSubMenuItem('sidebar', 'conflicts', 'Add Conflicts', 'conflicts/create');
+	}
+]);
 
 'use strict';
 
-// Configuring the Articles module
+// Setting up route
+angular.module('conflicts').config(['$stateProvider',
+	function($stateProvider) {
+		// Copyrsight state routing
+		$stateProvider.
+		state('app.listConflicts', {
+			url: '/conflicts',
+			title: 'List Conflicts',
+			templateUrl: 'modules/conflicts/views/list-conflicts.client.view.html'
+		}).
+		state('app.createConflicts', {
+			url: '/conflicts/create',
+			title: 'New Conflicts',
+			templateUrl: 'modules/conflicts/views/create-conflict.client.view.html'
+		}).
+		state('app.viewConflicts', {
+			url: '/conflicts/:conflictId',
+			title: 'View Conflicts',
+			templateUrl: 'modules/conflicts/views/view-conflict.client.view.html',
+			controller: 'ConflictsController'
+		}).
+		state('app.editConflicts', {
+			title: 'Edit Conflicts',
+			url: '/conflicts/:conflictId/edit',
+			templateUrl: 'modules/conflicts/views/edit-conflict.client.view.html'
+		});
+	}
+]);
+
+'use strict';
+
+// Conflicts controller
+angular.module('conflicts').controller('ConflictsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Conflicts',
+	function($scope, $stateParams, $location, Authentication, Conflicts) {
+		$scope.authentication = Authentication;
+
+		$scope.conflictTypeOptions = [
+			{id:0, name:'Opposition'},
+			{id:1, name:'Cancellation'},
+			{id:2, name:'Ex Parte'}
+		];
+
+		// for search feature
+		$scope.sortType     = 'conflictType';
+		$scope.sortReverse  = false;
+		$scope.searchConflicts = '';
+
+		// Create new Conflict
+		$scope.create = function() {
+			// Create new Conflict object
+			var conflict = new Conflicts ({
+				conflictType					: this.conflictType,
+				proceedingNumber			: this.proceedingNumber,
+				registrationNumber		: this.registrationNumber,
+				mark									: this.mark,
+				petitioner						: this.petitioner,
+				respondent						: this.respondent,
+				opposingCounselName		: this.opposingCounselName,
+				opposingCounselAddress: this.opposingCounselAddress,
+			});
+
+			// Redirect after save
+			conflict.$save(function(response) {
+				$location.path('conflicts/' + response._id);
+
+				// Clear form fields
+				$scope.conflictType = '';
+				$scope.proceedingNumber = '';
+				$scope.registrationNumber = '';
+				$scope.mark = '';
+				$scope.petitioner = '';
+				$scope.respondent = '';
+				$scope.opposingCounselName = '';
+				$scope.opposingCounselAddress = '';
+			}, function(errorResponse) {
+				$scope.error = errorResponse.data.message;
+			});
+		};
+
+		// Remove existing Conflict
+		$scope.remove = function(conflict) {
+			if ( conflict ) {
+				conflict.$remove();
+
+				for (var i in $scope.conflicts) {
+					if ($scope.conflicts [i] === conflict) {
+						$scope.conflicts.splice(i, 1);
+					}
+				}
+			} else {
+				$scope.conflict.$remove(function() {
+					$location.path('conflicts');
+				});
+			}
+		};
+
+		// Update existing Conflict
+		$scope.update = function() {
+			var conflict = $scope.conflict;
+
+			conflict.$update(function() {
+				$location.path('conflicts/' + conflict._id);
+			}, function(errorResponse) {
+				$scope.error = errorResponse.data.message;
+			});
+		};
+
+		// Find a list of Conflicts
+		$scope.find = function() {
+			$scope.conflicts = Conflicts.query();
+		};
+
+		// Find existing Conflict
+		$scope.findOne = function() {
+			$scope.conflict = Conflicts.get({
+				conflictId: $stateParams.conflictId
+			});
+		};
+
+		// direct to show page
+    $scope.listItemClick = function(conflictId) {
+      location.href = '#!/conflicts/' + conflictId;
+    };
+
+	}
+]);
+
+'use strict';
+
+//Conflicts service used to communicate Conflicts REST endpoints
+angular.module('conflicts').factory('Conflicts', ['$resource',
+	function($resource) {
+		return $resource('conflicts/:conflictId', { conflictId: '@_id'
+		}, {
+			update: {
+				method: 'PUT'
+			}
+		});
+	}
+]);
+'use strict';
+
+// Configuring the Copyrights module
 angular.module('copyrights').run(['Menus',
 	function(Menus) {
 		// Set top bar menu items
@@ -216,11 +362,17 @@ angular.module('copyrights').controller('CopyrightsController', ['$scope', '$sta
 			{id:3, name:'PA'}
 		];
 
+		// for search feature
+		$scope.sortType     = 'owner';
+		$scope.sortReverse  = false;
+		$scope.searchCopyrights   = '';
+
 		// Create new Copyright
 		$scope.create = function() {
 			// Create new Copyright object
 			var copyright = new Copyrights ({
 				owner							: this.owner,
+				address						: this.address,
 				author						: this.author,
 				workType					: this.workType,
 				workTitle					: this.workTitle,
@@ -236,6 +388,7 @@ angular.module('copyrights').controller('CopyrightsController', ['$scope', '$sta
 
 				// Clear form fields
 				$scope.owner = '';
+				$scope.address = '';
 				$scope.author = '';
 				$scope.workType = '';
 				$scope.workTitle = '';
@@ -1316,19 +1469,6 @@ angular.module('page').config(['$stateProvider',
   }
 ]);
 
-// 'use strict';
-
-// // Configuring the Articles module
-// angular.module('patents').run(['Menus',
-// 	function(Menus) {
-// 		// Set top bar menu items
-// 		Menus.addMenuItem('topbar', 'Patents', 'patents', 'dropdown', '/patents(/create)?');
-// 		Menus.addSubMenuItem('topbar', 'patents', 'List Patents', 'patents');
-// 		Menus.addSubMenuItem('topbar', 'patents', 'New Patent', 'patents/create');
-// 	}
-// ]);
-
-
 'use strict';
 
 // Configuring the Articles module
@@ -1420,11 +1560,17 @@ angular.module('patents').controller('PatentsController', ['$scope', '$statePara
 			{id:10, name:'Utility Patent'}
 		];
 
+		// for search feature
+		$scope.sortType     = 'owner';
+		$scope.sortReverse  = false;
+		$scope.searchPatents   = '';
+
 		// Create new Patent
 		$scope.create = function() {
 			// Create new Patent object
 			var patent = new Patents ({
 				owner							: this.owner,
+				address						: this.address,
 				nature						: this.nature,
 				country						: this.country,
 				filingDate				: this.filingDate,
@@ -1445,6 +1591,7 @@ angular.module('patents').controller('PatentsController', ['$scope', '$statePara
 
 				// Clear form fields
 				$scope.owner = '';
+				$scope.address = '';
 				$scope.nature = '';
 				$scope.country = '';
 				$scope.filingDate = '';
@@ -1682,8 +1829,8 @@ angular.module('trademarks').config(['$stateProvider',
 'use strict';
 
 // Trademarks controller
-angular.module('trademarks').controller('TrademarksController', ['$scope', '$stateParams', '$location', 'Authentication', 'Trademarks',
-	function($scope, $stateParams, $location, Authentication, Trademarks) {
+angular.module('trademarks').controller('TrademarksController', ['$scope', '$stateParams', '$location', 'Authentication', 'Trademarks', '$http',
+	function($scope, $stateParams, $location, Authentication, Trademarks, $http) {
 		$scope.authentication = Authentication;
 
 		$scope.statusOptions = [
@@ -1700,11 +1847,17 @@ angular.module('trademarks').controller('TrademarksController', ['$scope', '$sta
 			{id:10, name:'Registration Date'}
 		];
 
+		// for search feature
+		$scope.sortType     = 'owner';
+		$scope.sortReverse  = false;
+		$scope.searchTrademarks   = '';
+
 		// Create new Trademark
 		$scope.create = function() {
 			// Create new Trademark object
 			var trademark = new Trademarks ({
 				owner							: this.owner,
+				address						: this.address,
 				mark							: this.mark,
 				country						: this.country,
 				ic								: this.ic,
@@ -1726,6 +1879,7 @@ angular.module('trademarks').controller('TrademarksController', ['$scope', '$sta
 
 				// Clear form fields
 				$scope.owner = '';
+				$scope.address = '';
 				$scope.mark = '';
 				$scope.country = '';
 				$scope.ic = '';
@@ -1863,6 +2017,7 @@ angular.module('trademarks').controller('TrademarksController', ['$scope', '$sta
 					that.secondDueDate = new Date( $scope.getDueDate(month, year, day, 0, 10) );
 			}
 		};
+
 	}
 ]);
 
