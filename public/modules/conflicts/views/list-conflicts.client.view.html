@@ -65,6 +65,13 @@
                   <span ng-show="sortType == 'respondent'&& sortReverse" class="fa fa-caret-up"></span>
                 </a>
               </th>
+    <th>
+      <a href="#" ng-click="sortType = 'attorney'; sortReverse = !sortReverse">
+        Attorney 
+        <span ng-show="sortType == 'attorney'&& !sortReverse" class="fa fa-caret-down"></span>
+        <span ng-show="sortType == 'attorney'&& sortReverse" class="fa fa-caret-up"></span>
+      </a>
+    </th>
             </tr>
           </thead>
           <tbody>
@@ -75,6 +82,7 @@
                 <td>{{ conflict.mark }}</td>
                 <td>{{ conflict.petitioner }}</td>
                 <td>{{ conflict.respondent }}</td>
+                <td>{{ attorneys[conflict.attorney].name }}</td>
             </tr>
           </tbody>
         </table>

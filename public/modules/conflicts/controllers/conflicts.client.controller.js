@@ -11,6 +11,12 @@ angular.module('conflicts').controller('ConflictsController', ['$scope', '$state
 			{id:2, name:'Ex Parte'}
 		];
 
+		$scope.attorneys = [
+			{id:0, name:'Pelaez'},
+			{id:1, name:'Gabriel'},
+			{id:2, name:'Cohen'}
+		];
+
 		// for search feature
 		$scope.sortType     = 'conflictType';
 		$scope.sortReverse  = false;
@@ -28,6 +34,7 @@ angular.module('conflicts').controller('ConflictsController', ['$scope', '$state
 				respondent						: this.respondent,
 				opposingCounselName		: this.opposingCounselName,
 				opposingCounselAddress: this.opposingCounselAddress,
+				attorney							: this.attorney
 			});
 
 			// Redirect after save
@@ -43,6 +50,7 @@ angular.module('conflicts').controller('ConflictsController', ['$scope', '$state
 				$scope.respondent = '';
 				$scope.opposingCounselName = '';
 				$scope.opposingCounselAddress = '';
+				$scope.attorney = '';
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;
 			});
@@ -50,18 +58,21 @@ angular.module('conflicts').controller('ConflictsController', ['$scope', '$state
 
 		// Remove existing Conflict
 		$scope.remove = function(conflict) {
-			if ( conflict ) {
-				conflict.$remove();
+			var conf = confirm('Are you sure?');
+			if (conf === true) {
+				if ( conflict ) {
+					conflict.$remove();
 
-				for (var i in $scope.conflicts) {
-					if ($scope.conflicts [i] === conflict) {
-						$scope.conflicts.splice(i, 1);
+					for (var i in $scope.conflicts) {
+						if ($scope.conflicts [i] === conflict) {
+							$scope.conflicts.splice(i, 1);
+						}
 					}
+				} else {
+					$scope.conflict.$remove(function() {
+						$location.path('conflicts');
+					});
 				}
-			} else {
-				$scope.conflict.$remove(function() {
-					$location.path('conflicts');
-				});
 			}
 		};
 

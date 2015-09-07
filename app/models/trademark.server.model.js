@@ -76,6 +76,11 @@ var TrademarkSchema = new Schema({
 		default: '',
 		trim: true
 	},
+	attorney: {
+		type: String,
+		default: '',
+		trim: true
+	},
 	created: {
 		type: Date,
 		default: Date.now

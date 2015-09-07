@@ -58,6 +58,13 @@
                   <span ng-show="sortType == 'registrationNumber'&& sortReverse" class="fa fa-caret-up"></span>
                 </a>
               </th>
+              <th>
+                <a href="#" ng-click="sortType = 'attorney'; sortReverse = !sortReverse">
+                  Attorney 
+                  <span ng-show="sortType == 'attorney'&& !sortReverse" class="fa fa-caret-down"></span>
+                  <span ng-show="sortType == 'attorney'&& sortReverse" class="fa fa-caret-up"></span>
+                </a>
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -67,6 +74,7 @@
                 <td>{{ workTypeOptions[copyright.workType].name }}</td>
                 <td>{{ copyright.workTitle }}</td>
                 <td>{{ copyright.registrationNumber }}</td>
+                <td>{{ attorneys[copyright.attorney].name }}</td>
             </tr>
           </tbody>
         </table>

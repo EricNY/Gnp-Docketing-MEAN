@@ -16,7 +16,13 @@ angular.module('trademarks').controller('TrademarksController', ['$scope', '$sta
 			{id:7, name:'Extension 3'},
 			{id:8, name:'Extension 4'},
 			{id:9, name:'Extension 5'},
-			{id:10, name:'Registration Date'}
+			{id:10, name:'Registered'}
+		];
+
+		$scope.attorneys = [
+			{id:0, name:'Pelaez'},
+			{id:1, name:'Gabriel'},
+			{id:2, name:'Cohen'}
 		];
 
 		// for search feature
@@ -42,6 +48,7 @@ angular.module('trademarks').controller('TrademarksController', ['$scope', '$sta
 				statusDate				: this.statusDate,
 				dueDate						: this.dueDate,
 				secondDueDate			: this.secondDueDate,
+				attorney 					: this.attorney,
 				comments					: this.comments
 			});
 
@@ -64,6 +71,7 @@ angular.module('trademarks').controller('TrademarksController', ['$scope', '$sta
 				$scope.statusDate = '';
 				$scope.dueDate = '';
 				$scope.secondDueDate = '';
+				$scope.attorney = '';
 				$scope.comments = '';
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;
@@ -72,18 +80,21 @@ angular.module('trademarks').controller('TrademarksController', ['$scope', '$sta
 
 		// Remove existing Trademark
 		$scope.remove = function(trademark) {
-			if ( trademark ) {
-				trademark.$remove();
+			var conf = confirm('Are you sure?');
+			if (conf === true) {
+				if ( trademark ) {
+					trademark.$remove();
 
-				for (var i in $scope.trademarks) {
-					if ($scope.trademarks [i] === trademark) {
-						$scope.trademarks.splice(i, 1);
+					for (var i in $scope.trademarks) {
+						if ($scope.trademarks [i] === trademark) {
+							$scope.trademarks.splice(i, 1);
+						}
 					}
+				} else {
+					$scope.trademark.$remove(function() {
+						$location.path('trademarks');
+					});
 				}
-			} else {
-				$scope.trademark.$remove(function() {
-					$location.path('trademarks');
-				});
 			}
 		};
 

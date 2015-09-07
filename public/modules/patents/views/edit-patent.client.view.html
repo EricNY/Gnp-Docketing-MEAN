@@ -96,6 +96,14 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <label class="control-label" for="attorney">Attorney</label>
+                            <div class="controls">
+                                <select data-ng-model="patent.attorney" id="attorney" class="form-control" ng-options="attorney.id as attorney.name for attorney in attorneys">
+                                  <option value="">-- choose attorney --</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label class="control-label" for="comments">Comments</label>
                             <div class="controls">
                                 <input type="text" data-ng-model="patent.comments" id="comments" class="form-control" placeholder="Comments">

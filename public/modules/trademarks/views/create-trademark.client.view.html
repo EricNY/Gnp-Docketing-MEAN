@@ -46,7 +46,7 @@
                         <div class="form-group">
                             <label class="control-label" for="goodsandservices">Goods and Services</label>
                             <div class="controls">
-                                <input type="text" data-ng-model="goodsAndServices" id="goodsandservices" class="form-control">
+                                <textarea cols="40" rows="1" type="text" data-ng-model="goodsAndServices" id="goodsandservices" class="form-control"></textarea>
                             </div>
                         </div>
                         <div class="form-group">
@@ -99,6 +99,14 @@
                             <label class="control-label" for="secondduedate">Second Due Date</label>
                             <div class="controls">
                                 <input type="date" data-ng-model="secondDueDate" id="secondduedate" class="form-control" placeholder="Second Due Date">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="attorney">Attorney</label>
+                            <div class="controls">
+                                <select data-ng-model="attorney" id="attorney" class="form-control" ng-options="attorney.id as attorney.name for attorney in attorneys">
+                                  <option value="">-- choose attorney --</option>
+                                </select>
                             </div>
                         </div>
                         <div class="form-group">

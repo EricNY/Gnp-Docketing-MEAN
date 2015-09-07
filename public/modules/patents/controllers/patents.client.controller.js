@@ -19,6 +19,12 @@ angular.module('patents').controller('PatentsController', ['$scope', '$statePara
 			{id:10, name:'Utility Patent'}
 		];
 
+		$scope.attorneys = [
+			{id:0, name:'Pelaez'},
+			{id:1, name:'Gabriel'},
+			{id:2, name:'Cohen'}
+		];
+
 		// for search feature
 		$scope.sortType     = 'owner';
 		$scope.sortReverse  = false;
@@ -41,6 +47,7 @@ angular.module('patents').controller('PatentsController', ['$scope', '$statePara
 				dueDate						: this.dueDate,
 				secondDueDate			: this.secondDueDate,
 				thirdDueDate			: this.thirdDueDate,
+				attorney					: this.attorney,
 				comments					: this.comments
 			});
 
@@ -62,6 +69,7 @@ angular.module('patents').controller('PatentsController', ['$scope', '$statePara
 				$scope.dueDate = '';
 				$scope.secondDueDate = '';
 				$scope.thirdDueDate = '';
+				$scope.attorney = '';
 				$scope.comments = '';
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;
@@ -70,18 +78,21 @@ angular.module('patents').controller('PatentsController', ['$scope', '$statePara
 
 		// Remove existing Patent
 		$scope.remove = function(patent) {
-			if ( patent ) {
-				patent.$remove();
+			var conf = confirm('Are you sure?');
+			if (conf === true) {
+				if ( patent ) {
+					patent.$remove();
 
-				for (var i in $scope.patents) {
-					if ($scope.patents [i] === patent) {
-						$scope.patents.splice(i, 1);
+					for (var i in $scope.patents) {
+						if ($scope.patents [i] === patent) {
+							$scope.patents.splice(i, 1);
+						}
 					}
+				} else {
+					$scope.patent.$remove(function() {
+						$location.path('patents');
+					});
 				}
-			} else {
-				$scope.patent.$remove(function() {
-					$location.path('patents');
-				});
 			}
 		};
 

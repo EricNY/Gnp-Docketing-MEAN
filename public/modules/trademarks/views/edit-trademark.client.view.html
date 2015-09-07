@@ -46,7 +46,7 @@
                         <div class="form-group">
                             <label class="control-label" for="godsandservices">Goods And Services</label>
                             <div class="controls">
-                                <input type="text" data-ng-model="trademark.goodsAndServices" id="godsandservices" class="form-control" placeholder="Goods And Services">
+                                <textarea cols="40" rows="1" type="text" data-ng-model="trademark.goodsAndServices" id="goodsandservices" class="form-control"></textarea>
                             </div>
                         </div>
                         <div class="form-group">
@@ -102,9 +102,17 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <label class="control-label" for="attorney">Attorney</label>
+                            <div class="controls">
+                                <select data-ng-model="trademark.attorney" id="attorney" class="form-control" ng-options="attorney.id as attorney.name for attorney in attorneys">
+                                  <option value="">-- choose attorney --</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label class="control-label" for="comments">Comments</label>
                             <div class="controls">
-                                <input type="text" data-ng-model="trademark.comments" id="comments" class="form-control" placeholder="Comments">
+                                <textarea cols="40" rows="4" type="text" data-ng-model="trademark.comments" id="comments" class="form-control"></textarea>
                             </div>
                         </div>
                     </div>

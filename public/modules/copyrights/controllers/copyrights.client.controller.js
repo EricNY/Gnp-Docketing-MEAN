@@ -12,6 +12,12 @@ angular.module('copyrights').controller('CopyrightsController', ['$scope', '$sta
 			{id:3, name:'PA'}
 		];
 
+		$scope.attorneys = [
+			{id:0, name:'Pelaez'},
+			{id:1, name:'Gabriel'},
+			{id:2, name:'Cohen'}
+		];
+
 		// for search feature
 		$scope.sortType     = 'owner';
 		$scope.sortReverse  = false;
@@ -29,6 +35,7 @@ angular.module('copyrights').controller('CopyrightsController', ['$scope', '$sta
 				publishedDate			: this.publishedDate,
 				registrationDate	: this.registrationDate,
 				registrationNumber: this.registrationNumber,
+				attorney					: this.attorney,
 				comments					: this.comments
 			});
 
@@ -45,6 +52,7 @@ angular.module('copyrights').controller('CopyrightsController', ['$scope', '$sta
 				$scope.publishedDate = '';
 				$scope.registrationDate = '';
 				$scope.registrationNumber = '';
+				$scope.attorney = '';
 				$scope.comments = '';
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;
@@ -53,18 +61,21 @@ angular.module('copyrights').controller('CopyrightsController', ['$scope', '$sta
 
 		// Remove existing Copyright
 		$scope.remove = function(copyright) {
-			if ( copyright ) {
-				copyright.$remove();
+			var conf = confirm('Are you sure?');
+			if (conf === true) {
+				if ( copyright ) {
+					copyright.$remove();
 
-				for (var i in $scope.copyrights) {
-					if ($scope.copyrights [i] === copyright) {
-						$scope.copyrights.splice(i, 1);
+					for (var i in $scope.copyrights) {
+						if ($scope.copyrights [i] === copyright) {
+							$scope.copyrights.splice(i, 1);
+						}
 					}
+				} else {
+					$scope.copyright.$remove(function() {
+						$location.path('copyrights');
+					});
 				}
-			} else {
-				$scope.copyright.$remove(function() {
-					$location.path('copyrights');
-				});
 			}
 		};
 
