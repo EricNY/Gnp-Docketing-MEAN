@@ -16,7 +16,8 @@ angular.module('patents').controller('PatentsController', ['$scope', '$statePara
 			{id:7, name:'NOA'},
 			{id:8, name:'Issued'},
 			{id:9, name:'Design Patent'},
-			{id:10, name:'Utility Patent'}
+			{id:10, name:'Utility Patent'},
+			{id:11, name:'Filed'}
 		];
 
 		$scope.attorneys = [
@@ -121,7 +122,7 @@ angular.module('patents').controller('PatentsController', ['$scope', '$statePara
 
     // direct to show page
     $scope.listItemClick = function(patentId) {
-      location.href = '#!/patents/' + patentId;
+    	location.href = '#!/patents/' + patentId;
     };
 
 		$scope.getDueDate = function(month, year, day, month_offset, year_offset){
@@ -195,8 +196,9 @@ angular.module('patents').controller('PatentsController', ['$scope', '$statePara
 				case 9: // Design - 14 yrs
 					that.dueDate = new Date( $scope.getDueDate(month, year, day, 0, 14) );
 					break;
-				default: // Utility - 20 yrs
+				case 10: // Utility - 20 yrs
 					that.dueDate = new Date( $scope.getDueDate(month, year, day, 0, 20) );
+					break;
 			}
 		};
 	}
