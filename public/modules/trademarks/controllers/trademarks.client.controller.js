@@ -246,7 +246,7 @@ $scope.connectToUspto = function ( appNumber ) {
 				$scope.goodsAndServices = goodsandservices.value = usptoData.gsList[0].description;
 	// api giving is dates as strings in the form of yyyy-mm-dd
 				$scope.filingDate = new Date(usptoData.status.filingDate);
-				$scope.filingDate = usptoData.status.filingDate;
+				// $scope.filingDate = usptoData.status.filingDate;
 				filingdate.value = usptoData.status.filingDate;
 				$scope.registrationDate = new Date(usptoData.status.usRegistrationDate);
 				registrationdate.value = usptoData.status.usRegistrationDate;
