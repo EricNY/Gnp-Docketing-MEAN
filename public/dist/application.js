@@ -2055,7 +2055,7 @@ console.log(trademark);
 		};
 
 $scope.connectToUspto = function ( appNumber ) {
-	// alert(applicationNumber);
+	// alert(appNumber);
 		var that = this;
     var yql_url = 'https://query.yahooapis.com/v1/public/yql';
     var url = 'https://tsdrapi.uspto.gov/ts/cd/casestatus/sn' + appNumber + '/info.json';
