@@ -181,6 +181,12 @@ angular.module('conflicts').controller('ConflictsController', ['$scope', '$state
 			{id:2, name:'Ex Parte'}
 		];
 
+		$scope.attorneys = [
+			{id:0, name:'Pelaez'},
+			{id:1, name:'Gabriel'},
+			{id:2, name:'Cohen'}
+		];
+
 		// for search feature
 		$scope.sortType     = 'conflictType';
 		$scope.sortReverse  = false;
@@ -198,6 +204,7 @@ angular.module('conflicts').controller('ConflictsController', ['$scope', '$state
 				respondent						: this.respondent,
 				opposingCounselName		: this.opposingCounselName,
 				opposingCounselAddress: this.opposingCounselAddress,
+				attorney							: this.attorney
 			});
 
 			// Redirect after save
@@ -213,6 +220,7 @@ angular.module('conflicts').controller('ConflictsController', ['$scope', '$state
 				$scope.respondent = '';
 				$scope.opposingCounselName = '';
 				$scope.opposingCounselAddress = '';
+				$scope.attorney = '';
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;
 			});
@@ -220,18 +228,21 @@ angular.module('conflicts').controller('ConflictsController', ['$scope', '$state
 
 		// Remove existing Conflict
 		$scope.remove = function(conflict) {
-			if ( conflict ) {
-				conflict.$remove();
+			var conf = confirm('Are you sure?');
+			if (conf === true) {
+				if ( conflict ) {
+					conflict.$remove();
 
-				for (var i in $scope.conflicts) {
-					if ($scope.conflicts [i] === conflict) {
-						$scope.conflicts.splice(i, 1);
+					for (var i in $scope.conflicts) {
+						if ($scope.conflicts [i] === conflict) {
+							$scope.conflicts.splice(i, 1);
+						}
 					}
+				} else {
+					$scope.conflict.$remove(function() {
+						$location.path('conflicts');
+					});
 				}
-			} else {
-				$scope.conflict.$remove(function() {
-					$location.path('conflicts');
-				});
 			}
 		};
 
@@ -291,32 +302,6 @@ angular.module('copyrights').run(['Menus',
 	}
 ]);
 
-// 'use strict';
-
-// //Setting up route
-// angular.module('copyrights').config(['$stateProvider',
-// 	function($stateProvider) {
-// 		// Copyrights state routing
-// 		$stateProvider.
-// 		state('listCopyrights', {
-// 			url: '/copyrights',
-// 			templateUrl: 'modules/copyrights/views/list-copyrights.client.view.html'
-// 		}).
-// 		state('createCopyright', {
-// 			url: '/copyrights/create',
-// 			templateUrl: 'modules/copyrights/views/create-copyright.client.view.html'
-// 		}).
-// 		state('viewCopyright', {
-// 			url: '/copyrights/:copyrightId',
-// 			templateUrl: 'modules/copyrights/views/view-copyright.client.view.html'
-// 		}).
-// 		state('editCopyright', {
-// 			url: '/copyrights/:copyrightId/edit',
-// 			templateUrl: 'modules/copyrights/views/edit-copyright.client.view.html'
-// 		});
-// 	}
-// ]);
-
 'use strict';
 
 // Setting up route
@@ -362,6 +347,12 @@ angular.module('copyrights').controller('CopyrightsController', ['$scope', '$sta
 			{id:3, name:'PA'}
 		];
 
+		$scope.attorneys = [
+			{id:0, name:'Pelaez'},
+			{id:1, name:'Gabriel'},
+			{id:2, name:'Cohen'}
+		];
+
 		// for search feature
 		$scope.sortType     = 'owner';
 		$scope.sortReverse  = false;
@@ -379,6 +370,7 @@ angular.module('copyrights').controller('CopyrightsController', ['$scope', '$sta
 				publishedDate			: this.publishedDate,
 				registrationDate	: this.registrationDate,
 				registrationNumber: this.registrationNumber,
+				attorney					: this.attorney,
 				comments					: this.comments
 			});
 
@@ -395,6 +387,7 @@ angular.module('copyrights').controller('CopyrightsController', ['$scope', '$sta
 				$scope.publishedDate = '';
 				$scope.registrationDate = '';
 				$scope.registrationNumber = '';
+				$scope.attorney = '';
 				$scope.comments = '';
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;
@@ -403,18 +396,21 @@ angular.module('copyrights').controller('CopyrightsController', ['$scope', '$sta
 
 		// Remove existing Copyright
 		$scope.remove = function(copyright) {
-			if ( copyright ) {
-				copyright.$remove();
+			var conf = confirm('Are you sure?');
+			if (conf === true) {
+				if ( copyright ) {
+					copyright.$remove();
 
-				for (var i in $scope.copyrights) {
-					if ($scope.copyrights [i] === copyright) {
-						$scope.copyrights.splice(i, 1);
+					for (var i in $scope.copyrights) {
+						if ($scope.copyrights [i] === copyright) {
+							$scope.copyrights.splice(i, 1);
+						}
 					}
+				} else {
+					$scope.copyright.$remove(function() {
+						$location.path('copyrights');
+					});
 				}
-			} else {
-				$scope.copyright.$remove(function() {
-					$location.path('copyrights');
-				});
 			}
 		};
 
@@ -1557,7 +1553,14 @@ angular.module('patents').controller('PatentsController', ['$scope', '$statePara
 			{id:7, name:'NOA'},
 			{id:8, name:'Issued'},
 			{id:9, name:'Design Patent'},
-			{id:10, name:'Utility Patent'}
+			{id:10, name:'Utility Patent'},
+			{id:11, name:'Filed'}
+		];
+
+		$scope.attorneys = [
+			{id:0, name:'Pelaez'},
+			{id:1, name:'Gabriel'},
+			{id:2, name:'Cohen'}
 		];
 
 		// for search feature
@@ -1582,6 +1585,7 @@ angular.module('patents').controller('PatentsController', ['$scope', '$statePara
 				dueDate						: this.dueDate,
 				secondDueDate			: this.secondDueDate,
 				thirdDueDate			: this.thirdDueDate,
+				attorney					: this.attorney,
 				comments					: this.comments
 			});
 
@@ -1603,6 +1607,7 @@ angular.module('patents').controller('PatentsController', ['$scope', '$statePara
 				$scope.dueDate = '';
 				$scope.secondDueDate = '';
 				$scope.thirdDueDate = '';
+				$scope.attorney = '';
 				$scope.comments = '';
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;
@@ -1611,18 +1616,21 @@ angular.module('patents').controller('PatentsController', ['$scope', '$statePara
 
 		// Remove existing Patent
 		$scope.remove = function(patent) {
-			if ( patent ) {
-				patent.$remove();
+			var conf = confirm('Are you sure?');
+			if (conf === true) {
+				if ( patent ) {
+					patent.$remove();
 
-				for (var i in $scope.patents) {
-					if ($scope.patents [i] === patent) {
-						$scope.patents.splice(i, 1);
+					for (var i in $scope.patents) {
+						if ($scope.patents [i] === patent) {
+							$scope.patents.splice(i, 1);
+						}
 					}
+				} else {
+					$scope.patent.$remove(function() {
+						$location.path('patents');
+					});
 				}
-			} else {
-				$scope.patent.$remove(function() {
-					$location.path('patents');
-				});
 			}
 		};
 
@@ -1651,7 +1659,7 @@ angular.module('patents').controller('PatentsController', ['$scope', '$statePara
 
     // direct to show page
     $scope.listItemClick = function(patentId) {
-      location.href = '#!/patents/' + patentId;
+    	location.href = '#!/patents/' + patentId;
     };
 
 		$scope.getDueDate = function(month, year, day, month_offset, year_offset){
@@ -1725,8 +1733,9 @@ angular.module('patents').controller('PatentsController', ['$scope', '$statePara
 				case 9: // Design - 14 yrs
 					that.dueDate = new Date( $scope.getDueDate(month, year, day, 0, 14) );
 					break;
-				default: // Utility - 20 yrs
+				case 10: // Utility - 20 yrs
 					that.dueDate = new Date( $scope.getDueDate(month, year, day, 0, 20) );
+					break;
 			}
 		};
 	}
@@ -1844,7 +1853,13 @@ angular.module('trademarks').controller('TrademarksController', ['$scope', '$sta
 			{id:7, name:'Extension 3'},
 			{id:8, name:'Extension 4'},
 			{id:9, name:'Extension 5'},
-			{id:10, name:'Registration Date'}
+			{id:10, name:'Registered'}
+		];
+
+		$scope.attorneys = [
+			{id:0, name:'Pelaez'},
+			{id:1, name:'Gabriel'},
+			{id:2, name:'Cohen'}
 		];
 
 		// for search feature
@@ -1870,8 +1885,11 @@ angular.module('trademarks').controller('TrademarksController', ['$scope', '$sta
 				statusDate				: this.statusDate,
 				dueDate						: this.dueDate,
 				secondDueDate			: this.secondDueDate,
+				attorney					: this.attorney,
 				comments					: this.comments
 			});
+console.log(trademark);
+
 
 			// Redirect after save
 			trademark.$save(function(response) {
@@ -1892,6 +1910,7 @@ angular.module('trademarks').controller('TrademarksController', ['$scope', '$sta
 				$scope.statusDate = '';
 				$scope.dueDate = '';
 				$scope.secondDueDate = '';
+				$scope.attorney = '';
 				$scope.comments = '';
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;
@@ -1900,18 +1919,21 @@ angular.module('trademarks').controller('TrademarksController', ['$scope', '$sta
 
 		// Remove existing Trademark
 		$scope.remove = function(trademark) {
-			if ( trademark ) {
-				trademark.$remove();
+			var conf = confirm('Are you sure?');
+			if (conf === true) {
+				if ( trademark ) {
+					trademark.$remove();
 
-				for (var i in $scope.trademarks) {
-					if ($scope.trademarks [i] === trademark) {
-						$scope.trademarks.splice(i, 1);
+					for (var i in $scope.trademarks) {
+						if ($scope.trademarks [i] === trademark) {
+							$scope.trademarks.splice(i, 1);
+						}
 					}
+				} else {
+					$scope.trademark.$remove(function() {
+						$location.path('trademarks');
+					});
 				}
-			} else {
-				$scope.trademark.$remove(function() {
-					$location.path('trademarks');
-				});
 			}
 		};
 
@@ -1977,12 +1999,26 @@ angular.module('trademarks').controller('TrademarksController', ['$scope', '$sta
 				that = this.trademark;
 			}
 
-			month = that.statusDate.getUTCMonth();
-			year = that.statusDate.getUTCFullYear();
-			day = that.statusDate.getUTCDate();
+			// month = that.statusDate.getUTCMonth();
+			// year = that.statusDate.getUTCFullYear();
+			// day = that.statusDate.getUTCDate();
+
+			month = $scope.statusDate.getUTCMonth();
+			year = $scope.statusDate.getUTCFullYear();
+			day = $scope.statusDate.getUTCDate();
+
+// console.log(month);
+// console.log(day);
+// console.log(year);
+// var sd = $scope.statusDate.split('-');
+// console.log(sd);
+// month = parseInt(sd[1]);
+// year = parseInt(sd[0]);
+// day = parseInt(sd[2]);			
 
 			switch( selectedOption ) {
 				case 0: // Pending - 6 mo
+				// console.log(new Date($scope.getDueDate(month, year, day, 6, 0)));
 					that.dueDate = new Date($scope.getDueDate(month, year, day, 6, 0));
 					break;
 				case 1: // Published - 6 mo
@@ -2017,6 +2053,49 @@ angular.module('trademarks').controller('TrademarksController', ['$scope', '$sta
 					that.secondDueDate = new Date( $scope.getDueDate(month, year, day, 0, 10) );
 			}
 		};
+
+$scope.connectToUspto = function ( appNumber ) {
+	// alert(applicationNumber);
+		var that = this;
+    var yql_url = 'https://query.yahooapis.com/v1/public/yql';
+    var url = 'https://tsdrapi.uspto.gov/ts/cd/casestatus/sn' + appNumber + '/info.json';
+
+    $.ajax({
+      'url': yql_url,
+      'data': {
+        'q': 'SELECT * FROM json WHERE url="'+url+'"',
+        'format': 'json',
+        'jsonCompat': 'new',
+      },
+      'dataType': 'jsonp',
+      'success': function(response) {
+      	var usptoData = response.query.results.json.trademarks[0];
+      	var fd = usptoData.status.filingDate;
+      	fd = fd.split('-');
+      	// console.log(usptoData.status.filingDate);
+      	// console.log(fd);
+				// $scope.owner = usptoData.parties.ownerGroups[10][0].name;
+				$scope.owner = owner.value = usptoData.parties.ownerGroups[10][0].name;
+				$scope.address = address.value = usptoData.parties.ownerGroups[10][0].address1;
+				$scope.mark = mark.value = usptoData.status.markElement;
+				$scope.country = country.value = usptoData.parties.ownerGroups[10][0].addressStateCountry.iso.code;		
+				$scope.ic = ic.value = usptoData.gsList[0].internationalClasses[0].code;
+				$scope.goodsAndServices = goodsandservices.value = usptoData.gsList[0].description;
+	// api giving is dates as strings in the form of yyyy-mm-dd
+				$scope.filingDate = new Date(usptoData.status.filingDate);
+				// $scope.filingDate = usptoData.status.filingDate;
+				filingdate.value = usptoData.status.filingDate;
+				$scope.registrationDate = new Date(usptoData.status.usRegistrationDate);
+				registrationdate.value = usptoData.status.usRegistrationDate;
+				$scope.applicationNumber = applicationnumber.value = appNumber;
+				$scope.registrationNumber = registrationnumber.value = usptoData.status.usRegistrationNumber;
+				$scope.statusDate = new Date(usptoData.status.statusDate);
+				statusdate.value = usptoData.status.statusDate;
+
+      },
+    });
+};
+
 
 	}
 ]);
