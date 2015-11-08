@@ -124,7 +124,7 @@ var clockLogger = function() {
 
 clockLogger();
 
-setInterval( clockLogger, 604800000 );
+setInterval( clockLogger, 86400000 );
 
 
 
