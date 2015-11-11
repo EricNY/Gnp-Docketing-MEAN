@@ -95,7 +95,7 @@ var clockLogger = function() {
 
 				if ( dueDateMilliseconds && dueDateMilliseconds.getTime() < monthFromToday && dueDateMilliseconds.getTime() >= today.getTime() ) {
 var d = docs[i].dueDate.toString();
-					trademarkFilings.push(  docs[i].owner + ' ' + docs[i].mark + ' ' + docs[i].applicationNumber + ' ' + d.slice(27) );
+					trademarkFilings.push(  docs[i].owner + ' ' + docs[i].mark + ' ' + docs[i].applicationNumber + ' ' + d.slice(20) );
 
 				}
 				// Mon Aug 24 2015
