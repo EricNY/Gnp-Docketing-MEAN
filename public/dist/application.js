@@ -1888,7 +1888,6 @@ angular.module('trademarks').controller('TrademarksController', ['$scope', '$sta
 				attorney					: this.attorney,
 				comments					: this.comments
 			});
-console.log(trademark);
 
 
 			// Redirect after save

@@ -1,7 +1,7 @@
 'use strict';
 
 var nodemailer = require('nodemailer');
-
+var moment = require('moment-timezone');
 var transporter = nodemailer.createTransport();
 
 var createEmail = function(patentCheck, patentContent, trademarkCheck, trademarkContent ){
@@ -53,23 +53,26 @@ var clockLogger = function() {
 
 				var dueDateMilliseconds = docs[i].dueDate,
 						secondDueDateMilliseconds = docs[i].secondDueDate,
-						thirdDueDateMilliseconds = docs[i].thirdDueDate;
+						thirdDueDateMilliseconds = docs[i].thirdDueDate,
+						dueDateFormatted = moment(docs[i].dueDate).tz('America/New_York').format('LLL'),
+						secondDueDateFormatted = moment(docs[i].secondDueDate).tz('America/New_York').format('LLL'),
+						thirdDueDateFormatted = moment(docs[i].thirdDueDate).tz('America/New_York').format('LLL');
 
 				if ( dueDateMilliseconds && dueDateMilliseconds.getTime() < monthFromToday && dueDateMilliseconds.getTime() >= today.getTime() ) {
 
-					patentFilings.push( docs[i].owner + ' ' + docs[i].nature + ' ' + docs[i].applicationNumber + ' ' + docs[i].dueDate );
+					patentFilings.push( docs[i].owner + ' ' + docs[i].nature + ' ' + docs[i].applicationNumber + ' ' + dueDateFormatted );
 
 				}
 				// Mon Aug 24 2015
 				if ( secondDueDateMilliseconds && secondDueDateMilliseconds.getTime() < monthFromToday && secondDueDateMilliseconds.getTime() >= today.getTime() ) {
 
-					patentFilings.push( docs[i].owner + ' ' + docs[i].nature + ' ' + docs[i].applicationNumber + ' ' + docs[i].secondDueDate );
+					patentFilings.push( docs[i].owner + ' ' + docs[i].nature + ' ' + docs[i].applicationNumber + ' ' + secondDueDateFormatted );
 
 				}
 				// Fri Sep 18 2015
 				if ( thirdDueDateMilliseconds && thirdDueDateMilliseconds.getTime() < monthFromToday && thirdDueDateMilliseconds.getTime() >= today.getTime() ) {
 
-					patentFilings.push( docs[i].owner + ' ' + docs[i].nature + ' ' + docs[i].applicationNumber + ' ' + docs[i].thirdDueDate );
+					patentFilings.push( docs[i].owner + ' ' + docs[i].nature + ' ' + docs[i].applicationNumber + ' ' + thirdDueDateFormatted );
 
 				}
 
@@ -91,17 +94,19 @@ var clockLogger = function() {
 			for (var i = 0; i <= docs.length -1; i++) {
 
 				var dueDateMilliseconds = docs[i].dueDate,
-						secondDueDateMilliseconds = docs[i].secondDueDate;
+						secondDueDateMilliseconds = docs[i].secondDueDate,
+						dueDateFormatted = moment(docs[i].dueDate).tz('America/New_York').format('LLL'),
+						secondDueDateFormatted = moment(docs[i].secondDueDate).tz('America/New_York').format('LLL');
 
 				if ( dueDateMilliseconds && dueDateMilliseconds.getTime() < monthFromToday && dueDateMilliseconds.getTime() >= today.getTime() ) {
 
-					trademarkFilings.push(  docs[i].owner + ' ' + docs[i].mark + ' ' + docs[i].applicationNumber + ' ' + docs[i].dueDate );
+					trademarkFilings.push(  docs[i].owner + ' ' + docs[i].mark + ' ' + docs[i].applicationNumber + ' ' + dueDateFormatted );
 
 				}
 				// Mon Aug 24 2015
 				if ( secondDueDateMilliseconds && secondDueDateMilliseconds.getTime() < monthFromToday && secondDueDateMilliseconds.getTime() >= today.getTime() ) {
 
-					trademarkFilings.push( docs[i].owner + ' ' + docs[i].mark + ' ' + docs[i].applicationNumber + ' ' + docs[i].secondDueDate );
+					trademarkFilings.push( docs[i].owner + ' ' + docs[i].mark + ' ' + docs[i].applicationNumber + ' ' + secondDueDateFormatted );
 
 				}
 
