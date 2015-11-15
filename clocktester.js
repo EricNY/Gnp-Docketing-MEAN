@@ -54,9 +54,9 @@ var clockLogger = function() {
 				var dueDateMilliseconds = docs[i].dueDate,
 						secondDueDateMilliseconds = docs[i].secondDueDate,
 						thirdDueDateMilliseconds = docs[i].thirdDueDate,
-						dueDateFormatted = moment(docs[i].dueDate).tz('America/New_York').format('LLL'),
-						secondDueDateFormatted = moment(docs[i].secondDueDate).tz('America/New_York').format('LLL'),
-						thirdDueDateFormatted = moment(docs[i].thirdDueDate).tz('America/New_York').format('LLL');
+						dueDateFormatted = moment(docs[i].dueDate).tz('America/New_York').format('LL'),
+						secondDueDateFormatted = moment(docs[i].secondDueDate).tz('America/New_York').format('LL'),
+						thirdDueDateFormatted = moment(docs[i].thirdDueDate).tz('America/New_York').format('LL');
 
 				if ( dueDateMilliseconds && dueDateMilliseconds.getTime() < monthFromToday && dueDateMilliseconds.getTime() >= today.getTime() ) {
 
@@ -95,8 +95,8 @@ var clockLogger = function() {
 
 				var dueDateMilliseconds = docs[i].dueDate,
 						secondDueDateMilliseconds = docs[i].secondDueDate,
-						dueDateFormatted = moment(docs[i].dueDate).tz('America/New_York').format('LLL'),
-						secondDueDateFormatted = moment(docs[i].secondDueDate).tz('America/New_York').format('LLL');
+						dueDateFormatted = moment(docs[i].dueDate).tz('America/New_York').format('LL'),
+						secondDueDateFormatted = moment(docs[i].secondDueDate).tz('America/New_York').format('LL');
 
 				if ( dueDateMilliseconds && dueDateMilliseconds.getTime() < monthFromToday && dueDateMilliseconds.getTime() >= today.getTime() ) {
 
