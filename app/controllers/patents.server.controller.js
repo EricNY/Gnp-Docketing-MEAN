@@ -72,7 +72,7 @@ exports.delete = function(req, res) {
 /**
  * List of Patents
  */
-exports.list = function(req, res) {
+exports.list = function(req, res) { 
 	Patent.find().sort('-created').populate('user', 'displayName').exec(function(err, patents) {
 		if (err) {
 			return res.status(400).send({
@@ -87,7 +87,7 @@ exports.list = function(req, res) {
 /**
  * Patent middleware
  */
-exports.patentByID = function(req, res, next, id) {
+exports.patentByID = function(req, res, next, id) { 
 	Patent.findById(id).populate('user', 'displayName').exec(function(err, patent) {
 		if (err) return next(err);
 		if (! patent) return next(new Error('Failed to load Patent ' + id));

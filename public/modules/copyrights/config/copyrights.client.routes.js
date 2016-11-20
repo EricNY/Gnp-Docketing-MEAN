@@ -1,23 +1,28 @@
 'use strict';
 
-//Setting up route
+// Setting up route
 angular.module('copyrights').config(['$stateProvider',
 	function($stateProvider) {
-		// Copyrights state routing
+		// Copyrsight state routing
 		$stateProvider.
-		state('listCopyrights', {
+		state('app.listCopyrights', {
 			url: '/copyrights',
+			title: 'List Copyrights',
 			templateUrl: 'modules/copyrights/views/list-copyrights.client.view.html'
 		}).
-		state('createCopyright', {
+		state('app.createCopyrights', {
 			url: '/copyrights/create',
+			title: 'New Copyrights',
 			templateUrl: 'modules/copyrights/views/create-copyright.client.view.html'
 		}).
-		state('viewCopyright', {
+		state('app.viewCopyrights', {
 			url: '/copyrights/:copyrightId',
-			templateUrl: 'modules/copyrights/views/view-copyright.client.view.html'
+			title: 'View Copyrights',
+			templateUrl: 'modules/copyrights/views/view-copyright.client.view.html',
+			controller: 'CopyrightsController'
 		}).
-		state('editCopyright', {
+		state('app.editCopyrights', {
+			title: 'Edit Copyrights',
 			url: '/copyrights/:copyrightId/edit',
 			templateUrl: 'modules/copyrights/views/edit-copyright.client.view.html'
 		});

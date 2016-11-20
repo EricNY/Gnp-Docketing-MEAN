@@ -1,37 +1,50 @@
-<section data-ng-controller="HomeController as hc">
-	<div class="jumbotron text-center">
-		<div class="row">
-			<div class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3 col-xs-12">
-				<!-- <img alt="MEAN.JS" class="img-responsive text-center" src="modules/core/img/brand/logo.png" /> -->
-			</div>
-		</div>
-		<br>
-		<div class="row">
-			<p class="lead">
-				Jumbotron - shall we use this?
-			</p>
-		</div>
-		<div class="row">
-			<p>
-				<a class="btn btn-primary btn-lg" href="" target="_blank">Blank Button</a>
-			</p>
-		</div>
-	</div>
-	<div>
-		<h2>What oh what to do with this space?</h2>
-	</div>
-	<div class="well" data-ng-controller="HomeController" >
-		<!-- <div data-ui-sref="home"> -->
-			<form name="contactForm" data-ng-submit="hc.sendMail()">
-				<input-container>
-				Name: <input type="text" data-ng-model="hc.contactName">
-				</input-container>
-				<input-container>
-				Email: <input type="email" data-ng-model="hc.contactEmail">
-				</input-container>
-				<button type="submit" class="md-primary">Send</button>
-			</form>
-		<!-- </div> -->
-	</div>
-	<br>Copyright?
+<h3>
+   <!-- START Language list-->
+<!--    <div class="pull-right">
+      <div dropdown="" is-open="language.listIsOpen" class="btn-group">
+         <button type="button" dropdown-toggle="" class="btn btn-default">{{language.selected}}
+            <span class="caret"></span>
+         </button>
+         <ul role="menu" class="dropdown-menu dropdown-menu-right animated fadeInUpShort">
+            <li ng-repeat="(localeId, langName) in language.available"><a ng-click="language.set(localeId, $event)">{{langName}}</a>
+            </li>
+         </ul>
+      </div>
+   </div> -->
+   <!-- END Language list    -->
+   Home
+   <small>{{ 'dashboard.WELCOME' | translate:{ appName: app.name } }}!</small>
+</h3>
+<section>
+  <div class="jumbotron text-center">
+    <div class="text-center">
+      <img class="img-responsive center-block" src="modules/core/img/logo-gnp.png" height="300" width="300"/>
+    </div>
+    <br>
+    <div class="row">
+      <p class="lead">
+        Identify, Protect and Defend your IP Assets
+      </p>
+    </div>
+  </div>
+  <div>
+    <p>This docketing system tracks clients' Patent, Trademark and Copyright filings. Helps with:</p>
+    <ul>
+      <li>
+        Input filing
+      </li>
+      <li>
+        Search for past filings
+      </li>
+      <li>
+        Automatic calculation of due dates
+      </li>
+      <li>
+        Email notifications of upcoming due dates
+      </li>
+      <li>
+        Connect to USPTO coming soon...
+      </li>
+    </ul>
+  </div>
 </section>

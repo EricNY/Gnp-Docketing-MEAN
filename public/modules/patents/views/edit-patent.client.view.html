@@ -1,96 +1,122 @@
+<h3>Edit Patent
+    <ul class="breadcrumb">
+      <li><a ui-sref="app.home">Home</a>
+      </li>
+      <li ng-repeat="state in $state.$current.path" ng-switch="$last" ng-if="!state.abstract" ng-class="{active: $last}"><a ng-switch-when="false" href="#{{state.url.format($stateParams)}}">{{state.title}}</a>
+         <span ng-switch-when="true">{{state.title}}</span>
+      </li>
+    </ul>
+</h3>
 <section data-ng-controller="PatentsController" data-ng-init="findOne()">
-    <div class="page-header">
-        <h1>Edit Patent</h1>
-    </div>
     <div class="col-md-12">
-        <form class="form-horizontal" data-ng-submit="update()" novalidate>
+        <form name="patentForm" data-ng-submit="update(patentForm.$valid)" novalidate>
             <fieldset>
-                <div class="form-group">
-                    <label class="control-label" for="owner">Owner</label>
-                    <div class="controls">
-                        <input type="text" data-ng-model="patent.owner" id="owner" class="form-control" placeholder="Name" required>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="control-label" for="owner">Owner/Inventor</label>
+                            <div class="controls">
+                                <input type="text" data-ng-model="patent.owner" id="owner" class="form-control" placeholder="Name" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="address">Address</label>
+                            <div class="controls">
+                                <input type="text" data-ng-model="patent.address" id="address" class="form-control" placeholder="Address">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="nature">Title of Invention</label>
+                            <div class="controls">
+                                <input type="text" data-ng-model="patent.nature" id="nature" class="form-control" placeholder="Title of Invention">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="country">Country</label>
+                            <div class="controls">
+                                <input type="text" data-ng-model="patent.country" id="country" class="form-control" placeholder="Country">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="filingdate">Filing Date</label>
+                            <div class="controls">
+                                <input type="date" data-ng-model="patent.filingDate" id="filingdate" class="form-control" placeholder="Filing Date" format-date>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="issuedate">Issue Date</label>
+                            <div class="controls">
+                                <input type="date" data-ng-model="patent.issueDate" id="issuedate" class="form-control" placeholder="Issue Date" format-date>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="applicationnumber">Application Number</label>
+                            <div class="controls">
+                                <input type="text" data-ng-model="patent.applicationNumber" id="applicationnumber" class="form-control" placeholder="Application Number">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="patentnumber">Patent Number</label>
+                            <div class="controls">
+                                <input type="text" data-ng-model="patent.patentNumber" id="patentnumber" class="form-control" placeholder="Patent Number">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="control-label" for="patentstatus">Patent Status</label>
+                            <div class="controls">
+                                <select data-ng-model="patent.patentStatus" id="patentstatus" class="form-control" ng-options="statusItem.id as statusItem.name for statusItem in statusOptions">
+                                  <option value="">-- choose status --</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="statusdate">Status Date</label>
+                            <div class="controls">
+                                <input type="date" ng-change="calculateDueDates(patent.patentStatus, 'edit')" data-ng-model="patent.statusDate" id="statusdate" class="form-control" placeholder="Status Date" format-date>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="duedate">Due Date</label>
+                            <div class="controls">
+                                <input type="date" data-ng-model="patent.dueDate" id="duedate" class="form-control" placeholder="Due Date" format-date>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="secondduedate">Second Due Date</label>
+                            <div class="controls">
+                                <input type="date" data-ng-model="patent.secondDueDate" id="secondduedate" class="form-control" placeholder="Second Due Date" format-date>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="thirdduedate">Third Due Date</label>
+                            <div class="controls">
+                                <input type="date" data-ng-model="patent.thirdDueDate" id="thirdduedate" class="form-control" placeholder="Third Due Date" format-date>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="attorney">Attorney</label>
+                            <div class="controls">
+                                <select data-ng-model="patent.attorney" id="attorney" class="form-control" ng-options="attorney.id as attorney.name for attorney in attorneys">
+                                  <option value="">-- choose attorney --</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="comments">Comments</label>
+                            <div class="controls">
+                                <input type="text" data-ng-model="patent.comments" id="comments" class="form-control" placeholder="Comments">
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label class="control-label" for="nature">Nature</label>
-                    <div class="controls">
-                        <input type="text" data-ng-model="patent.nature" id="nature" class="form-control" placeholder="Nature" required>
-                    </div>
+                <div class="form-group mt">
+                    <input type="submit" value="Update" class="btn btn-success">
                 </div>
-                <div class="form-group">
-                    <label class="control-label" for="country">Country</label>
-                    <div class="controls">
-                        <input type="text" data-ng-model="patent.country" id="country" class="form-control" placeholder="Country" required>
-                    </div>
+                <div data-ng-show="error" class="text-danger">
+                    <strong data-ng-bind="error"></strong>
                 </div>
-                <div class="form-group">
-                    <label class="control-label" for="filingdate">Filing Date</label>
-                    <div class="controls">
-                        <input type="date" data-ng-model="patent.filingDate" id="filingdate" class="form-control" placeholder="Filing Date" required>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label" for="issuedate">Issue Date</label>
-                    <div class="controls">
-                        <input type="date" data-ng-model="patent.issueDate" id="issuedate" class="form-control" placeholder="Issue Date" required>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label" for="applicationnumber">Application Number</label>
-                    <div class="controls">
-                        <input type="text" data-ng-model="patent.applicationNumber" id="applicationnumber" class="form-control" placeholder="Application Number" required>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label" for="patentnumber">Patent Number</label>
-                    <div class="controls">
-                        <input type="text" data-ng-model="patent.patentNumber" id="patentnumber" class="form-control" placeholder="Patent Number" required>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label" for="patentstatus">Patent Status</label>
-                    <div class="controls">
-                        <select data-ng-model="patent.patentStatus" id="patentstatus" class="form-control" ng-options="statusItem.id as statusItem.name for statusItem in statusOptions">
-                          <option value="">-- choose status --</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label" for="statusdate">Status Date</label>
-                    <div class="controls">
-                        <input type="date" data-ng-model="patent.statusDate" id="statusdate" class="form-control" placeholder="Status Date" required>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label" for="duedate">Due Date</label>
-                    <div class="controls">
-                        <input type="date" data-ng-model="patent.dueDate" id="duedate" class="form-control" placeholder="Due Date" required>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label" for="secondduedate">Second Due Date</label>
-                    <div class="controls">
-                        <input type="date" data-ng-model="patent.secondDueDate" id="secondduedate" class="form-control" placeholder="Second Due Date" required>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label" for="thirdduedate">Third Due Date</label>
-                    <div class="controls">
-                        <input type="date" data-ng-model="patent.thirdDueDate" id="thirdduedate" class="form-control" placeholder="Third Due Date" required>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label" for="comments">Comments</label>
-                    <div class="controls">
-                        <input type="text" data-ng-model="patent.comments" id="comments" class="form-control" placeholder="Comments" required>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <input type="submit" value="Update" class="btn btn-default">
-                </div>
-				<div data-ng-show="error" class="text-danger">
-					<strong data-ng-bind="error"></strong>
-				</div>
             </fieldset>
         </form>
     </div>

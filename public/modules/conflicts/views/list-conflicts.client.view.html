@@ -1,0 +1,91 @@
+<h3>Conflicts
+    <ul class="breadcrumb">
+      <li><a ui-sref="app.home">Home</a>
+      </li>
+      <li ng-repeat="state in $state.$current.path" ng-switch="$last" ng-if="!state.abstract" ng-class="{active: $last}"><a ng-switch-when="false" href="#{{state.url.format($stateParams)}}">{{state.title}}</a>
+         <span ng-switch-when="true">{{state.title}}</span>
+      </li>
+    </ul>
+</h3>
+<div class="panel panel-default">
+   <div class="panel-body">
+      <div data-ng-controller="ConflictsController" data-ng-init="find()">
+        <form>
+          <div class="form-group">
+            <div class="input-group">
+              <div class="input-group-addon"><i class="fa fa-search"></i></div>
+
+              <input type="text" class="form-control" placeholder="Search Conflicts" ng-model="searchConflicts">
+
+            </div>      
+          </div>
+        </form>
+        <table class='table table-striped table-hover table-condensed'>
+          <thead>
+            <tr>
+              <th>
+                <a href="#" ng-click="sortType = 'conflictType'; sortReverse = !sortReverse">
+                  Conflict Type 
+                  <span ng-show="sortType == 'conflictType' && !sortReverse" class="fa fa-caret-down"></span>
+                  <span ng-show="sortType == 'conflictType' && sortReverse" class="fa fa-caret-up"></span>
+                </a>
+              </th>
+              <th>
+                <a href="#" ng-click="sortType = 'proceedingNumber'; sortReverse = !sortReverse">
+                  Proceeding Number 
+                  <span ng-show="sortType == 'proceedingNumber' && !sortReverse" class="fa fa-caret-down"></span>
+                  <span ng-show="sortType == 'proceedingNumber' && sortReverse" class="fa fa-caret-up"></span>
+                </a>
+              </th>
+              <th>
+                <a href="#" ng-click="sortType = 'registrationNumber'; sortReverse = !sortReverse">
+                  Reg or App Number 
+                  <span ng-show="sortType == 'registrationNumber' && !sortReverse" class="fa fa-caret-down"></span>
+                  <span ng-show="sortType == 'registrationNumber' && sortReverse" class="fa fa-caret-up"></span>
+                </a>
+              </th>
+              <th>
+                 <a href="#" ng-click="sortType = 'mark'; sortReverse = !sortReverse">
+                  Mark 
+                  <span ng-show="sortType == 'mark' && !sortReverse" class="fa fa-caret-down"></span>
+                  <span ng-show="sortType == 'mark' && sortReverse" class="fa fa-caret-up"></span>
+                </a>
+              </th>
+              <th>
+                <a href="#" ng-click="sortType = 'petitioner'; sortReverse = !sortReverse">
+                  Petitioner 
+                  <span ng-show="sortType == 'petitioner'&& !sortReverse" class="fa fa-caret-down"></span>
+                  <span ng-show="sortType == 'petitioner'&& sortReverse" class="fa fa-caret-up"></span>
+                </a>
+              </th>
+              <th>
+                <a href="#" ng-click="sortType = 'respondent'; sortReverse = !sortReverse">
+                  Respondent 
+                  <span ng-show="sortType == 'respondent'&& !sortReverse" class="fa fa-caret-down"></span>
+                  <span ng-show="sortType == 'respondent'&& sortReverse" class="fa fa-caret-up"></span>
+                </a>
+              </th>
+    <th>
+      <a href="#" ng-click="sortType = 'attorney'; sortReverse = !sortReverse">
+        Attorney 
+        <span ng-show="sortType == 'attorney'&& !sortReverse" class="fa fa-caret-down"></span>
+        <span ng-show="sortType == 'attorney'&& sortReverse" class="fa fa-caret-up"></span>
+      </a>
+    </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="conflict in conflicts | orderBy:sortType:sortReverse | filter:searchConflicts" ng-click="listItemClick(conflict._id);" >
+                <td>{{ conflictTypeOptions[conflict.conflictType].name }}</td>
+                <td>{{ conflict.proceedingNumber }}</td>
+                <td>{{ conflict.registrationNumber }}</td>
+                <td>{{ conflict.mark }}</td>
+                <td>{{ conflict.petitioner }}</td>
+                <td>{{ conflict.respondent }}</td>
+                <td>{{ attorneys[conflict.attorney].name }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+   </div>
+</div>

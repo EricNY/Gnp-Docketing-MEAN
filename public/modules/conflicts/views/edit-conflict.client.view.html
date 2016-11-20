@@ -1,0 +1,87 @@
+<h3>Edit Conflict
+    <ul class="breadcrumb">
+      <li><a ui-sref="app.home">Home</a>
+      </li>
+      <li ng-repeat="state in $state.$current.path" ng-switch="$last" ng-if="!state.abstract" ng-class="{active: $last}"><a ng-switch-when="false" href="#{{state.url.format($stateParams)}}">{{state.title}}</a>
+         <span ng-switch-when="true">{{state.title}}</span>
+      </li>
+    </ul>
+</h3>
+<section data-ng-controller="ConflictsController" data-ng-init="findOne()">
+    <div class="col-md-12">
+        <form name="conflictForm" data-ng-submit="update(conflictForm.$valid)" novalidate>
+            <fieldset>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="control-label" for="conflicttype">Conflict Type</label>
+                            <div class="controls">
+                                <select data-ng-model="conflict.conflictType" id="conflicttype" class="form-control" ng-options="conflictTypeItem.id as conflictTypeItem.name for conflictTypeItem in conflictTypeOptions">
+                                  <option value="">-- choose type --</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="proceedingnumber">Proceeding Number</label>
+                            <div class="controls">
+                                <input type="text" data-ng-model="conflict.proceedingNumber" id="proceedingnumber" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="registrationnumber">Registration or Application Number</label>
+                            <div class="controls">
+                                <input type="text" data-ng-model="conflict.registrationNumber" id="registrationnumber" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="mark">Mark</label>
+                            <div class="controls">
+                                <input type="text" data-ng-model="conflict.mark" id="mark" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="control-label" for="petitioner">Petitioner</label>
+                            <div class="controls">
+                                <input type="text" data-ng-model="conflict.petitioner" id="petitioner" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="respondent">Respondent</label>
+                            <div class="controls">
+                                <input type="text" data-ng-model="conflict.respondent" id="respondent" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="opposingcounselname">Opposing Counsel Name</label>
+                            <div class="controls">
+                                <input type="text" data-ng-model="conflict.opposingCounselName" id="opposingcounselname" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="opposingcounseladdress">Opposing Counsel Address</label>
+                            <div class="controls">
+                                <input type="text" data-ng-model="conflict.opposingCounselAddress" id="opposingcounseladdress" class="form-control">
+                            </div>
+                        </div>
+    <div class="form-group">
+        <label class="control-label" for="attorney">Attorney</label>
+        <div class="controls">
+            <select data-ng-model="conflict.attorney" id="attorney" class="form-control" ng-options="attorney.id as attorney.name for attorney in attorneys">
+              <option value="">-- choose an attorney --</option>
+            </select>
+        </div>
+    </div>
+                    </div>
+                </div>
+                <div class="form-group mt">
+                    <input type="submit" value="Update" class="btn btn-success">
+                </div>
+                <div data-ng-show="error" class="text-danger">
+                    <strong data-ng-bind="error"></strong>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</section>

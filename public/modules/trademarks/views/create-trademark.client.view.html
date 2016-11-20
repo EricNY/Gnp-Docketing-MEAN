@@ -1,72 +1,90 @@
+<h3>Add Trademark
+    <ul class="breadcrumb">
+      <li><a ui-sref="app.home">Home</a>
+      </li>
+      <li ng-repeat="state in $state.$current.path" ng-switch="$last" ng-if="!state.abstract" ng-class="{active: $last}"><a ng-switch-when="false" href="#{{state.url.format($stateParams)}}">{{state.title}}</a>
+         <span ng-switch-when="true">{{state.title}}</span>
+      </li>
+    </ul>
+</h3>
 <section data-ng-controller="TrademarksController">
-    <div class="page-header">
-        <h1>New Trademark</h1>
-    </div>
     <div class="col-md-12">
-        <form data-ng-submit="create()" novalidate>
+        <form name="trademarkForm" data-ng-submit="create()" novalidate>
             <fieldset>
                 <div class="row">
                     <div class="col-sm-6">
+
+
+<label class="control-label" for="applicationnumber">Application Number</label>
+<div class="input-group">
+    <input type="text" data-ng-model="applicationNumber" id="applicationnumber" class="form-control">
+    <span class="input-group-btn">
+        <button type="button" ng-click="connectToUspto(applicationNumber)" class="btn btn-default btn-warning">Connect to USPTO</button>
+    </span>
+</div>
+
+
                         <div class="form-group">
                             <label class="control-label" for="owner">Owner</label>
                             <div class="controls">
-                                <input type="text" data-ng-model="owner" id="owner" class="form-control" placeholder="Owner" required>
+                                <input type="text" ng-value="string" ng-model="owner" id="owner" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="address">Address</label>
+                            <div class="controls">
+                                <input type="text" data-ng-model="address" id="address" class="form-control">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label" for="mark">Mark</label>
                             <div class="controls">
-                                <input type="text" data-ng-model="mark" id="mark" class="form-control" placeholder="Mark" required>
+                                <input type="text" data-ng-model="mark" id="mark" class="form-control">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label" for="country">Country</label>
                             <div class="controls">
-                                <input type="text" data-ng-model="country" id="country" class="form-control" placeholder="Country" required>
+                                <input type="text" data-ng-model="country" id="country" class="form-control">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label" for="ic">IC</label>
                             <div class="controls">
-                                <input type="text" data-ng-model="ic" id="ic" class="form-control" placeholder="IC" required>
+                                <input type="text" data-ng-model="ic" id="ic" class="form-control">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label" for="goodsandservices">Goods and Services</label>
                             <div class="controls">
-                                <input type="text" data-ng-model="goodsAndServices" id="goodsandservices" class="form-control" placeholder="Goods and Services" required>
+                                <textarea cols="40" rows="1" type="text" data-ng-model="goodsAndServices" id="goodsandservices" class="form-control"></textarea>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label" for="filingdate">Filing Date</label>
                             <div class="controls">
-                                <input type="date" data-ng-model="filingDate" id="filingdate" class="form-control" placeholder="Filing Date" required>
+                                <input type="date" data-ng-model="filingDate" id="filingdate" class="form-control">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label" for="registrationdate">Registration Date</label>
                             <div class="controls">
-                                <input type="date" data-ng-model="registrationDate" id="registrationdate" class="form-control" placeholder="Registration Date" required>
+                                <input type="date" data-ng-model="registrationDate" id="registrationdate" class="form-control">
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-6">
-                        <div class="form-group">
-                            <label class="control-label" for="applicationnumber">Application Number</label>
-                            <div class="controls">
-                                <input type="text" data-ng-model="applicationNumber" id="applicationnumber" class="form-control" placeholder="Application Number" required>
-                            </div>
-                        </div>
+
                         <div class="form-group">
                             <label class="control-label" for="registrationnumber">Registration Number</label>
                             <div class="controls">
-                                <input type="text" data-ng-model="registrationNumber" id="registrationnumber" class="form-control" placeholder="Registration Number" required>
+                                <input type="text" data-ng-model="registrationNumber" id="registrationnumber" class="form-control">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label" for="trademarkstatus">Trademark Status</label>
                             <div class="controls">
-                                <select data-ng-model="trademarkStatus" id="trademarkstatus" class="form-control" ng-options="statusItem.id as statusItem.name for statusItem in statusOptions">
+                                <select data-ng-model="trademarkStatus" id="trademarkstatus" class="form-control" ng-options="statusItem.id as statusItem.name for statusItem in statusOptions" ng-change="calculateDueDates(trademarkStatus, 'create')">
                                   <option value="">-- choose status --</option>
                                 </select>
                             </div>
@@ -74,35 +92,43 @@
                         <div class="form-group">
                             <label class="control-label" for="statusDate">Status Date</label>
                             <div class="controls">
-                                <input type="date" ng-change="calculateDueDates(trademarkStatus)" data-ng-model="statusDate" id="statusDate" class="form-control" required>
+                                <input type="date" data-ng-model="statusDate" id="statusdate" class="form-control">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label" for="duedate">Due Date</label>
                             <div class="controls">
-                                <input type="date" data-ng-model="dueDate" id="duedate" class="form-control" placeholder="Due Date" required>
+                                <input type="date" data-ng-model="dueDate" id="duedate" class="form-control" placeholder="Due Date">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label" for="secondduedate">Second Due Date</label>
                             <div class="controls">
-                                <input type="date" data-ng-model="secondDueDate" id="secondduedate" class="form-control" placeholder="Second Due Date" required>
+                                <input type="date" data-ng-model="secondDueDate" id="secondduedate" class="form-control" placeholder="Second Due Date">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="attorney">Attorney</label>
+                            <div class="controls">
+                                <select data-ng-model="attorney" id="attorney" class="form-control" ng-options="attorney.id as attorney.name for attorney in attorneys">
+                                  <option value="">-- choose attorney --</option>
+                                </select>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label" for="comments">Comments</label>
                             <div class="controls">
-                                <input type="text" data-ng-model="comments" id="comments" class="form-control" placeholder="Comments" required>
+                                <textarea cols="40" rows="4" type="text" data-ng-model="comments" id="comments" class="form-control"></textarea>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <input type="submit" class="btn btn-default">
+                <div class="form-group mt">
+                    <input type="submit" class="btn btn-success">
                 </div>
-				<div data-ng-show="error" class="text-danger">
-					<strong data-ng-bind="error"></strong>
-				</div>
+                <div data-ng-show="error" class="text-danger">
+                    <strong data-ng-bind="error"></strong>
+                </div>
             </fieldset>
         </form>
     </div>
