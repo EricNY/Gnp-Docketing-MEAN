@@ -161,22 +161,9 @@ angular.module('trademarks').controller('TrademarksController', ['$scope', '$sta
 				that = this.trademark;
 			}
 
-			// month = that.statusDate.getUTCMonth();
-			// year = that.statusDate.getUTCFullYear();
-			// day = that.statusDate.getUTCDate();
-
 			month = $scope.statusDate.getUTCMonth();
 			year = $scope.statusDate.getUTCFullYear();
-			day = $scope.statusDate.getUTCDate();
-
-// console.log(month);
-// console.log(day);
-// console.log(year);
-// var sd = $scope.statusDate.split('-');
-// console.log(sd);
-// month = parseInt(sd[1]);
-// year = parseInt(sd[0]);
-// day = parseInt(sd[2]);			
+			day = $scope.statusDate.getUTCDate();	
 
 			switch( selectedOption ) {
 				case 0: // Pending - 6 mo
@@ -231,21 +218,44 @@ $scope.connectToUspto = function ( appNumber ) {
       },
       'dataType': 'jsonp',
       'success': function(response) {
-      	var usptoData = response.query.results.json.trademarks[0];
-      	var fd = usptoData.status.filingDate;
+   console.log(response);
+      	var usptoData = response.query.results.json.trademarks[0],
+      		fd = usptoData.status.filingDate,
+      		icCodes = '',
+      		gsListValues = '';
+
       	fd = fd.split('-');
-      	// console.log(usptoData.status.filingDate);
-      	// console.log(fd);
-				// $scope.owner = usptoData.parties.ownerGroups[10][0].name;
 				$scope.owner = owner.value = usptoData.parties.ownerGroups[10][0].name;
 				$scope.address = address.value = usptoData.parties.ownerGroups[10][0].address1;
 				$scope.mark = mark.value = usptoData.status.markElement;
 				$scope.country = country.value = usptoData.parties.ownerGroups[10][0].addressStateCountry.iso.code;		
-				$scope.ic = ic.value = usptoData.gsList[0].internationalClasses[0].code;
-				$scope.goodsAndServices = goodsandservices.value = usptoData.gsList[0].description;
-	// api giving is dates as strings in the form of yyyy-mm-dd
+
+for (var i = 0; i < usptoData.gsList.length ; i++) {
+	
+	if ( i == 0 ) {
+
+		icCodes = icCodes + usptoData.gsList[i].internationalClasses[0].code ;
+
+		gsListValues = gsListValues + usptoData.gsList[i].description;
+
+	} else {
+
+		icCodes = icCodes + ', ' + usptoData.gsList[i].internationalClasses[0].code ;
+
+		gsListValues = gsListValues + '\n' + usptoData.gsList[i].description;
+
+	}
+
+}
+
+				// $scope.ic = ic.value = usptoData.gsList[0].internationalClasses[0].code;
+				$scope.ic = ic.value = icCodes;
+				
+				// $scope.goodsAndServices = goodsandservices.value = usptoData.gsList[0].description;
+				$scope.goodsAndServices = goodsandservices.value = gsListValues;
+
 				$scope.filingDate = new Date(usptoData.status.filingDate);
-				// $scope.filingDate = usptoData.status.filingDate;
+
 				filingdate.value = usptoData.status.filingDate;
 				$scope.registrationDate = new Date(usptoData.status.usRegistrationDate);
 				registrationdate.value = usptoData.status.usRegistrationDate;
