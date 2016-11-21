@@ -1,3 +1,4 @@
+
 'use strict';
 
 var nodemailer = require('nodemailer');
@@ -125,7 +126,4 @@ var clockLogger = function() {
 clockLogger();
 
 setInterval( clockLogger, 604800000 );
-
-
-
 
