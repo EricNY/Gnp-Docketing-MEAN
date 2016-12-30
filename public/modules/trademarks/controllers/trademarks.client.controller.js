@@ -203,71 +203,71 @@ angular.module('trademarks').controller('TrademarksController', ['$scope', '$sta
 			}
 		};
 
-$scope.connectToUspto = function ( appNumber ) {
-	// alert(appNumber);
-		var that = this;
-    var yql_url = 'https://query.yahooapis.com/v1/public/yql';
-    var url = 'https://tsdrapi.uspto.gov/ts/cd/casestatus/sn' + appNumber + '/info.json';
+		$scope.connectToUspto = function ( appNumber ) {
 
-    $.ajax({
-      'url': yql_url,
-      'data': {
-        'q': 'SELECT * FROM json WHERE url="'+url+'"',
-        'format': 'json',
-        'jsonCompat': 'new',
-      },
-      'dataType': 'jsonp',
-      'success': function(response) {
-   console.log(response);
-      	var usptoData = response.query.results.json.trademarks[0],
-      		fd = usptoData.status.filingDate,
-      		icCodes = '',
-      		gsListValues = '';
+			var that = this;
+		  var yql_url = 'https://query.yahooapis.com/v1/public/yql';
+		  var url = 'https://tsdrapi.uspto.gov/ts/cd/casestatus/sn' + appNumber + '/info.json';
 
-      	fd = fd.split('-');
-				$scope.owner = owner.value = usptoData.parties.ownerGroups[10][0].name;
-				$scope.address = address.value = usptoData.parties.ownerGroups[10][0].address1;
-				$scope.mark = mark.value = usptoData.status.markElement;
-				$scope.country = country.value = usptoData.parties.ownerGroups[10][0].addressStateCountry.iso.code;		
+	    $.ajax({
+	      'url': yql_url,
+	      'data': {
+	        'q': 'SELECT * FROM json WHERE url="'+url+'"',
+	        'format': 'json',
+	        'jsonCompat': 'new',
+	      },
+	      'dataType': 'jsonp',
+	      'success': function(response) {
 
-for (var i = 0; i < usptoData.gsList.length ; i++) {
-	
-	if ( i == 0 ) {
+	      	var usptoData = response.query.results.json.trademarks[0],
+	      		fd = usptoData.status.filingDate,
+	      		icCodes = '',
+	      		gsListValues = '';
 
-		icCodes = icCodes + usptoData.gsList[i].internationalClasses[0].code ;
+	      	fd = fd.split('-');
+					$scope.owner = owner.value = usptoData.parties.ownerGroups[10][0].name;
+					$scope.address = address.value = usptoData.parties.ownerGroups[10][0].address1;
+					$scope.mark = mark.value = usptoData.status.markElement;
+					$scope.country = country.value = usptoData.parties.ownerGroups[10][0].addressStateCountry.iso.code;		
 
-		gsListValues = gsListValues + usptoData.gsList[i].description;
+					for (var i = 0; i < usptoData.gsList.length ; i++) {
+						
+						if ( i == 0 ) {
 
-	} else {
+							icCodes = icCodes + usptoData.gsList[i].internationalClasses[0].code ;
 
-		icCodes = icCodes + ', ' + usptoData.gsList[i].internationalClasses[0].code ;
+							gsListValues = gsListValues + usptoData.gsList[i].description;
 
-		gsListValues = gsListValues + '\n' + usptoData.gsList[i].description;
+						} else {
 
-	}
+							icCodes = icCodes + ', ' + usptoData.gsList[i].internationalClasses[0].code ;
 
-}
+							gsListValues = gsListValues + '\n' + usptoData.gsList[i].description;
 
-				// $scope.ic = ic.value = usptoData.gsList[0].internationalClasses[0].code;
-				$scope.ic = ic.value = icCodes;
-				
-				// $scope.goodsAndServices = goodsandservices.value = usptoData.gsList[0].description;
-				$scope.goodsAndServices = goodsandservices.value = gsListValues;
+						}
 
-				$scope.filingDate = new Date(usptoData.status.filingDate);
+					}
 
-				filingdate.value = usptoData.status.filingDate;
-				$scope.registrationDate = new Date(usptoData.status.usRegistrationDate);
-				registrationdate.value = usptoData.status.usRegistrationDate;
-				$scope.applicationNumber = applicationnumber.value = appNumber;
-				$scope.registrationNumber = registrationnumber.value = usptoData.status.usRegistrationNumber;
-				$scope.statusDate = new Date(usptoData.status.statusDate);
-				statusdate.value = usptoData.status.statusDate;
+					// $scope.ic = ic.value = usptoData.gsList[0].internationalClasses[0].code;
+					$scope.ic = ic.value = icCodes;
+					
+					// $scope.goodsAndServices = goodsandservices.value = usptoData.gsList[0].description;
+					$scope.goodsAndServices = goodsandservices.value = gsListValues;
 
-      },
-    });
-};
+					$scope.filingDate = new Date(usptoData.status.filingDate);
 
+					filingdate.value = usptoData.status.filingDate;
+					$scope.registrationDate = new Date(usptoData.status.usRegistrationDate);
+					registrationdate.value = usptoData.status.usRegistrationDate;
+					$scope.applicationNumber = applicationnumber.value = appNumber;
+					$scope.registrationNumber = registrationnumber.value = usptoData.status.usRegistrationNumber;
+					$scope.statusDate = new Date(usptoData.status.statusDate);
+					statusdate.value = usptoData.status.statusDate;
+
+	      },
+	    });
+
+		};
 
 	}
 ]);
