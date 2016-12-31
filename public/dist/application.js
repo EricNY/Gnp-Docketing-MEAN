@@ -1538,207 +1538,374 @@ angular.module('patents').config(['$stateProvider',
 'use strict';
 
 // Patents controller
-angular.module('patents').controller('PatentsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Patents',
-	function($scope, $stateParams, $location, Authentication, Patents) {
+angular.module( 'patents' ).controller( 'PatentsController', [ '$scope', '$stateParams', '$location', 'Authentication', 'Patents',
+	
+	function( $scope, $stateParams, $location, Authentication, Patents ) {
+	
 		$scope.authentication = Authentication;
 
 		$scope.statusOptions = [
-			{id:0, name:'Provisional Application'},
-			{id:1, name:'Notice to File Missing Parts'},
-			{id:2, name:'Restriction Requirement'},
-			{id:3, name:'Office Action'},
-			{id:4, name:'Extension 1'},
-			{id:5, name:'Extension 2'},
-			{id:6, name:'Extension 3'},
-			{id:7, name:'NOA'},
-			{id:8, name:'Issued'},
-			{id:9, name:'Design Patent'},
-			{id:10, name:'Utility Patent'},
-			{id:11, name:'Filed'}
+
+			{ id:0, name:'Provisional Application' },
+
+			{ id:1, name:'Notice to File Missing Parts' },
+
+			{ id:2, name:'Restriction Requirement' },
+
+			{ id:3, name:'Office Action' },
+
+			{ id:4, name:'Extension 1' },
+
+			{ id:5, name:'Extension 2' },
+
+			{ id:6, name:'Extension 3' },
+
+			{ id:7, name:'NOA' },
+
+			{ id:8, name:'Issued' },
+
+			{ id:9, name:'Design Patent' },
+
+			{ id:10, name:'Utility Patent' },
+
+			{ id:11, name:'Filed' }
+
 		];
 
 		$scope.attorneys = [
-			{id:0, name:'Pelaez'},
-			{id:1, name:'Gabriel'},
-			{id:2, name:'Cohen'}
+
+			{ id:0, name:'Pelaez' },
+
+			{ id:1, name:'Gabriel' },
+
+			{ id:2, name:'Cohen' }
+
 		];
 
 		// for search feature
 		$scope.sortType     = 'owner';
+
 		$scope.sortReverse  = false;
+
 		$scope.searchPatents   = '';
 
 		// Create new Patent
 		$scope.create = function() {
+
 			// Create new Patent object
 			var patent = new Patents ({
+
+				client						: this.client,
+
+				matter						: this.matter,
+
+				inventor					:this.inventor,
+
+				applicant					:this.applicant,
+
+				// assignee!!
 				owner							: this.owner,
+
 				address						: this.address,
+
 				nature						: this.nature,
+
 				country						: this.country,
+
 				filingDate				: this.filingDate,
+
 				issueDate					: this.issueDate,
+
 				applicationNumber	: this.applicationNumber,
+
 				patentNumber			: this.patentNumber,
+
 				patentStatus			: this.patentStatus,
+
 				statusDate				: this.statusDate,
+
 				dueDate						: this.dueDate,
+
 				secondDueDate			: this.secondDueDate,
+
 				thirdDueDate			: this.thirdDueDate,
+
 				attorney					: this.attorney,
+
 				comments					: this.comments
+
 			});
 
 			// Redirect after save
-			patent.$save(function(response) {
-				$location.path('patents/' + response._id);
+			patent.$save(function( response ) {
+
+				$location.path( 'patents/' + response._id );
 
 				// Clear form fields
+
+				$scope.client = '';
+
+				$scope.matter = '';
+
+				$scope.inventor = '';
+
+				$scope.applicant = '';
+		
+				// assignee!!!
 				$scope.owner = '';
+
 				$scope.address = '';
+
 				$scope.nature = '';
+
 				$scope.country = '';
+
 				$scope.filingDate = '';
+
 				$scope.issueDate = '';
+
 				$scope.applicationNumber = '';
+
 				$scope.patentNumber = '';
+
 				$scope.patentStatus = '';
+
 				$scope.statusDate = '';
+
 				$scope.dueDate = '';
+
 				$scope.secondDueDate = '';
+
 				$scope.thirdDueDate = '';
+
 				$scope.attorney = '';
+
 				$scope.comments = '';
-			}, function(errorResponse) {
+
+			}, function( errorResponse ) {
+
 				$scope.error = errorResponse.data.message;
+
 			});
+
 		};
 
 		// Remove existing Patent
-		$scope.remove = function(patent) {
-			var conf = confirm('Are you sure?');
-			if (conf === true) {
+		$scope.remove = function( patent ) {
+
+			var conf = confirm( 'Are you sure?' );
+
+			if ( conf === true ) {
+
 				if ( patent ) {
+
 					patent.$remove();
 
-					for (var i in $scope.patents) {
-						if ($scope.patents [i] === patent) {
-							$scope.patents.splice(i, 1);
+					for ( var i in $scope.patents ) {
+
+						if ( $scope.patents [i] === patent ) {
+
+							$scope.patents.splice( i, 1 );
+
 						}
+
 					}
+
 				} else {
+
 					$scope.patent.$remove(function() {
-						$location.path('patents');
+
+						$location.path( 'patents' );
+
 					});
+
 				}
+
 			}
+
 		};
 
 		// Update existing Patent
 		$scope.update = function() {
+
 			var patent = $scope.patent;
 
 			patent.$update(function() {
+
 				$location.path('patents/' + patent._id);
+
 			}, function(errorResponse) {
+
 				$scope.error = errorResponse.data.message;
+
 			});
+
 		};
 
 		// Find a list of Patents
 		$scope.find = function() {
+
 			$scope.patents = Patents.query();
+
 		};
 
 		// Find existing Patent
 		$scope.findOne = function() {
+
 			$scope.patent = Patents.get({
+
 				patentId: $stateParams.patentId
+
 			});
+
 		};
 
     // direct to show page
-    $scope.listItemClick = function(patentId) {
+    $scope.listItemClick = function( patentId ) {
+
     	location.href = '#!/patents/' + patentId;
+
     };
 
-		$scope.getDueDate = function(month, year, day, month_offset, year_offset){
-				var dueDateMonth = month + month_offset +1;
-				var dueDateYear = year + year_offset;
-				var dueDateDay = day + 1;
+		$scope.getDueDate = function( month, year, day, month_offset, year_offset ) {
 
-				if (dueDateMonth > 12) {
-					dueDateMonth = dueDateMonth % 12;
-					dueDateYear = dueDateYear + 1;
-				}
-				if (dueDateMonth < 10) {
-					dueDateMonth = dueDateMonth.toString();
-					dueDateMonth = '0' + dueDateMonth;
-				}
-				if (dueDateDay < 10) {
-					dueDateDay = dueDateDay.toString();
-					dueDateDay = '0' + dueDateDay;
-				}
-				dueDateYear = dueDateYear.toString();
+			var dueDateMonth = month + month_offset +1;
+		
+			var dueDateYear = year + year_offset;
+		
+			var dueDateDay = day + 1;
+
+			if (dueDateMonth > 12) {
+		
+				dueDateMonth = dueDateMonth % 12;
+		
+				dueDateYear = dueDateYear + 1;
+			
+			}
+			
+			if (dueDateMonth < 10) {
+			
 				dueDateMonth = dueDateMonth.toString();
+			
+				dueDateMonth = '0' + dueDateMonth;
+			}
+
+			if (dueDateDay < 10) {
+
 				dueDateDay = dueDateDay.toString();
 
-				return dueDateYear + '-' + dueDateMonth + '-' + dueDateDay;
+				dueDateDay = '0' + dueDateDay;
+
+			}
+
+			dueDateYear = dueDateYear.toString();
+
+			dueDateMonth = dueDateMonth.toString();
+
+			dueDateDay = dueDateDay.toString();
+
+			return dueDateYear + '-' + dueDateMonth + '-' + dueDateDay;
+
 		};
 
 		// once a statusDate is selected the due dates are 
 		// automatically calculated depending on what status is selected
-		$scope.calculateDueDates = function (selectedOption, toggle) {
+		$scope.calculateDueDates = function ( selectedOption, toggle ) {
+
 			var that = this;
+
 			var month, year, day;
 
 			if (toggle === 'edit') {
+
 				that = this.patent;
+
 			}
 
 			month = that.statusDate.getUTCMonth();
+
 			year = that.statusDate.getUTCFullYear();
+
 			day = that.statusDate.getUTCDate();
 
-			switch(selectedOption) {
+			switch( selectedOption ) {
+
 				case 0: // Provisional - 1 year
+
 					that.dueDate = new Date( $scope.getDueDate(month, year, day, 0, 1) ).toISOString();
+
 					break;
+
 				case 1: // notice to file missing parts - 2 mo
+
 					that.dueDate = new Date( $scope.getDueDate(month, year, day, 2, 0) );
+
 					break;
+
 				case 2: // Restriction Requirement - 2 mo
+
 					that.dueDate = new Date( $scope.getDueDate(month, year, day, 2, 0) );
+
 					break;
+
 				case 3: // office action - 3 mo
+
 					that.dueDate = new Date( $scope.getDueDate(month, year, day, 3, 0) );
+
 					break;
+
 				case 4: // Extension 1 - 1 mo
+
 					that.dueDate = new Date( $scope.getDueDate(month, year, day, 1, 0) );
+
 					break;
+
 				case 5: // Extension 2 - 1 mo
+
 					that.dueDate = new Date( $scope.getDueDate(month, year, day, 1, 0) );
+
 					break;
+
 				case 6: // Extension 3 - 1 mo
+
 					that.dueDate = new Date( $scope.getDueDate(month, year, day, 1, 0) );
+
 					break;
+
 				case 7: // NOA - 3 mo
+
 					that.dueDate = new Date( $scope.getDueDate(month, year, day, 3, 0) );
+
 					break;
+
 				case 8: // issued - 3yr --> 7yr --> 11yr
+
 					that.dueDate = new Date( $scope.getDueDate(month, year, day, 0, 3) );
+
 					that.secondDueDate = new Date( $scope.getDueDate(month, year, day, 0, 7) );
+
 					that.thirdDueDate = new Date( $scope.getDueDate(month, year, day, 0, 11) ).toISOString();
+
 					break;
+
 				case 9: // Design - 14 yrs
+
 					that.dueDate = new Date( $scope.getDueDate(month, year, day, 0, 14) );
+
 					break;
+
 				case 10: // Utility - 20 yrs
+
 					that.dueDate = new Date( $scope.getDueDate(month, year, day, 0, 20) );
+
 					break;
+
 			}
+
 		};
+
 	}
+
 ]);
 
 'use strict';
@@ -1838,275 +2005,447 @@ angular.module('trademarks').config(['$stateProvider',
 'use strict';
 
 // Trademarks controller
-angular.module('trademarks').controller('TrademarksController', ['$scope', '$stateParams', '$location', 'Authentication', 'Trademarks', '$http',
-	function($scope, $stateParams, $location, Authentication, Trademarks, $http) {
+angular.module( 'trademarks' ).controller( 'TrademarksController', [ '$scope', '$stateParams', '$location', 'Authentication', 'Trademarks', '$http',
+
+	function( $scope, $stateParams, $location, Authentication, Trademarks, $http ) {
+
 		$scope.authentication = Authentication;
 
 		$scope.statusOptions = [
-			{id:0, name:'Pending'},
-			{id:1, name:'Published'},
-			{id:2, name:'NOA'},
-			{id:3, name:'Notice of Abandonment'},
-			{id:4, name:'Office Action'},
-			{id:5, name:'Extension 1'},
-			{id:6, name:'Extension 2'},
-			{id:7, name:'Extension 3'},
-			{id:8, name:'Extension 4'},
-			{id:9, name:'Extension 5'},
-			{id:10, name:'Registered'}
+
+			{ id:0, name:'Pending' },
+
+			{ id:1, name:'Published' },
+
+			{ id:2, name:'NOA' },
+
+			{ id:3, name:'Notice of Abandonment' },
+
+			{ id:4, name:'Office Action' },
+
+			{ id:5, name:'Extension 1' },
+
+			{ id:6, name:'Extension 2' },
+
+			{ id:7, name:'Extension 3' },
+
+			{ id:8, name:'Extension 4' },
+
+			{ id:9, name:'Extension 5' },
+
+			{ id:10, name:'Registered' },
+
+			{ id:11, name:'OAR filed' }
+
 		];
 
 		$scope.attorneys = [
-			{id:0, name:'Pelaez'},
-			{id:1, name:'Gabriel'},
-			{id:2, name:'Cohen'}
+
+			{ id:0, name:'Pelaez' },
+
+			{ id:1, name:'Gabriel' },
+
+			{ id:2, name:'Cohen' }
+
 		];
 
 		// for search feature
 		$scope.sortType     = 'owner';
+
 		$scope.sortReverse  = false;
+
 		$scope.searchTrademarks   = '';
 
 		// Create new Trademark
 		$scope.create = function() {
+
 			// Create new Trademark object
 			var trademark = new Trademarks ({
+
 				owner							: this.owner,
+
 				address						: this.address,
+
 				mark							: this.mark,
+
 				country						: this.country,
+
 				ic								: this.ic,
+
 				goodsAndServices	: this.goodsAndServices,
+
 				filingDate				: this.filingDate,
+
 				registrationDate	: this.registrationDate,
+
 				applicationNumber	: this.applicationNumber,
+
 				registrationNumber: this.registrationNumber,
+
 				trademarkStatus		: this.trademarkStatus,
+
 				statusDate				: this.statusDate,
+
 				dueDate						: this.dueDate,
+
 				secondDueDate			: this.secondDueDate,
+
 				attorney					: this.attorney,
+
 				comments					: this.comments
+
 			});
 
-
 			// Redirect after save
-			trademark.$save(function(response) {
-				$location.path('trademarks/' + response._id);
+			trademark.$save( function( response ) {
+
+				$location.path( 'trademarks/' + response._id );
 
 				// Clear form fields
 				$scope.owner = '';
+
 				$scope.address = '';
+
 				$scope.mark = '';
+
 				$scope.country = '';
+
 				$scope.ic = '';
+
 				$scope.goodsAndServices = '';
+
 				$scope.filingDate = '';
+
 				$scope.registrationDate = '';
+
 				$scope.applicationNumber = '';
+
 				$scope.registrationNumber = '';
+
 				$scope.trademarkStatus = '';
+
 				$scope.statusDate = '';
+
 				$scope.dueDate = '';
+
 				$scope.secondDueDate = '';
+
 				$scope.attorney = '';
+
 				$scope.comments = '';
-			}, function(errorResponse) {
+
+			}, function( errorResponse ) {
+
 				$scope.error = errorResponse.data.message;
+
 			});
+
 		};
 
 		// Remove existing Trademark
-		$scope.remove = function(trademark) {
-			var conf = confirm('Are you sure?');
-			if (conf === true) {
+		$scope.remove = function( trademark ) {
+
+			var conf = confirm( 'Are you sure?' );
+
+			if ( conf === true ) {
+
 				if ( trademark ) {
+
 					trademark.$remove();
 
-					for (var i in $scope.trademarks) {
-						if ($scope.trademarks [i] === trademark) {
-							$scope.trademarks.splice(i, 1);
+					for ( var i in $scope.trademarks ) {
+
+						if ( $scope.trademarks [i] === trademark ) {
+
+							$scope.trademarks.splice( i, 1 );
+
 						}
+
 					}
+
 				} else {
-					$scope.trademark.$remove(function() {
-						$location.path('trademarks');
+
+					$scope.trademark.$remove( function() {
+
+						$location.path( 'trademarks' );
+
 					});
+
 				}
+
 			}
+
 		};
 
 		// Update existing Trademark
 		$scope.update = function() {
+
 			var trademark = $scope.trademark;
 
-			trademark.$update(function() {
-				$location.path('trademarks/' + trademark._id);
-			}, function(errorResponse) {
+			trademark.$update( function() {
+
+				$location.path( 'trademarks/' + trademark._id );
+
+			}, function( errorResponse ) {
+
 				$scope.error = errorResponse.data.message;
+
 			});
+
 		};
 
 		// Find a list of Trademarks
 		$scope.find = function() {
+
 			$scope.trademarks = Trademarks.query();
+
 		};
 
 		// Find existing Trademark
 		$scope.findOne = function() {
+
 			$scope.trademark = Trademarks.get({
+
 				trademarkId: $stateParams.trademarkId
+
 			});
+
 		};
 
 		// direct to show page
-		$scope.listItemClick = function(trademarkId) {
+		$scope.listItemClick = function( trademarkId ) {
+
 			location.href = '#!/trademarks/' + trademarkId;
+
 		};
 
-		$scope.getDueDate = function(month, year, day, month_offset, year_offset){
+		$scope.getDueDate = function( month, year, day, month_offset, year_offset ){
+
 			var dueDateMonth = month + month_offset + 1;
+
 			var dueDateYear = year + year_offset;
+
 			var dueDateDay = day + 1;
 
-			if (dueDateMonth > 12) {
+			if ( dueDateMonth > 12 ) {
+
 				dueDateMonth = dueDateMonth % 12;
+
 				dueDateYear = dueDateYear + 1;
+
 			}
-			if (dueDateMonth < 10) {
+
+			if ( dueDateMonth < 10 ) {
+
 				dueDateMonth = dueDateMonth.toString();
+
 				dueDateMonth = '0' + dueDateMonth;
+
 			}
-			if (dueDateDay < 10) {
+
+			if ( dueDateDay < 10 ) {
+
 				dueDateDay = dueDateDay.toString();
+
 				dueDateDay = '0' + dueDateDay;
+
 			}
+
 			dueDateYear = dueDateYear.toString();
+
 			dueDateMonth = dueDateMonth.toString();
+
 			dueDateDay = dueDateDay.toString();
 
 			return dueDateYear + '-' + dueDateMonth + '-' + dueDateDay;
+
 		};
 
 		// once a statusDate is selected the due dates are 
 		// automatically calculated depending on what status is selected
 		$scope.calculateDueDates = function ( selectedOption, toggle ) {
+
 			var that = this;
+
 			var month, year, day;
 
-			if (toggle === 'edit') {
+			if ( toggle === 'edit' ) {
+
 				that = this.trademark;
+
 			}
 
 			month = $scope.statusDate.getUTCMonth();
+
 			year = $scope.statusDate.getUTCFullYear();
+
 			day = $scope.statusDate.getUTCDate();	
 
 			switch( selectedOption ) {
+
 				case 0: // Pending - 6 mo
-				// console.log(new Date($scope.getDueDate(month, year, day, 6, 0)));
-					that.dueDate = new Date($scope.getDueDate(month, year, day, 6, 0));
+	
+					that.dueDate = new Date( $scope.getDueDate(month, year, day, 6, 0 ) );
+	
 					break;
+	
 				case 1: // Published - 6 mo
+	
 					that.dueDate = new Date( $scope.getDueDate(month, year, day, 6, 0) );
+	
 					break;
+	
 				case 2: // NOA - 6 mo
+	
 					that.dueDate = new Date( $scope.getDueDate(month, year, day, 6, 0) );
+	
 					break;
+	
 				case 3: // Notice of Abandonment - 2 mo
+	
 					that.dueDate = new Date( $scope.getDueDate(month, year, day, 2, 0) );
+	
 					break;
+	
 				case 4: // Office Action - 6 mo
+	
 					that.dueDate = new Date( $scope.getDueDate(month, year, day, 6, 0) );
+	
 					break;
+	
 				case 5: // Extension 1 - 6 mo
+	
 					that.dueDate = new Date( $scope.getDueDate(month, year, day, 6, 0) );
+	
 					break;
+	
 				case 6: // Extension 2 - 6 mo
+	
 					that.dueDate = new Date( $scope.getDueDate(month, year, day, 6, 0) );
+	
 					break;
+	
 				case 7: // Extension 3 - 6 mo
+	
 					that.dueDate = new Date( $scope.getDueDate(month, year, day, 6, 0) );
+	
 					break;
+	
 				case 8: // Extension 4 - 6 mo
+	
 					that.dueDate = new Date( $scope.getDueDate(month, year, day, 6, 0) );
+	
 					break;
+	
 				case 9: // Extension 5 - 6 mo
+	
 					that.dueDate = new Date( $scope.getDueDate(month, year, day, 6, 0) );
+	
 					break;
+	
+				case 11: //OAR filed no second date
+
+					break;
+
 				default: // Registration Date - 5 yrs --> 10 yrs
+	
 					that.dueDate = new Date( $scope.getDueDate(month, year, day, 0, 5) );
+	
 					that.secondDueDate = new Date( $scope.getDueDate(month, year, day, 0, 10) );
+	
 			}
+	
 		};
 
-$scope.connectToUspto = function ( appNumber ) {
-	// alert(appNumber);
-		var that = this;
-    var yql_url = 'https://query.yahooapis.com/v1/public/yql';
-    var url = 'https://tsdrapi.uspto.gov/ts/cd/casestatus/sn' + appNumber + '/info.json';
+		$scope.connectToUspto = function ( appNumber ) {
 
-    $.ajax({
-      'url': yql_url,
-      'data': {
-        'q': 'SELECT * FROM json WHERE url="'+url+'"',
-        'format': 'json',
-        'jsonCompat': 'new',
-      },
-      'dataType': 'jsonp',
-      'success': function(response) {
-   console.log(response);
-      	var usptoData = response.query.results.json.trademarks[0],
-      		fd = usptoData.status.filingDate,
-      		icCodes = '',
-      		gsListValues = '';
+			var that = this;
 
-      	fd = fd.split('-');
-				$scope.owner = owner.value = usptoData.parties.ownerGroups[10][0].name;
-				$scope.address = address.value = usptoData.parties.ownerGroups[10][0].address1;
-				$scope.mark = mark.value = usptoData.status.markElement;
-				$scope.country = country.value = usptoData.parties.ownerGroups[10][0].addressStateCountry.iso.code;		
+			var yql_url = 'https://query.yahooapis.com/v1/public/yql';
 
-for (var i = 0; i < usptoData.gsList.length ; i++) {
-	
-	if ( i == 0 ) {
+			var url = 'https://tsdrapi.uspto.gov/ts/cd/casestatus/sn' + appNumber + '/info.json';
 
-		icCodes = icCodes + usptoData.gsList[i].internationalClasses[0].code ;
+			$.ajax({
 
-		gsListValues = gsListValues + usptoData.gsList[i].description;
+				'url': yql_url,
 
-	} else {
+				'data': {
 
-		icCodes = icCodes + ', ' + usptoData.gsList[i].internationalClasses[0].code ;
+					'q': 'SELECT * FROM json WHERE url="'+url+'"',
 
-		gsListValues = gsListValues + '\n' + usptoData.gsList[i].description;
+					'format': 'json',
+
+					'jsonCompat': 'new',
+
+				},
+
+				'dataType': 'jsonp',
+
+				'success': function( response ) {
+
+					var usptoData = response.query.results.json.trademarks[0],
+	      		fd = usptoData.status.filingDate,
+	      		icCodes = '',
+	      		gsListValues = '';
+
+	      	fd = fd.split('-');
+
+					$scope.owner = owner.value = usptoData.parties.ownerGroups[10][0].name;
+
+					$scope.address = address.value = usptoData.parties.ownerGroups[10][0].address1;
+
+					$scope.mark = mark.value = usptoData.status.markElement;
+
+					$scope.country = country.value = usptoData.parties.ownerGroups[10][0].addressStateCountry.iso.code;		
+
+					for ( var i = 0; i < usptoData.gsList.length ; i++ ) {
+						
+						if ( i == 0 ) {
+
+							icCodes = icCodes + usptoData.gsList[i].internationalClasses[0].code ;
+
+							gsListValues = gsListValues + usptoData.gsList[i].description;
+
+						} else {
+
+							icCodes = icCodes + ', ' + usptoData.gsList[i].internationalClasses[0].code ;
+
+							gsListValues = gsListValues + '\n' + usptoData.gsList[i].description;
+
+						}
+
+					}
+
+					// $scope.ic = ic.value = usptoData.gsList[0].internationalClasses[0].code;
+					$scope.ic = ic.value = icCodes;
+					
+					// $scope.goodsAndServices = goodsandservices.value = usptoData.gsList[0].description;
+					$scope.goodsAndServices = goodsandservices.value = gsListValues;
+
+					$scope.filingDate = new Date(usptoData.status.filingDate);
+
+					filingdate.value = usptoData.status.filingDate;
+
+					$scope.registrationDate = new Date(usptoData.status.usRegistrationDate);
+
+					registrationdate.value = usptoData.status.usRegistrationDate;
+
+					$scope.applicationNumber = applicationnumber.value = appNumber;
+
+					$scope.registrationNumber = registrationnumber.value = usptoData.status.usRegistrationNumber;
+
+					$scope.statusDate = new Date(usptoData.status.statusDate);
+
+					statusdate.value = usptoData.status.statusDate;
+
+				}
+
+			});
+
+		};
 
 	}
 
-}
-
-				// $scope.ic = ic.value = usptoData.gsList[0].internationalClasses[0].code;
-				$scope.ic = ic.value = icCodes;
-				
-				// $scope.goodsAndServices = goodsandservices.value = usptoData.gsList[0].description;
-				$scope.goodsAndServices = goodsandservices.value = gsListValues;
-
-				$scope.filingDate = new Date(usptoData.status.filingDate);
-
-				filingdate.value = usptoData.status.filingDate;
-				$scope.registrationDate = new Date(usptoData.status.usRegistrationDate);
-				registrationdate.value = usptoData.status.usRegistrationDate;
-				$scope.applicationNumber = applicationnumber.value = appNumber;
-				$scope.registrationNumber = registrationnumber.value = usptoData.status.usRegistrationNumber;
-				$scope.statusDate = new Date(usptoData.status.statusDate);
-				statusdate.value = usptoData.status.statusDate;
-
-      },
-    });
-};
-
-
-	}
 ]);
 
 'use strict';

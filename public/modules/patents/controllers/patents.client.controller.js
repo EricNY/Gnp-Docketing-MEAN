@@ -9,39 +9,39 @@ angular.module( 'patents' ).controller( 'PatentsController', [ '$scope', '$state
 
 		$scope.statusOptions = [
 
-			{id:0, name:'Provisional Application'},
+			{ id:0, name:'Provisional Application' },
 
-			{id:1, name:'Notice to File Missing Parts'},
+			{ id:1, name:'Notice to File Missing Parts' },
 
-			{id:2, name:'Restriction Requirement'},
+			{ id:2, name:'Restriction Requirement' },
 
-			{id:3, name:'Office Action'},
+			{ id:3, name:'Office Action' },
 
-			{id:4, name:'Extension 1'},
+			{ id:4, name:'Extension 1' },
 
-			{id:5, name:'Extension 2'},
+			{ id:5, name:'Extension 2' },
 
-			{id:6, name:'Extension 3'},
+			{ id:6, name:'Extension 3' },
 
-			{id:7, name:'NOA'},
+			{ id:7, name:'NOA' },
 
-			{id:8, name:'Issued'},
+			{ id:8, name:'Issued' },
 
-			{id:9, name:'Design Patent'},
+			{ id:9, name:'Design Patent' },
 
-			{id:10, name:'Utility Patent'},
+			{ id:10, name:'Utility Patent' },
 
-			{id:11, name:'Filed'}
+			{ id:11, name:'Filed' }
 
 		];
 
 		$scope.attorneys = [
 
-			{id:0, name:'Pelaez'},
+			{ id:0, name:'Pelaez' },
 
-			{id:1, name:'Gabriel'},
+			{ id:1, name:'Gabriel' },
 
-			{id:2, name:'Cohen'}
+			{ id:2, name:'Cohen' }
 
 		];
 
