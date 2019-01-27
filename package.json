@@ -5,7 +5,7 @@
   "author": "Themicon",
   "engines": {
     "node": "latest",
-    "npm": "latest"d 
+    "npm": "latest"
   },
   "scripts": {
     "start": "grunt",
