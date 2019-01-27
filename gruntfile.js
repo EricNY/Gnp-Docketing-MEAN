@@ -193,19 +193,19 @@ module.exports = function(grunt) {
 	});
 
 	// Default task(s).
-	grunt.registerTask('default', ['lint', 'concurrent:default']);
+	grunt.registerTask('default', [ 'concurrent:default']);
 
 	// Debug task.
-	grunt.registerTask('debug', ['lint', 'concurrent:debug']);
+	grunt.registerTask('debug', ['concurrent:debug']);
 
 	// Secure task(s).
-	grunt.registerTask('secure', ['env:secure', 'lint', 'concurrent:default']);
+	grunt.registerTask('secure', ['env:secure', 'concurrent:default']);
 
 	// Lint task(s).
-	grunt.registerTask('lint', ['jshint', 'csslint']);
+	// grunt.registerTask('lint', ['jshint', 'csslint']);
 
 	// Build task(s).
-	grunt.registerTask('build', ['lint', 'loadConfig', 'ngAnnotate', 'uglify', /*'cssmin'*/ 'less' ]);
+	grunt.registerTask('build', [ 'loadConfig', 'ngAnnotate', 'uglify', /*'cssmin'*/ 'less' ]);
 
 	// Test task.
 	grunt.registerTask('test', ['env:test', 'mochaTest', 'karma:unit']);
