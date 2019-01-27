@@ -4,8 +4,8 @@
   "version": "0.0.1",
   "author": "Themicon",
   "engines": {
-    "node": "8.9.1",
-    "npm": "6.7.x"
+    "node": "latest",
+    "npm": "latest"
   },
   "scripts": {
     "start": "grunt",
